@@ -1,0 +1,26 @@
+body {
+    font-family: 'Liberation Serif', 'Trebuchet MS', Verdana, serif;
+    color: #222;
+    background-color: #EEE;
+}
+
+h2 {
+    text-align: center;
+}
+
+p, li {
+    text-align: justify;
+}
+
+table {
+    width: auto;
+    margin: auto;
+}
+
+td {
+    vertical-align: middle;
+} 
+
+.centre {
+    text-align: center;
+}
