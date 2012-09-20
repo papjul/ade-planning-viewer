@@ -187,7 +187,7 @@ if(isset($_POST['submit']))
         # Si on a demandé le planning, on propose un lien vers le flux RSS
         if(isset($_POST['submit']))
         {
-            echo '<link rel="alternate" type="application/rss+xml" title="Flux RSS des '.$nbDaysRSS.' jours à venir" href="'.$urlADE.'/rss?projectId='.$projectId.'&resources='.$idTree.'&nbDays='.$nbDaysRSS.'" />';
+            echo '<link rel="alternate" type="application/rss+xml" title="Flux RSS des '.$nbDaysRSS.' jours à venir" href="'.$urlADE.'/rss?projectId='.$projectId.'&amp;resources='.$idTree.'&amp;nbDays='.$nbDaysRSS.'" />';
         }
         ?>
         <link title="Planning" type="text/css" rel="stylesheet" href="style.css" />
