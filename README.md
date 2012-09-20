@@ -3,8 +3,8 @@ Planning IUT Info
 
 Description
 -------------
-L’application Planning IUT Info est une application en PHP pour récupérer le planning de l’ADE sur l’ENT de l’IUT Informatique d’Aix-en-Provence de manière interactive.
-Elle est mise à votre disposition dans l’espoir qu’elle vous sera utile.
+L’application Planning IUT Info est une application en PHP pour récupérer le planning de l’ADE sur l’ENT de l’IUT Informatique d’Aix-en-Provence de manière interactive. Elle s’inspire de l’application Java, Planning Viewer, développée par Alexis Mimran, aujourd’hui hors de fonctionnement.
+Planning IUT Info est mis à votre disposition dans l’espoir qu’il vous sera utile.
 
 
 Compatibilité
@@ -14,9 +14,9 @@ Compatibilité
 
 Démonstration
 -------------
-Un exemple de cette application en fonctionnement est disponible à cette adresse : (http://amenysta-world.servhome.org/iut/planning.php)
+Un exemple de cette application en fonctionnement est disponible à cette adresse : http://amenysta-world.servhome.org/iut/planning.php
 
 
 Licence
 -------------
-Vous pouvez la partager, la modifier, en veillant à respecter la licence GNU GPLv2+ disponible dans le fichier LICENSE distribué avec ce logiciel.
+Vous pouvez partager, modifier cette application, en veillant à respecter la licence GNU GPLv2+ disponible dans le fichier LICENSE distribué avec ce logiciel.
