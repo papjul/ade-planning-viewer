@@ -204,7 +204,7 @@ if(isset($_POST['submit']))
             echo '<table><tbody><tr>';
 
             # On affiche les flèches de navigation vers les semaines précédentes et suivantes, si possible
-            if($_POST['idPianoWeek'] > 0)
+            if($idPianoWeek > 0)
             {
                 ?>
                 <td>
@@ -218,7 +218,7 @@ if(isset($_POST['submit']))
                 </td>
                 <?php
             }
-            if($_POST['idPianoWeek'] < $nbWeeks - 1)
+            if($idPianoWeek < $nbWeeks - 1)
             {
                 ?>
                 <td>
