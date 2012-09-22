@@ -250,6 +250,6 @@ if(isset($_POST['submit']))
             <p><input type="submit" id="submit" name="submit" value="Récupérer le planning" /></p>
         </form>
 
-        <p class="centre">Copyright © 2012 Planning IUT Info</p>
+        <p class="centre">Copyright © 2012 <a href="https://github.com/Yurienu/PlanningIUTInfo">Planning IUT Info</a></p>
     </body>
 </html>
