@@ -17,77 +17,22 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-## Configuration
-$urlADE = 'http://planning.univmed.fr/ade'; // URL de l’ADE sans le / final
-
-$projectId = 22;     // Id du projet (12 pour 2010/2011, 10 pour 2011/2012, 22 pour 2012/2013, etc)
-$firstWeek = 1344808800; // Timestamp de la première semaine de l’année
-$nbWeeks = 54;       // Nombre de semaines du projet de l’année
-$idPianoDay = '0%2C1%2C2%2C3%2C4%2C5'; // Les jours de la semaine à afficher
-
-$displayConfId = 41; // Affichage par défaut (41 : vertical, 8 : horizontal)
-$width = 1000;       // Longueur par défaut (valeur existante ou sera automatiquement remplacée par 1000)
-
-$nbDaysRSS = 15;     // Nombre de jours à afficher dans le flux RSS
-
-## Quelques fonctions de sécurité en vrac
-# Protection contre les register_globals
-# Doit être effectué avant que des globals soient traités par le code
-if(ini_get('register_globals'))
-{
-    if(isset($_REQUEST['GLOBALS']))
-        exit('<a href="http://www.hardened-php.net/globals-problem">$GLOBALS overwrite vulnerability</a>');
-
-    $verboten = array('GLOBALS', '_SERVER', 'HTTP_SERVER_VARS', '_GET', 'HTTP_GET_VARS',
-                      '_POST', 'HTTP_POST_VARS', '_COOKIE', 'HTTP_COOKIE_VARS', '_FILES',
-                      'HTTP_POST_FILES', '_ENV', 'HTTP_ENV_VARS', '_REQUEST', '_SESSION',
-                      'HTTP_SESSION_VARS');
-
-    foreach($_REQUEST as $name => $value)
-    {
-        if(in_array($name, $verboten))
-        {
-            header('HTTP/1.x 500 Internal Server Error');
-            echo 'register_globals security paranoia: trying to overwrite superglobals, aborting.';
-            exit(-1);
-        }
-
-        unset($GLOBALS[$name]);
-    }
-}
-
-# Désactive le content sniffing d’IE8. Les autres navigateurs devraient ignorer cette ligne
-header('X-Content-Type-Options: nosniff');
-
-# Désactive les magic quotes si utilisation de PHP 5.3
-@ini_set('magic_quotes_runtime', 0);
-
-# Protection contre les injections SQL (UNION) et XSS/CSS
-$query_string = strtolower(rawurldecode($_SERVER['QUERY_STRING']));
-$bad_string   = array('%20union%20', '/*', '*/union/*', '+union+', 'load_file',
-                      'outfile', 'document.cookie', 'onmouse', '<script', '<iframe',
-                      '<applet', '<meta', '<style', '<form', '<img',
-                      '<body', '<link', '..', 'http://', '%3C%3F');
-
-foreach($bad_string as $string_value)
-    if(strpos($query_string, $string_value))
-        exit('Unauthorised value in query string');
-
-unset($query_string, $bad_string, $string_value);
+### Initialisation
+define('ROOT', dirname( __FILE__ ));
+require_once ROOT.'/init.php';   # Sécurité principalement
+require_once ROOT.'/config.php'; # Configuration
 
 # On donne le cookie à bouffer au navigo le plus tôt possible
 if(isset($_POST['submit']))
     setcookie('idTree', $_POST['idTree'], time() + 365*24*3600, null, null, false, true);
 
-header('Content-Type: text/html; charset=utf-8');
-
 ## Création des associations numéro de semaine → timestamp dans un tableau
 $weeks = array();
 $alreadySelected = false;
 
-# Boucle sur $nbWeeks semaines
-$timestamp = $firstWeek;
-for($i = 0; $i < $nbWeeks; ++$i)
+# Boucle sur NB_WEEKS semaines
+$timestamp = FIRST_WEEK;
+for($i = 0; $i < NB_WEEKS; ++$i)
 {
     $weeks[$i] = $timestamp;
 
@@ -105,6 +50,8 @@ for($i = 0; $i < $nbWeeks; ++$i)
 # Valeurs initiales du formulaire s’il n’a pas encore été rempli
 $idTree = (isset($_POST['idTree']) ? intval($_POST['idTree']) : ((isset($_COOKIE['idTree'])) ? intval($_COOKIE['idTree']) : 0));
 $idPianoWeek = $currentWeek;
+$displayConfId = DISPLAY_CONF_ID;
+$width = WIDTH;
 
 # Réception du formulaire
 if(isset($_POST['submit']))
@@ -187,7 +134,7 @@ if(isset($_POST['submit']))
         # Si on a demandé le planning, on propose un lien vers le flux RSS
         if(isset($_POST['submit']))
         {
-            echo '<link rel="alternate" type="application/rss+xml" title="Flux RSS des '.$nbDaysRSS.' jours à venir" href="'.$urlADE.'/rss?projectId='.$projectId.'&amp;resources='.$idTree.'&amp;nbDays='.$nbDaysRSS.'" />';
+            echo '<link rel="alternate" type="application/rss+xml" title="Flux RSS des '.NB_DAYS_RSS.' jours à venir" href="'.URL_ADE.'/rss?projectId='.PROJECT_ID.'&amp;resources='.$idTree.'&amp;nbDays='.NB_DAYS_RSS.'" />';
         }
         ?>
         <link title="Planning" type="text/css" rel="stylesheet" href="style.css" />
@@ -199,7 +146,7 @@ if(isset($_POST['submit']))
         if(isset($_POST['submit']))
         {
             # On affiche l’image
-            echo '<p class="centre"><img src="'.$urlADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.$projectId.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.$idTree.'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId.'" alt="Erreur d’affichage du planning" /></p>';
+            echo '<p class="centre"><img src="'.URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.ID_PIANO_DAY.'&amp;idTree='.$idTree.'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId.'" alt="Erreur d’affichage du planning" /></p>';
 
             echo '<table><tbody><tr>';
 
@@ -218,7 +165,7 @@ if(isset($_POST['submit']))
                 </td>
                 <?php
             }
-            if($idPianoWeek < $nbWeeks - 1)
+            if($idPianoWeek < NB_WEEKS - 1)
             {
                 ?>
                 <td>
@@ -269,8 +216,8 @@ if(isset($_POST['submit']))
             <label for="idPianoWeek">Semaine :</label>
             <select name="idPianoWeek" id="idPianoWeek">
                 <?php
-                # Boucle sur 54 semaines
-                for($i = 0; $i <= 53; ++$i)
+                # Boucle sur NB_WEEKS semaines
+                for($i = 0; $i < NB_WEEKS; ++$i)
                 {
                     echo '<option value="'.$i.'"'.(($idPianoWeek == $i) ? $selected : '').'>'.(($i == $currentWeek) ? 'Cette s' : 'S').'emaine du '.strftime('%d/%m/%Y', $weeks[$i]).'</option>';
 
