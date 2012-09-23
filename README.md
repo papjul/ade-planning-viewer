@@ -9,7 +9,7 @@ Planning IUT Info est mis à votre disposition dans l’espoir qu’il vous sera
 
 Compatibilité
 -------------
-**Requiert** au minimum *PHP 5.3*.
+**Testé** sous *PHP 5.3* et *PHP 5.4*.
 
 
 Démonstration
