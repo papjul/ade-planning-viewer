@@ -48,7 +48,7 @@ for($i = 0; $i < NB_WEEKS; ++$i)
 }
 
 # Valeurs initiales du formulaire s’il n’a pas encore été rempli
-$idTree = (isset($_POST['idTree']) ? intval($_POST['idTree']) : ((isset($_COOKIE['idTree'])) ? intval($_COOKIE['idTree']) : 0));
+$idTree = (isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree'])) ? $_COOKIE['idTree'] : 0));
 $idPianoWeek = $currentWeek;
 $displayConfId = DISPLAY_CONF_ID;
 $width = WIDTH;
