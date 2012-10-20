@@ -26,6 +26,20 @@ require_once ROOT.'/config.php'; # Configuration
 if(isset($_POST['submit']))
     setcookie('idTree', $_POST['idTree'], time() + 365*24*3600, null, null, false, true);
 
+## Création des groupes dans un tableau de tableaux
+$groups = array('1re année'   => array('1re année (tous)' => '8385%2C8386%2C8387%2C8388%2C8389%2C8390%2C8391%2C8392%2C8393%2C8394',
+                                        'Groupe 1' => '8385%2C8386',
+                                        'Groupe 2' => '8387%2C8388',
+                                        'Groupe 3' => '8389%2C8390',
+                                        'Groupe 4' => '8391%2C8392',
+                                        'Groupe 5' => '8393%2C8394'),
+                '2e année'    => array('2e année (tous)' => '8400%2C8401%2C8402%2C8403%2C8404%2C8405%2C3772%2C3773',
+                                        'Groupe 1' => '8400%2C8401',
+                                        'Groupe 2' => '8402%2C8403',
+                                        'Groupe 3' => '8404%2C8405',
+                                        'Groupe 4' => '3772%2C3773'),
+                'Licence Pro' => array('LP' => '6445'));
+
 ## Création des associations numéro de semaine → timestamp dans un tableau
 $weeks = array();
 $alreadySelected = false;
@@ -202,26 +216,19 @@ if(isset($_POST['submit']))
             <fieldset><legend>Base</legend>
             <label for="idTree">Groupe :</label>
             <select name="idTree" id="idTree">
-                <optgroup label="1re année">
-                    <option value="8385%2C8386%2C8387%2C8388%2C8389%2C8390%2C8391%2C8392%2C8393%2C8394"<?php echo ($idTree == "8385%2C8386%2C8387%2C8388%2C8389%2C8390%2C8391%2C8392%2C8393%2C8394") ? $selected : ''; ?>>1re année (tous)</option>
-                    <option value="8385%2C8386"<?php echo ($idTree == "8385%2C8386") ? $selected : ''; ?>>Groupe 1</option>
-                    <option value="8387%2C8388"<?php echo ($idTree == "8387%2C8388") ? $selected : ''; ?>>Groupe 2</option>
-                    <option value="8389%2C8390"<?php echo ($idTree == "8389%2C8390") ? $selected : ''; ?>>Groupe 3</option>
-                    <option value="8391%2C8392"<?php echo ($idTree == "8391%2C8392") ? $selected : ''; ?>>Groupe 4</option>
-                    <option value="8393%2C8394"<?php echo ($idTree == "8393%2C8394") ? $selected : ''; ?>>Groupe 5</option>
-                </optgroup>
+            <?php
+            foreach($groups as $kInitLoop => $vInitLoop)
+            {
+                echo '<optgroup label="'.$kInitLoop.'">';
 
-                <optgroup label="2e année">
-                    <option value="8400%2C8401%2C8402%2C8403%2C8404%2C8405%2C3772%2C3773"<?php echo ($idTree == "8400%2C8401%2C8402%2C8403%2C8404%2C8405%2C3772%2C3773") ? $selected : ''; ?>>2e année (tous)</option>
-                    <option value="8400%2C8401"<?php echo ($idTree == "8400%2C8401") ? $selected : ''; ?>>Groupe 1</option>
-                    <option value="8402%2C8403"<?php echo ($idTree == "8402%2C8403") ? $selected : ''; ?>>Groupe 2</option>
-                    <option value="8404%2C8405"<?php echo ($idTree == "8404%2C8405") ? $selected : ''; ?>>Groupe 3</option>
-                    <option value="3772%2C3773"<?php echo ($idTree == "3772%2C3773") ? $selected : ''; ?>>Groupe 4</option>
-                </optgroup>
+                foreach($vInitLoop as $kLoop => $vLoop)
+                {
+                    echo '<option value="'.$vLoop.'"'.($idTree == $vLoop ? $selected : '').'>'.$kLoop.'</option>';
+                }
 
-                <optgroup label="Licence Pro">
-                    <option value="6445"<?php echo ($idTree == "6445") ? $selected : ''; ?>>LP</option>
-                </optgroup>
+                echo '</optgroup>';
+            }
+            ?>
             </select> (<em>mémorisé dans un cookie</em>)<br />
 
             <label for="idPianoWeek">Semaine :</label>
