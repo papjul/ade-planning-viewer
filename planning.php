@@ -82,7 +82,7 @@ if(isset($_POST['submit']))
     # On commence à noter les paramètres qui seront nécessaires pour la génération de l’image
     # L’identifiant de session
     if($rand == 0) $identifier = '28b225b964f22b085de4b704b5885ded';
-    else $identifier = '28b225b964f22b085de4b704b5885ded'; # Laisser cette variable pour un éventuel autre identifier
+    else $identifier = '8ba834238410a5a92ecb1729024b7871';
 
     # La semaine à afficher
     $idPianoWeek = intval($_POST['idPianoWeek']);
