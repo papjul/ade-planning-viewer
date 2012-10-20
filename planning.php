@@ -38,7 +38,8 @@ $groups = array('1re année'   => array('1re année (tous)' => '8385%2C8386%2C83
                                         'Groupe 2' => '8402%2C8403',
                                         'Groupe 3' => '8404%2C8405',
                                         'Groupe 4' => '3772%2C3773'),
-                'Licence Pro' => array('LP' => '6445'));
+                'Licence Pro' => array('LP' => '6445'),
+                'Tous'        => array('Toutes années' => '8385%2C8386%2C8387%2C8388%2C8389%2C8390%2C8391%2C8392%2C8393%2C8394%2C8400%2C8401%2C8402%2C8403%2C8404%2C8405%2C3772%2C3773%2C6445'));
 
 ## Création des associations numéro de semaine → timestamp dans un tableau
 $weeks = array();
@@ -215,7 +216,13 @@ if(isset($_POST['submit']))
         <form method="post" action="planning.php">
             <fieldset><legend>Base</legend>
             <label for="idTree">Groupe :</label>
-            <select name="idTree" id="idTree">
+            <script type="text/javascript">
+            function checkWidth(formulaire) {
+                if(formulaire.form.elements['idTree'].options[formulaire.form.elements['idTree'].selectedIndex].value == '<?php echo $groups['Tous']['Toutes années']; ?>') document.getElementById("width").selectedIndex = 7;
+            }
+            </script>
+
+            <select name="idTree" id="idTree" onchange="javascript:checkWidth(this);">
             <?php
             foreach($groups as $kInitLoop => $vInitLoop)
             {
