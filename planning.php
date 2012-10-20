@@ -52,6 +52,7 @@ $idTree = (isset($_POST['idTree']) ? intval($_POST['idTree']) : ((isset($_COOKIE
 $idPianoWeek = $currentWeek;
 $displayConfId = DISPLAY_CONF_ID;
 $width = WIDTH;
+$noSaturday = NO_SATURDAY;
 
 # Réception du formulaire
 if(isset($_POST['submit']))
@@ -73,6 +74,10 @@ if(isset($_POST['submit']))
 
     # Le(s) groupe(s) concernés
     $idTree = $_POST['idTree'];
+
+    # Les jours de la semaine
+    $noSaturday = (isset($_POST['noSaturday']) ? 'yes' : 'no');
+    $idPianoDay = (isset($_POST['noSaturday']) ? '0%2C1%2C2%2C3%2C4' : '0%2C1%2C2%2C3%2C4%2C5');
 
     # Le format (horizontal/vertical)
     $displayConfId = intval($_POST['displayConfId']);
@@ -146,7 +151,7 @@ if(isset($_POST['submit']))
         if(isset($_POST['submit']))
         {
             # On affiche l’image
-            echo '<p class="centre"><img src="'.URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.ID_PIANO_DAY.'&amp;idTree='.$idTree.'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId.'" alt="Erreur d’affichage du planning" /></p>';
+            echo '<p class="centre"><img src="'.URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.$idTree.'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId.'" alt="Erreur d’affichage du planning" /></p>';
 
             echo '<table><tbody><tr>';
 
@@ -160,6 +165,9 @@ if(isset($_POST['submit']))
                     <input type="hidden" name="idTree" value="<?php echo $idTree; ?>" />
                     <input type="hidden" name="displayConfId" value="<?php echo $displayConfId; ?>" />
                     <input type="hidden" name="width" value="<?php echo $width; ?>" />
+                    <?php
+                    if(isset($_POST['noSaturday'])) echo '<input type="hidden" name="noSaturday" value="yes" />';
+                    ?>
                     <input type="submit" name="submit" id="submit_prec" value="Semaine précédente" />
                 </form>
                 </td>
@@ -174,6 +182,9 @@ if(isset($_POST['submit']))
                     <input type="hidden" name="idTree" value="<?php echo $idTree; ?>" />
                     <input type="hidden" name="displayConfId" value="<?php echo $displayConfId; ?>" />
                     <input type="hidden" name="width" value="<?php echo $width; ?>" />
+                    <?php
+                    if(isset($_POST['noSaturday'])) echo '<input type="hidden" name="noSaturday" value="yes" />';
+                    ?>
                     <input type="submit" name="submit" id="submit_prec" value="Semaine suivante" />
                 </form>
                 </td>
@@ -225,7 +236,9 @@ if(isset($_POST['submit']))
                     $timestamp += 7*24*3600;
                 }
                 ?>
-            </select></fieldset>
+            </select><br />
+
+            <input type="checkbox" name="noSaturday" id="noSaturday" value="yes"<?php echo ($noSaturday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="noSaturday"> Ne pas afficher samedi</label></fieldset>
 
             <fieldset><legend>Customise ton bolide</legend>
             <label for="displayConfId">Affichage :</label>

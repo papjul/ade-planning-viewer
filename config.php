@@ -32,8 +32,8 @@ define('FIRST_WEEK', 1344808800);
 # Nombre de semaines du projet de l’année
 define('NB_WEEKS', 54);
 
-# Les jours de la semaine à afficher
-define('ID_PIANO_DAY', '0%2C1%2C2%2C3%2C4%2C5');
+# Ne pas afficher Samedi ?
+define('NO_SATURDAY', 'no');
 
 # Affichage par défaut (41 : vertical, 8 : horizontal)
 define('DISPLAY_CONF_ID', 41);
