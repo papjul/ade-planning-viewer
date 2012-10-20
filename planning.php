@@ -77,7 +77,7 @@ if(isset($_POST['submit']))
 
     # Les jours de la semaine
     $noSaturday = (isset($_POST['noSaturday']) ? 'yes' : 'no');
-    $idPianoDay = (isset($_POST['noSaturday']) ? '0%2C1%2C2%2C3%2C4' : '0%2C1%2C2%2C3%2C4%2C5');
+    $idPianoDay = ($noSaturday == 'yes' ? '0%2C1%2C2%2C3%2C4' : '0%2C1%2C2%2C3%2C4%2C5');
 
     # Le format (horizontal/vertical)
     $displayConfId = intval($_POST['displayConfId']);
