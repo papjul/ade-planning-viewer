@@ -51,8 +51,8 @@ for($i = 0; $i < NB_WEEKS; ++$i)
 {
     $weeks[$i] = $timestamp;
 
-    # Semaine suivante
-    $timestamp += 7*24*3600;
+    # Semaine suivante (6 jours pour démarrer la semaine le dimanche)
+    $timestamp += 6*24*3600;
 
     # S’il s’agit de la semaine courante, on note la valeur pour plus tard
     if(!$alreadySelected && $timestamp > time())
@@ -60,6 +60,9 @@ for($i = 0; $i < NB_WEEKS; ++$i)
         $currentWeek = $i;
         $alreadySelected = true;
     }
+
+    # Semaine suivante (ajout du jour manquant)
+    $timestamp += 24*3600;
 }
 
 # Valeurs initiales du formulaire s’il n’a pas encore été rempli
