@@ -51,8 +51,8 @@ for($i = 0; $i < NB_WEEKS; ++$i)
 {
     $weeks[$i] = $timestamp;
 
-    # Semaine suivante (6 jours pour démarrer la semaine le dimanche)
-    $timestamp += 6*24*3600;
+    # Semaine suivante (seulement 6 jours pour l’instant pour capter la semaine courante au dimanche)
+    $timestamp += 6 * ONE_DAY;
 
     # S’il s’agit de la semaine courante, on note la valeur pour plus tard
     if(!$alreadySelected && $timestamp > time())
@@ -61,8 +61,8 @@ for($i = 0; $i < NB_WEEKS; ++$i)
         $alreadySelected = true;
     }
 
-    # Semaine suivante (ajout du jour manquant)
-    $timestamp += 24*3600;
+    # Semaine suivante (ajout du jour manquant pour l’itération suivante)
+    $timestamp += ONE_DAY;
 }
 
 # Valeurs initiales du formulaire s’il n’a pas encore été rempli
@@ -248,10 +248,10 @@ if(isset($_POST['submit']))
                 # Boucle sur NB_WEEKS semaines
                 for($i = 0; $i < NB_WEEKS; ++$i)
                 {
-                    echo '<option value="'.$i.'"'.(($idPianoWeek == $i) ? $selected : '').'>'.(($i == $currentWeek) ? 'Cette s' : 'S').'emaine du '.strftime('%d/%m/%Y', $weeks[$i]).'</option>';
+                    echo '<option value="'.$i.'"'.(($idPianoWeek == $i) ? $selected : '').'>'.(($i == $currentWeek) ? 'Cette s' : 'S').'emaine du '.gmdate('d\/m\/Y', $weeks[$i]).'</option>';
 
                     # Semaine suivante
-                    $timestamp += 7*24*3600;
+                    $timestamp += ONE_WEEK;
                 }
                 ?>
             </select><br />

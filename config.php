@@ -26,8 +26,8 @@ define('URL_ADE', 'http://planning.univmed.fr/ade');
 # Id du projet (12 pour 2010/2011, 10 pour 2011/2012, 22 pour 2012/2013, etc)
 define('PROJECT_ID', 22);
 
-# Timestamp de la première semaine de l’année
-define('FIRST_WEEK', 1344808800);
+# Timestamp de la première semaine de l’année au format GMT
+define('FIRST_WEEK', 1344816000);
 
 # Nombre de semaines du projet de l’année
 define('NB_WEEKS', 54);
@@ -43,4 +43,10 @@ define('WIDTH', 1000);
 
 # Nombre de jours à afficher dans le flux RSS
 define('NB_DAYS_RSS', 15);
+
+### Constantes de dates
+define('ONE_MINUTE', 60);
+define('ONE_HOUR', 60 * ONE_MINUTE);
+define('ONE_DAY', 24 * ONE_HOUR);
+define('ONE_WEEK', 7 * ONE_DAY);
 /** EOF /**/
