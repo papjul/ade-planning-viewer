@@ -49,4 +49,5 @@ define('ONE_MINUTE', 60);
 define('ONE_HOUR', 60 * ONE_MINUTE);
 define('ONE_DAY', 24 * ONE_HOUR);
 define('ONE_WEEK', 7 * ONE_DAY);
+define('ONE_YEAR', 365 * ONE_DAY);
 /** EOF /**/

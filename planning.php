@@ -24,7 +24,7 @@ require_once ROOT.'/config.php'; # Configuration
 
 # On donne le cookie à bouffer au navigo le plus tôt possible
 if(isset($_POST['submit']))
-    setcookie('idTree', $_POST['idTree'], time() + 365*24*3600, null, null, false, true);
+    setcookie('idTree', $_POST['idTree'], time() + ONE_YEAR, null, null, false, true);
 
 ## Création des groupes dans un tableau de tableaux
 $groups = array('1re année'   => array('1re année (tous)' => '8385%2C8386%2C8387%2C8388%2C8389%2C8390%2C8391%2C8392%2C8393%2C8394',
