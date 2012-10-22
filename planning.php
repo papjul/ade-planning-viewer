@@ -65,80 +65,73 @@ for($i = 0; $i < NB_WEEKS; ++$i)
     $timestamp += ONE_DAY;
 }
 
-# Valeurs initiales du formulaire s’il n’a pas encore été rempli
-$idTree = (isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree'])) ? $_COOKIE['idTree'] : 0));
-$idPianoWeek = $currentWeek;
-$displayConfId = DISPLAY_CONF_ID;
-$width = WIDTH;
+# On commence à noter les paramètres qui seront nécessaires pour la génération de l’image
+/** On génère un nombre aléatoire pour déterminer quel
+ * identifiant de session sera utilisé.
+ * Obligatoire car si un identifiant est trop utilisé,
+ * il est visiblement bloqué par l’ADE.
+ */
+$rand = rand(0,1);
+
+# L’identifiant de session
+if($rand == 0) $identifier = '28b225b964f22b085de4b704b5885ded';
+else $identifier = '8ba834238410a5a92ecb1729024b7871';
+
+# La semaine à afficher
+$idPianoWeek = isset($_POST['idPianoWeek']) ? intval($_POST['idPianoWeek']) : $currentWeek;
+
+# Les jours de la semaine
 $saturday = SATURDAY;
 $sunday = SUNDAY;
-
-# Réception du formulaire
 if(isset($_POST['submit']))
 {
-    /** On génère un nombre aléatoire pour déterminer quel
-     * identifiant de session sera utilisé.
-     * Obligatoire car si un identifiant est trop utilisé,
-     * il est visiblement bloqué par l’ADE.
-     */
-    $rand = rand(0,1);
-
-    # On commence à noter les paramètres qui seront nécessaires pour la génération de l’image
-    # L’identifiant de session
-    if($rand == 0) $identifier = '28b225b964f22b085de4b704b5885ded';
-    else $identifier = '8ba834238410a5a92ecb1729024b7871';
-
-    # La semaine à afficher
-    $idPianoWeek = intval($_POST['idPianoWeek']);
-
-    # Le(s) groupe(s) concernés
-    $idTree = $_POST['idTree'];
-
-    # Les jours de la semaine
     $saturday = (isset($_POST['saturday']) ? 'yes' : 'no');
     $sunday = (isset($_POST['sunday']) ? 'yes' : 'no');
-    $idPianoDay = '0%2C1%2C2%2C3%2C4'.($saturday == 'yes' ? '%2C5' : '').''.($sunday == 'yes' ? '%2C6' : '');
-
-    # Le format (horizontal/vertical)
-    $displayConfId = intval($_POST['displayConfId']);
-
-    # Les dimensions
-    $width = intval($_POST['width']);
-    switch($width)
-    {
-        case 320:
-            $height = 240;
-            break;
-
-        case 640:
-            $height = 480;
-            break;
-
-        case 800:
-            $height = 600;
-            break;
-
-        case 1024:
-            $height = 768;
-            break;
-
-        case 1366:
-            $height = 768;
-            break;
-
-        case 1600:
-            $height = 1024;
-            break;
-
-        case 1920:
-            $height = 1080;
-            break;
-
-        default;
-            $width = 1000;
-            $height = 500;
-    }
 }
+$idPianoDay = '0%2C1%2C2%2C3%2C4'.($saturday == 'yes' ? '%2C5' : '').''.($sunday == 'yes' ? '%2C6' : '');
+
+# Le(s) groupe(s) concernés
+$idTree = (isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree'])) ? $_COOKIE['idTree'] : ID_TREE));
+
+# Les dimensions
+$width = isset($_POST['width']) ? intval($_POST['width']) : WIDTH;
+switch($width)
+{
+    case 320:
+        $height = 240;
+        break;
+
+    case 640:
+        $height = 480;
+        break;
+
+    case 800:
+        $height = 600;
+        break;
+
+    case 1024:
+        $height = 768;
+        break;
+
+    case 1366:
+        $height = 768;
+        break;
+
+    case 1600:
+        $height = 1024;
+        break;
+
+    case 1920:
+        $height = 1080;
+        break;
+
+    default;
+        $width = 1000;
+        $height = 500;
+}
+
+# Le format (horizontal/vertical)
+$displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']) : DISPLAY_CONF_ID;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
@@ -156,81 +149,46 @@ if(isset($_POST['submit']))
         
         <title>Planning IUT Info</title>
         <?php
-        # Si on a demandé le planning, on propose un lien vers le flux RSS
-        if(isset($_POST['submit']))
-        {
-            echo '<link rel="alternate" type="application/rss+xml" title="Flux RSS des '.NB_DAYS_RSS.' jours à venir" href="'.URL_ADE.'/rss?projectId='.PROJECT_ID.'&amp;resources='.$idTree.'&amp;nbDays='.NB_DAYS_RSS.'" />';
-        }
+        # Flux RSS
+        echo '<link rel="alternate" type="application/rss+xml" title="Flux RSS des '.NB_DAYS_RSS.' jours à venir" href="'.URL_ADE.'/rss?projectId='.PROJECT_ID.'&amp;resources='.$idTree.'&amp;nbDays='.NB_DAYS_RSS.'" />';
         ?>
         <link title="Planning" type="text/css" rel="stylesheet" href="style.css" />
+
+        <script type="text/javascript">
+        /* Quelques trucs en CSS pour ceux qui ont JavaScript désactivé */
+        document.write('<style type="text/css">#submit { display: none; } .buttonWeek { display: inline; }</style>');
+        </script>
     </head>
     <body>
         <h2 class="centre">Planning IUT Info</h2>
 
-        <?php
-        if(isset($_POST['submit']))
-        {
-            # On affiche l’image
-            echo '<p class="centre"><img src="'.URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.$idTree.'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId.'" alt="Erreur d’affichage du planning" /></p>';
+        <!-- Les scripts -->
+        <script type="text/javascript">
+        /* Permet de passer automatiquement la taille du planning à 1920x1080 en cas de sélection de tous les groupes */
+        function checkWidth(formulaire) {
+            if(formulaire.form.elements['idTree'].options[formulaire.form.elements['idTree'].selectedIndex].value == '<?php echo $groups['Tous']['Toutes années']; ?>') document.getElementById("width").selectedIndex = 7;
 
-            echo '<table><tbody><tr>';
-
-            # On affiche les flèches de navigation vers les semaines précédentes et suivantes, si possible
-            if($idPianoWeek > 0)
-            {
-                ?>
-                <td>
-                <form method="post" action="planning.php">
-                    <input type="hidden" name="idPianoWeek" value="<?php echo $idPianoWeek - 1; ?>" />
-                    <input type="hidden" name="idTree" value="<?php echo $idTree; ?>" />
-                    <input type="hidden" name="displayConfId" value="<?php echo $displayConfId; ?>" />
-                    <input type="hidden" name="width" value="<?php echo $width; ?>" />
-                    <?php
-                    if(isset($_POST['saturday'])) echo '<input type="hidden" name="saturday" value="yes" />';
-                    if(isset($_POST['sunday'])) echo '<input type="hidden" name="sunday" value="yes" />';
-                    ?>
-                    <input type="submit" name="submit" id="submit_prec" value="Semaine précédente" />
-                </form>
-                </td>
-                <?php
-            }
-            if($idPianoWeek < NB_WEEKS - 1)
-            {
-                ?>
-                <td>
-                <form method="post" action="planning.php">
-                    <input type="hidden" name="idPianoWeek" value="<?php echo $idPianoWeek + 1; ?>" />
-                    <input type="hidden" name="idTree" value="<?php echo $idTree; ?>" />
-                    <input type="hidden" name="displayConfId" value="<?php echo $displayConfId; ?>" />
-                    <input type="hidden" name="width" value="<?php echo $width; ?>" />
-                    <?php
-                    if(isset($_POST['saturday'])) echo '<input type="hidden" name="saturday" value="yes" />';
-                    if(isset($_POST['sunday'])) echo '<input type="hidden" name="sunday" value="yes" />';
-                    ?>
-                    <input type="submit" name="submit" id="submit_prec" value="Semaine suivante" />
-                </form>
-                </td>
-                <?php
-            }
-
-            echo '</tr></tbody></table>';
+            document.getElementById('submit').click();
         }
 
-        $selected = ' selected="selected"';
-        ?>
+        /* Bouton Semaine précédente */
+        function goPreviousWeek(formulaire) {
+            document.getElementById("idPianoWeek").selectedIndex = parseInt(formulaire.form.elements['idPianoWeek'].options[formulaire.form.elements['idPianoWeek'].selectedIndex].value) - 1;
 
-        <p>&nbsp;</p>
-        <form method="post" action="planning.php">
-            <fieldset><legend>Base</legend>
-            <label for="idTree">Groupe :</label>
-            <script type="text/javascript">
-            /* Permet de passer automatiquement la taille du planning à 1920x1080 en cas de sélection de tous les groupes */
-            function checkWidth(formulaire) {
-                if(formulaire.form.elements['idTree'].options[formulaire.form.elements['idTree'].selectedIndex].value == '<?php echo $groups['Tous']['Toutes années']; ?>') document.getElementById("width").selectedIndex = 7;
-            }
-            </script>
+            document.getElementById('submit').click();
+        }
 
-            <select name="idTree" id="idTree" onchange="javascript:checkWidth(this);">
+        /* Bouton Semaine suivante */
+        function goNextWeek(formulaire) {
+            document.getElementById("idPianoWeek").selectedIndex = parseInt(formulaire.form.elements['idPianoWeek'].options[formulaire.form.elements['idPianoWeek'].selectedIndex].value) + 1;
+
+            document.getElementById('submit').click();
+        }
+        </script>
+
+        <form id="myform" method="post" action="planning.php">
+            <!-- Le groupe -->
+            <table><tbody><tr><td colspan="3"><select name="idTree" id="idTree" onchange="javascript:checkWidth(this);">
             <?php
             foreach($groups as $kInitLoop => $vInitLoop)
             {
@@ -238,52 +196,68 @@ if(isset($_POST['submit']))
 
                 foreach($vInitLoop as $kLoop => $vLoop)
                 {
-                    echo '<option value="'.$vLoop.'"'.($idTree == $vLoop ? $selected : '').'>'.$kLoop.'</option>';
+                    echo '<option value="'.$vLoop.'"'.($idTree == $vLoop ? SELECTED : '').'>'.$kLoop.'</option>';
                 }
 
                 echo '</optgroup>';
             }
             ?>
-            </select> (<em>mémorisé dans un cookie</em>)<br />
-
-            <label for="idPianoWeek">Semaine :</label>
-            <select name="idPianoWeek" id="idPianoWeek">
+            </select></td></tr>
+            <tr>
+            <?php
+            # On affiche les flèches de navigation vers les semaines précédentes et suivantes, si possible
+            if($idPianoWeek > 0)
+            {
+                ?>
+                <td><input type="button" name="previous_week" id="previous_week" class="buttonWeek" value="Semaine précédente" onclick="javascript:goPreviousWeek(this);" /></td>
+                <?php
+            }
+            ?>
+            <td><select name="idPianoWeek" id="idPianoWeek" onchange="document.getElementById('submit').click();">
                 <?php
                 # Boucle sur NB_WEEKS semaines
                 for($i = 0; $i < NB_WEEKS; ++$i)
                 {
-                    echo '<option value="'.$i.'"'.(($idPianoWeek == $i) ? $selected : '').'>'.(($i == $currentWeek) ? 'Cette s' : 'S').'emaine du '.gmdate('d\/m\/Y', $weeks[$i]).'</option>';
+                    echo '<option value="'.$i.'"'.(($idPianoWeek == $i) ? SELECTED : '').'>Semaine du '.gmdate('d\/m\/Y', $weeks[$i]).'</option>';
 
                     # Semaine suivante
                     $timestamp += ONE_WEEK;
                 }
                 ?>
-            </select><br />
+            </select></td>
+            <?php
+            if($idPianoWeek < NB_WEEKS - 1)
+            {
+                ?>
+                <td><input type="button" name="next_week" id="next_week" class="buttonWeek" value="Semaine suivante" onclick="javascript:goNextWeek(this);" /></td>
+                <?php
+            }
 
-            <input type="checkbox" name="saturday" id="saturday" value="yes"<?php echo ($saturday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="saturday"> Samedi</label> <input type="checkbox" name="sunday" id="sunday" value="yes"<?php echo ($sunday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="sunday"> Dimanche</label></fieldset>
+            echo '</tr></tbody></table>';
 
-            <fieldset><legend>Customise ton bolide</legend>
-            <label for="displayConfId">Affichage :</label>
-            <select id="displayConfId" name="displayConfId">
-                <option value="41"<?php echo ($displayConfId == 41) ? $selected : ''; ?>>Horizontal</option>
-                <option value="8"<?php echo ($displayConfId == 8) ? $selected : ''; ?>>Vertical</option>
-            </select><br />
+            # On affiche l’image
+            echo '<p class="centre"><img src="'.URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.$idTree.'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId.'" alt="Erreur d’affichage du planning" /></p>';
+            ?>
+            <p class="centre"><input type="checkbox" name="saturday" id="saturday" value="yes" onchange="document.getElementById('submit').click();"<?php echo ($saturday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="saturday"> Samedi</label> <input type="checkbox" name="sunday" id="sunday" value="yes" onchange="document.getElementById('submit').click();"<?php echo ($sunday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="sunday"> Dimanche</label>
+            <br />
+            <select id="displayConfId" name="displayConfId" onchange="document.getElementById('submit').click();">
+                <option value="41"<?php echo ($displayConfId == 41) ? SELECTED : ''; ?>>Horizontal</option>
+                <option value="8"<?php echo ($displayConfId == 8) ? SELECTED : ''; ?>>Vertical</option>
+            </select><select id="width" name="width" onchange="document.getElementById('submit').click();">
+                <option value="320"<?php echo ($width == 320) ? SELECTED : ''; ?>>320x240</option>
+                <option value="640"<?php echo ($width == 640) ? SELECTED : ''; ?>>640x480</option>
+                <option value="800"<?php echo ($width == 800) ? SELECTED : ''; ?>>800x600</option>
+                <option value="1000"<?php echo ($width == 1000) ? SELECTED : ''; ?>>1000x500 (par défaut)</option>
+                <option value="1024"<?php echo ($width == 1024) ? SELECTED : ''; ?>>1024x768</option>
+                <option value="1366"<?php echo ($width == 1366) ? SELECTED : ''; ?>>1366x768</option>
+                <option value="1600"<?php echo ($width == 1600) ? SELECTED : ''; ?>>1600x1024</option>
+                <option value="1920"<?php echo ($width == 1920) ? SELECTED : ''; ?>>1920x1080</option>
+            </select></p>
 
-            <label for="width">Dimensions :</label>
-            <select id="width" name="width">
-                <option value="320"<?php echo ($width == 320) ? $selected : ''; ?>>320x240</option>
-                <option value="640"<?php echo ($width == 640) ? $selected : ''; ?>>640x480</option>
-                <option value="800"<?php echo ($width == 800) ? $selected : ''; ?>>800x600</option>
-                <option value="1000"<?php echo ($width == 1000) ? $selected : ''; ?>>1000x500 (par défaut)</option>
-                <option value="1024"<?php echo ($width == 1024) ? $selected : ''; ?>>1024x768</option>
-                <option value="1366"<?php echo ($width == 1366) ? $selected : ''; ?>>1366x768</option>
-                <option value="1600"<?php echo ($width == 1600) ? $selected : ''; ?>>1600x1024</option>
-                <option value="1920"<?php echo ($width == 1920) ? $selected : ''; ?>>1920x1080</option>
-            </select><br />
-            </fieldset>
-
-            <p><input type="submit" id="submit" name="submit" value="Récupérer le planning" /></p>
+            <p class="centre"><input type="submit" id="submit" name="submit" value="Récupérer le planning" /></p>
         </form>
+
+        <p>&nbsp;</p>
 
         <p class="centre">Copyright © 2012 <a href="https://github.com/Yurienu/PlanningIUTInfo">Planning IUT Info</a></p>
     </body>

@@ -18,9 +18,14 @@ table {
 }
 
 td {
+    text-align: center;
     vertical-align: middle;
 } 
 
 .centre {
     text-align: center;
+}
+
+.buttonWeek {
+    display: none;
 }

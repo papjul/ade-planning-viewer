@@ -32,6 +32,9 @@ define('FIRST_WEEK', 1344816000);
 # Nombre de semaines du projet de l’année
 define('NB_WEEKS', 54);
 
+# Groupe sélectionné par défaut
+define('ID_TREE', '8385%2C8386%2C8387%2C8388%2C8389%2C8390%2C8391%2C8392%2C8393%2C8394%2C8400%2C8401%2C8402%2C8403%2C8404%2C8405%2C3772%2C3773%2C6445');
+
 # Samedi et dimanche
 define('SATURDAY', 'yes');
 define('SUNDAY', 'no');
@@ -51,4 +54,7 @@ define('ONE_HOUR', 60 * ONE_MINUTE);
 define('ONE_DAY', 24 * ONE_HOUR);
 define('ONE_WEEK', 7 * ONE_DAY);
 define('ONE_YEAR', 365 * ONE_DAY);
+
+### Autres constantes
+define('SELECTED', ' selected="selected"');
 /** EOF /**/
