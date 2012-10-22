@@ -70,7 +70,8 @@ $idTree = (isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree
 $idPianoWeek = $currentWeek;
 $displayConfId = DISPLAY_CONF_ID;
 $width = WIDTH;
-$noSaturday = NO_SATURDAY;
+$saturday = SATURDAY;
+$sunday = SUNDAY;
 
 # Réception du formulaire
 if(isset($_POST['submit']))
@@ -94,8 +95,9 @@ if(isset($_POST['submit']))
     $idTree = $_POST['idTree'];
 
     # Les jours de la semaine
-    $noSaturday = (isset($_POST['noSaturday']) ? 'yes' : 'no');
-    $idPianoDay = ($noSaturday == 'yes' ? '0%2C1%2C2%2C3%2C4' : '0%2C1%2C2%2C3%2C4%2C5');
+    $saturday = (isset($_POST['saturday']) ? 'yes' : 'no');
+    $sunday = (isset($_POST['sunday']) ? 'yes' : 'no');
+    $idPianoDay = '0%2C1%2C2%2C3%2C4'.($saturday == 'yes' ? '%2C5' : '').''.($sunday == 'yes' ? '%2C6' : '');
 
     # Le format (horizontal/vertical)
     $displayConfId = intval($_POST['displayConfId']);
@@ -184,7 +186,8 @@ if(isset($_POST['submit']))
                     <input type="hidden" name="displayConfId" value="<?php echo $displayConfId; ?>" />
                     <input type="hidden" name="width" value="<?php echo $width; ?>" />
                     <?php
-                    if(isset($_POST['noSaturday'])) echo '<input type="hidden" name="noSaturday" value="yes" />';
+                    if(isset($_POST['saturday'])) echo '<input type="hidden" name="saturday" value="yes" />';
+                    if(isset($_POST['sunday'])) echo '<input type="hidden" name="sunday" value="yes" />';
                     ?>
                     <input type="submit" name="submit" id="submit_prec" value="Semaine précédente" />
                 </form>
@@ -201,7 +204,8 @@ if(isset($_POST['submit']))
                     <input type="hidden" name="displayConfId" value="<?php echo $displayConfId; ?>" />
                     <input type="hidden" name="width" value="<?php echo $width; ?>" />
                     <?php
-                    if(isset($_POST['noSaturday'])) echo '<input type="hidden" name="noSaturday" value="yes" />';
+                    if(isset($_POST['saturday'])) echo '<input type="hidden" name="saturday" value="yes" />';
+                    if(isset($_POST['sunday'])) echo '<input type="hidden" name="sunday" value="yes" />';
                     ?>
                     <input type="submit" name="submit" id="submit_prec" value="Semaine suivante" />
                 </form>
@@ -256,7 +260,7 @@ if(isset($_POST['submit']))
                 ?>
             </select><br />
 
-            <input type="checkbox" name="noSaturday" id="noSaturday" value="yes"<?php echo ($noSaturday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="noSaturday"> Ne pas afficher samedi</label></fieldset>
+            <input type="checkbox" name="saturday" id="saturday" value="yes"<?php echo ($saturday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="saturday"> Samedi</label> <input type="checkbox" name="sunday" id="sunday" value="yes"<?php echo ($sunday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="sunday"> Dimanche</label></fieldset>
 
             <fieldset><legend>Customise ton bolide</legend>
             <label for="displayConfId">Affichage :</label>
