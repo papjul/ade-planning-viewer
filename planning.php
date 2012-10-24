@@ -89,39 +89,15 @@ $idTree = (isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree
 
 # Les dimensions
 $width = isset($_POST['width']) ? intval($_POST['width']) : WIDTH;
-switch($width)
+$heightTab = array(320 => 240, 640 => 480, 800 => 600, 1024 => 768, 1366 => 768, 1600 => 1024, 1920 => 1080);
+
+if(array_key_exists($width, $heightTab))
+    $height = $heightTab[$width];
+
+else
 {
-    case 320:
-        $height = 240;
-        break;
-
-    case 640:
-        $height = 480;
-        break;
-
-    case 800:
-        $height = 600;
-        break;
-
-    case 1024:
-        $height = 768;
-        break;
-
-    case 1366:
-        $height = 768;
-        break;
-
-    case 1600:
-        $height = 1024;
-        break;
-
-    case 1920:
-        $height = 1080;
-        break;
-
-    default;
-        $width = 1000;
-        $height = 500;
+    $width = WIDTH;
+    $height = HEIGHT;
 }
 
 # Le format (horizontal/vertical)

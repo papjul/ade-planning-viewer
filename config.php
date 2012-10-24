@@ -42,8 +42,9 @@ define('SUNDAY', 'no');
 # Affichage par défaut (41 : vertical, 8 : horizontal)
 define('DISPLAY_CONF_ID', 41);
 
-# Longueur par défaut (valeur existante ou sera automatiquement remplacée par 1000)
+# Dimensions par défaut
 define('WIDTH', 1000);
+define('HEIGHT', 500);
 
 # Nombre de jours à afficher dans le flux RSS
 define('NB_DAYS_RSS', 15);
