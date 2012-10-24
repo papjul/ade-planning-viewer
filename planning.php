@@ -65,17 +65,11 @@ for($i = 0; $i < NB_WEEKS; ++$i)
     $timestamp += ONE_DAY;
 }
 
-# On commence à noter les paramètres qui seront nécessaires pour la génération de l’image
-/** On génère un nombre aléatoire pour déterminer quel
- * identifiant de session sera utilisé.
- * Obligatoire car si un identifiant est trop utilisé,
- * il est visiblement bloqué par l’ADE.
- */
-$rand = rand(0,1);
-
-# L’identifiant de session
-if($rand == 0) $identifier = '28b225b964f22b085de4b704b5885ded';
-else $identifier = '8ba834238410a5a92ecb1729024b7871';
+### On commence à noter les paramètres qui seront nécessaires pour la génération de l’image
+# On utilise aléatoirement un des identifier à notre disponibilité
+$fileIdentifier = file('identifier');
+$rand = rand(0, count($fileIdentifier) - 1);
+$identifier = $fileIdentifier[$rand];
 
 # La semaine à afficher
 $idPianoWeek = isset($_POST['idPianoWeek']) ? intval($_POST['idPianoWeek']) : $currentWeek;
