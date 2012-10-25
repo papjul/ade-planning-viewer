@@ -167,9 +167,7 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
                 echo '<optgroup label="'.$kInitLoop.'">';
 
                 foreach($vInitLoop as $kLoop => $vLoop)
-                {
                     echo '<option value="'.$vLoop.'"'.($idTree == $vLoop ? SELECTED : '').'>'.$kLoop.'</option>';
-                }
 
                 echo '</optgroup>';
             }
@@ -222,9 +220,7 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
                 echo '<option value="'.WIDTH.'" '.(($width == WIDTH) ? SELECTED : '').'>'.WIDTH.' x '.HEIGHT.' (par défaut)</option>';
 
                 foreach($dimensions as $dWidth => $dHeight)
-                {
                     echo '<option value="'.$dWidth.'" '.(($width == $dWidth) ? SELECTED : '').'>'.$dWidth.' x '.$dHeight.'</option>';
-                }
                 ?>
             </select></p>
 
