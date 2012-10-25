@@ -65,6 +65,9 @@ for($i = 0; $i < NB_WEEKS; ++$i)
     $timestamp += ONE_DAY;
 }
 
+# Les dimensions
+$dimensions = array(320 => 240, 640 => 480, 800 => 600, 1024 => 768, 1366 => 768, 1600 => 1024, 1920 => 1080);
+
 ### On commence à noter les paramètres qui seront nécessaires pour la génération de l’image
 # On utilise aléatoirement un des identifier à notre disponibilité
 $fileIdentifier = file('identifier');
@@ -89,10 +92,9 @@ $idTree = (isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree
 
 # Les dimensions
 $width = isset($_POST['width']) ? intval($_POST['width']) : WIDTH;
-$heightTab = array(320 => 240, 640 => 480, 800 => 600, 1024 => 768, 1366 => 768, 1600 => 1024, 1920 => 1080);
 
-if(array_key_exists($width, $heightTab))
-    $height = $heightTab[$width];
+if(array_key_exists($width, $dimensions))
+    $height = $dimensions[$width];
 
 else
 {
@@ -213,15 +215,17 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
             <select id="displayConfId" name="displayConfId" onchange="document.getElementById('submit').click();">
                 <option value="41"<?php echo ($displayConfId == 41) ? SELECTED : ''; ?>>Horizontal</option>
                 <option value="8"<?php echo ($displayConfId == 8) ? SELECTED : ''; ?>>Vertical</option>
-            </select><select id="width" name="width" onchange="document.getElementById('submit').click();">
-                <option value="320"<?php echo ($width == 320) ? SELECTED : ''; ?>>320x240</option>
-                <option value="640"<?php echo ($width == 640) ? SELECTED : ''; ?>>640x480</option>
-                <option value="800"<?php echo ($width == 800) ? SELECTED : ''; ?>>800x600</option>
-                <option value="1000"<?php echo ($width == 1000) ? SELECTED : ''; ?>>1000x500 (par défaut)</option>
-                <option value="1024"<?php echo ($width == 1024) ? SELECTED : ''; ?>>1024x768</option>
-                <option value="1366"<?php echo ($width == 1366) ? SELECTED : ''; ?>>1366x768</option>
-                <option value="1600"<?php echo ($width == 1600) ? SELECTED : ''; ?>>1600x1024</option>
-                <option value="1920"<?php echo ($width == 1920) ? SELECTED : ''; ?>>1920x1080</option>
+            </select>
+
+            <select id="width" name="width" onchange="document.getElementById('submit').click();">
+                <?php
+                echo '<option value="'.WIDTH.'" '.(($width == WIDTH) ? SELECTED : '').'>'.WIDTH.' x '.HEIGHT.' (par défaut)</option>';
+
+                foreach($dimensions as $dWidth => $dHeight)
+                {
+                    echo '<option value="'.$dWidth.'" '.(($width == $dWidth) ? SELECTED : '').'>'.$dWidth.' x '.$dHeight.'</option>';
+                }
+                ?>
             </select></p>
 
             <p class="centre"><input type="submit" id="submit" name="submit" value="Récupérer le planning" /></p>
