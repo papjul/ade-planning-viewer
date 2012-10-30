@@ -17,51 +17,51 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-## Quelques fonctions de sécurité en vrac
-# Protection contre les register_globals
-# Doit être effectué avant que des globals soient traités par le code
-if(ini_get('register_globals'))
-{
-    if(isset($_REQUEST['GLOBALS']))
-        exit('<a href="http://www.hardened-php.net/globals-problem">$GLOBALS overwrite vulnerability</a>');
+## Quelques fonctions de sécurité en vrac. La plupart sont tirées de Nuked-Klan sous licence identique
+# Désactive les magic quotes si utilisation de PHP 5.3
+@ini_set('magic_quotes_runtime', 0);
 
-    $verboten = array('GLOBALS', '_SERVER', 'HTTP_SERVER_VARS', '_GET', 'HTTP_GET_VARS',
-                      '_POST', 'HTTP_POST_VARS', '_COOKIE', 'HTTP_COOKIE_VARS', '_FILES',
-                      'HTTP_POST_FILES', '_ENV', 'HTTP_ENV_VARS', '_REQUEST', '_SESSION',
-                      'HTTP_SESSION_VARS');
-
-    foreach($_REQUEST as $name => $value)
+# Supprime les variables globales
+foreach ($GLOBALS as $k => $v)
+    if(in_array($k, array('GLOBALS', '_POST', '_GET', '_COOKIE', '_FILES', '_SERVER', '_ENV', '_REQUEST', '_SESSION')) === false)
     {
-        if(in_array($name, $verboten))
-        {
-            header('HTTP/1.x 500 Internal Server Error');
-            echo 'register_globals security paranoia: trying to overwrite superglobals, aborting.';
-            exit(-1);
-        }
-
-        unset($GLOBALS[$name]);
+        $GLOBALS[$k] = NULL;
+        unset($GLOBALS[$k]);
     }
+
+# Protection contre les injections SQL (UNION) et XSS/CSS
+$query_string = strtolower(rawurldecode($_SERVER['QUERY_STRING']));
+$bad_string   = array('%20union%20', '/*', '*/union/*', '+union+', 'load_file', 'outfile', 'document.cookie', 'onmouse', '<script', '<iframe', '<applet', '<meta', '<style', '<form', '<img', '<body', '<link', '..', 'http://', '%3C%3F');
+$size = count($bad_string);
+for($i = 0; $i < $size; ++$i)
+     if(strpos($query_string, $bad_string[$i])) exit('Qu’essayiez-vous de faire ?');
+
+unset($query_string, $bad_string, $string_value);
+
+# Protège les variables
+function SecureVar($value)
+{
+    if(is_array($value))
+    {
+        foreach($value as $k => $v)
+            $value[$k] = SecureVar($value[$k]);
+
+        return $value;
+    }
+    elseif(!get_magic_quotes_gpc())
+        return str_replace(array('&', '<', '>', '0x'), array('&amp;', '&lt;', '&gt;', '\0x'), addslashes($value)) ;
+
+    else
+        return str_replace(array('&', '<', '>', '0x'), array('&amp;', '&lt;', '&gt;', '\0x'), $value);
 }
+
+$_GET  = array_map('SecureVar', $_GET);
+$_POST = array_map('SecureVar', $_POST);
 
 # Désactive le content sniffing d’IE8. Les autres navigateurs devraient ignorer cette ligne
 header('X-Content-Type-Options: nosniff');
 
-# Désactive les magic quotes si utilisation de PHP 5.3
-@ini_set('magic_quotes_runtime', 0);
-
-# Protection contre les injections SQL (UNION) et XSS/CSS
-$query_string = strtolower(rawurldecode($_SERVER['QUERY_STRING']));
-$bad_string   = array('%20union%20', '/*', '*/union/*', '+union+', 'load_file',
-                      'outfile', 'document.cookie', 'onmouse', '<script', '<iframe',
-                      '<applet', '<meta', '<style', '<form', '<img',
-                      '<body', '<link', '..', 'http://', '%3C%3F');
-
-foreach($bad_string as $string_value)
-    if(strpos($query_string, $string_value))
-        exit('Unauthorised value in query string');
-
-unset($query_string, $bad_string, $string_value);
-
+# En-tête
 header('Content-Type: text/html; charset=utf-8');
 
 # Autorise les inclusions
