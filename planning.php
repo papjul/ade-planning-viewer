@@ -110,10 +110,10 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="content-style-type" content="text/css" />
-        <meta name="title" content="Planning IUT" />
-        <meta name="abstract" content="Planning" />
-        <meta name="description" content="Planning de l’IUT Informatique d’Aix-en-Provence" />
-        <meta name="keywords" content="planning" />
+        <meta name="title" content="Planning IUT Info" />
+        <meta name="abstract" content="Planning de l’IUT Informatique d’Aix-en-Provence" />
+        <meta name="description" content="Planning IUT Info est une application en PHP pour récupérer le planning de l’ADE sur l’ENT de l’IUT Informatique d’Aix-en-Provence via une interface suivant le principe KISS" />
+        <meta name="keywords" content="planning, emploi, temps, ade, ent, iut, dut, info, informatique, aix, aix-en-provence" />
         <meta name="owner" content="Julien Papasian" />
         <meta name="author" content="Julien Papasian" />
         <meta http-equiv="content-language" content="french" />
