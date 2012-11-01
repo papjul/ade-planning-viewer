@@ -17,7 +17,7 @@ table {
     margin: auto;
 }
 
-td {
+td, tr {
     vertical-align: middle;
 } 
 
