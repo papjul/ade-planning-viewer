@@ -158,7 +158,7 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
         }
         </script>
 
-        <form id="myform" method="post" action="planning.php">
+        <form id="myform" method="post" action="index.php">
             <!-- Le groupe -->
             <table><tbody><tr><td colspan="3"><select name="idTree" id="idTree" onchange="javascript:checkWidth(this);">
             <?php
@@ -179,7 +179,7 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
             if($idPianoWeek > 0)
             {
                 ?>
-                <td><input type="button" name="previous_week" id="previous_week" class="buttonWeek" value="Semaine précédente" onclick="javascript:goPreviousWeek(this);" /></td>
+                <td><input type="button" name="previous_week" id="previous_week" class="buttonWeek" value="&lt;&lt;" onclick="javascript:goPreviousWeek(this);" /></td>
                 <?php
             }
             ?>
@@ -199,7 +199,7 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
             if($idPianoWeek < NB_WEEKS - 1)
             {
                 ?>
-                <td><input type="button" name="next_week" id="next_week" class="buttonWeek" value="Semaine suivante" onclick="javascript:goNextWeek(this);" /></td>
+                <td><input type="button" name="next_week" id="next_week" class="buttonWeek" value="&gt;&gt;" onclick="javascript:goNextWeek(this);" /></td>
                 <?php
             }
 
