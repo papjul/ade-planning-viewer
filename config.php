@@ -20,8 +20,9 @@
 if(!defined('SAFE')) exit('Nothing to do here');
 
 ### Configuration
-# URL de l’ADE sans le / final
+# Différentes ressources web
 define('URL_ADE', 'http://planning.univmed.fr/ade');
+define('URL_IDENTIFIER', 'https://raw.github.com/Yurienu/PlanningIUTInfo/master/identifier');
 
 # Id du projet (12 pour 2010/2011, 10 pour 2011/2012, 22 pour 2012/2013, etc)
 define('PROJECT_ID', 22);

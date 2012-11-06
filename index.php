@@ -70,7 +70,7 @@ $dimensions = array(320 => 240, 640 => 480, 800 => 600, 1024 => 768, 1366 => 768
 
 ### On commence à noter les paramètres qui seront nécessaires pour la génération de l’image
 # On utilise aléatoirement un des identifier à notre disponibilité
-$fileIdentifier = file('identifier');
+$fileIdentifier = file(URL_IDENTIFIER);
 $rand = rand(0, count($fileIdentifier) - 1);
 $identifier = $fileIdentifier[$rand];
 
