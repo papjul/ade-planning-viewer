@@ -66,7 +66,7 @@ for($i = 0; $i < NB_WEEKS; ++$i)
 }
 
 # Les dimensions
-$dimensions = array(320 => 240, 640 => 480, 800 => 600, 1024 => 768, 1366 => 768, 1600 => 1024, 1920 => 1080);
+$dimensions = array(320 => 240, 640 => 480, 800 => 600, 1024 => 768, 1280 => 720, 1366 => 768, 1600 => 1024, 1920 => 1080);
 
 ### On commence à noter les paramètres qui seront nécessaires pour la génération de l’image
 # On utilise aléatoirement un des identifier à notre disponibilité
