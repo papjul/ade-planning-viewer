@@ -132,7 +132,7 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
         </script>
     </head>
     <body>
-        <h2 class="centre">Planning IUT Info</h2>
+        <h2>Planning IUT Info</h2>
 
         <!-- Les scripts -->
         <script type="text/javascript">
@@ -206,10 +206,10 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
             echo '</tr></tbody></table>';
 
             # On affiche l’image
-            echo '<p class="centre"><img src="'.URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.$idTree.'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId.'" alt="Erreur d’affichage de l’image : serveur non-accessible ou mise à jour du planning requise" /></p>';
+            echo '<p><img src="'.URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.$idTree.'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId.'" alt="Erreur d’affichage de l’image : serveur non-accessible ou mise à jour du planning requise" /></p>';
             # Message alternatif non-visible pas les utilisateurs de Google Chrome/Chromium, yay
             ?>
-            <p class="centre"><input type="checkbox" name="saturday" id="saturday" value="yes" onchange="document.getElementById('submit').click();"<?php echo ($saturday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="saturday"> Samedi</label> <input type="checkbox" name="sunday" id="sunday" value="yes" onchange="document.getElementById('submit').click();"<?php echo ($sunday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="sunday"> Dimanche</label>
+            <p><input type="checkbox" name="saturday" id="saturday" value="yes" onchange="document.getElementById('submit').click();"<?php echo ($saturday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="saturday"> Samedi</label> <input type="checkbox" name="sunday" id="sunday" value="yes" onchange="document.getElementById('submit').click();"<?php echo ($sunday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="sunday"> Dimanche</label>
             <br />
             <select id="displayConfId" name="displayConfId" onchange="document.getElementById('submit').click();">
                 <option value="41"<?php echo ($displayConfId == 41) ? SELECTED : ''; ?>>Horizontal</option>
@@ -225,11 +225,11 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
                 ?>
             </select></p>
 
-            <p class="centre"><input type="submit" id="submit" name="submit" value="Récupérer le planning" /></p>
+            <p><input type="submit" id="submit" name="submit" value="Récupérer le planning" /></p>
         </form>
 
         <p>&nbsp;</p>
 
-        <p class="centre">Copyright © 2012 <a href="https://github.com/Yurienu/PlanningIUTInfo">Planning IUT Info</a></p>
+        <p>Copyright © 2012 <a href="https://github.com/Yurienu/PlanningIUTInfo">Planning IUT Info</a></p>
     </body>
 </html>

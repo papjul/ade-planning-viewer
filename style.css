@@ -4,12 +4,8 @@ body {
     background-color: #EEE;
 }
 
-h2 {
+h2, p, li, td {
     text-align: center;
-}
-
-p, li {
-    text-align: justify;
 }
 
 table {
@@ -18,12 +14,7 @@ table {
 }
 
 td {
-    text-align: center;
     vertical-align: middle;
-} 
-
-.centre {
-    text-align: center;
 }
 
 .buttonWeek {
