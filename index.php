@@ -27,19 +27,19 @@ if(isset($_POST['submit']))
     setcookie('idTree', $_POST['idTree'], time() + ONE_YEAR, null, null, false, true);
 
 ## Création des groupes dans un tableau de tableaux
-$groups = array('1re année'   => array('1re année (tous)' => '8385%2C8386%2C8387%2C8388%2C8389%2C8390%2C8391%2C8392%2C8393%2C8394',
-                                        'Groupe 1' => '8385%2C8386',
-                                        'Groupe 2' => '8387%2C8388',
-                                        'Groupe 3' => '8389%2C8390',
-                                        'Groupe 4' => '8391%2C8392',
-                                        'Groupe 5' => '8393%2C8394'),
-                '2e année'    => array('2e année (tous)' => '8400%2C8401%2C8402%2C8403%2C8404%2C8405%2C3772%2C3773',
-                                        'Groupe 1' => '8400%2C8401',
-                                        'Groupe 2' => '8402%2C8403',
-                                        'Groupe 3' => '8404%2C8405',
-                                        'Groupe 4' => '3772%2C3773'),
+$groups = array('1re année'   => array('1re année (tous)' => '8385,8386,8387,8388,8389,8390,8391,8392,8393,8394',
+                                        'Groupe 1' => '8385,8386',
+                                        'Groupe 2' => '8387,8388',
+                                        'Groupe 3' => '8389,8390',
+                                        'Groupe 4' => '8391,8392',
+                                        'Groupe 5' => '8393,8394'),
+                '2e année'    => array('2e année (tous)' => '8400,8401,8402,8403,8404,8405,3772,3773',
+                                        'Groupe 1' => '8400,8401',
+                                        'Groupe 2' => '8402,8403',
+                                        'Groupe 3' => '8404,8405',
+                                        'Groupe 4' => '3772,3773'),
                 'Licence Pro' => array('LP' => '6445'),
-                'Tous'        => array('Toutes années' => '8385%2C8386%2C8387%2C8388%2C8389%2C8390%2C8391%2C8392%2C8393%2C8394%2C8400%2C8401%2C8402%2C8403%2C8404%2C8405%2C3772%2C3773%2C6445'));
+                'Tous'        => array('Toutes années' => '8385,8386,8387,8388,8389,8390,8391,8392,8393,8394,8400,8401,8402,8403,8404,8405,3772,3773,6445'));
 
 ## Création des associations numéro de semaine → timestamp dans un tableau
 $weeks = array();
@@ -85,7 +85,7 @@ if(isset($_POST['submit']))
     $saturday = (isset($_POST['saturday']) ? 'yes' : 'no');
     $sunday = (isset($_POST['sunday']) ? 'yes' : 'no');
 }
-$idPianoDay = '0%2C1%2C2%2C3%2C4'.($saturday == 'yes' ? '%2C5' : '').''.($sunday == 'yes' ? '%2C6' : '');
+$idPianoDay = '0,1,2,3,4'.($saturday == 'yes' ? ',5' : '').''.($sunday == 'yes' ? ',6' : '');
 
 # Le(s) groupe(s) concernés
 $idTree = (isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree'])) ? $_COOKIE['idTree'] : ID_TREE));
