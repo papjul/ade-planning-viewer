@@ -138,7 +138,7 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
         <script type="text/javascript">
         /* Permet de passer automatiquement la taille du planning à 1920x1080 en cas de sélection de tous les groupes */
         function checkWidth(formulaire) {
-            if(formulaire.form.elements['idTree'].options[formulaire.form.elements['idTree'].selectedIndex].value == '<?php echo $groups['Tous']['Toutes années']; ?>') document.getElementById("width").selectedIndex = 7;
+            if(formulaire.form.elements['idTree'].options[formulaire.form.elements['idTree'].selectedIndex].value == '<?php echo $groups['Tous']['Toutes années']; ?>') document.getElementById("width").selectedIndex = 8;
 
             document.getElementById('submit').click();
         }
