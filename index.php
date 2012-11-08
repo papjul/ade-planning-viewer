@@ -209,8 +209,11 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
             list($startDay, $startMonth, $startYear) = explode('/', gmdate('d\/m\/Y', $weeks[$idPianoWeek]));
             list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval($weeks[$idPianoWeek] + 6 * ONE_DAY)));
 
-            # Et on affiche le lien iCal et l’image
-            echo '<p><a href="'.URL_ADE.'/custom/modules/plannings/anonymous_cal.jsp?resources='.$idTree.'&amp;projectId='.PROJECT_ID.'&amp;startDay='.$startDay.'&amp;startMonth='.$startMonth.'&amp;startYear='.$startYear.'&amp;endDay='.$endDay.'&amp;endMonth='.$endMonth.'&amp;endYear='.$endYear.'&amp;calType=ical" title="Exporter au format iCalendar ICS/VCS"><strong>Exporter au format iCal</strong></a><br /><img src="'.URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.$idTree.'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId.'" alt="Serveur non-accessible ou mise à jour requise" /></p>';
+            # On prépare l’URL de l’image
+            $imageSrc = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.$idTree.'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId;
+
+            # Et on affiche les liens et l’image
+            echo '<p><a href="'.URL_ADE.'/custom/modules/plannings/anonymous_cal.jsp?resources='.$idTree.'&amp;projectId='.PROJECT_ID.'&amp;startDay='.$startDay.'&amp;startMonth='.$startMonth.'&amp;startYear='.$startYear.'&amp;endDay='.$endDay.'&amp;endMonth='.$endMonth.'&amp;endYear='.$endYear.'&amp;calType=ical" title="Exporter au format iCalendar ICS/VCS"><strong>Exporter au format iCal</strong></a> / <a href="'.$imageSrc.'">Télécharger l’image</a><br /><img src="'.$imageSrc.'" alt="Serveur non-accessible ou mise à jour requise" /></p>';
             ?>
             <p><input type="checkbox" name="saturday" id="saturday" value="yes" onchange="document.getElementById('submit').click();"<?php echo ($saturday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="saturday"> Samedi</label> <input type="checkbox" name="sunday" id="sunday" value="yes" onchange="document.getElementById('submit').click();"<?php echo ($sunday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="sunday"> Dimanche</label>
             <br />
