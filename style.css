@@ -4,7 +4,7 @@ body {
     background-color: #EEE;
 }
 
-h2, p, li, td {
+h2, p, td {
     text-align: center;
 }
 
@@ -15,6 +15,26 @@ table {
 
 td {
     vertical-align: middle;
+}
+
+a {
+    color: #004e9b;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #60009b;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #cc4400;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #009b7e;
+    text-decoration: none;
 }
 
 .buttonWeek {
