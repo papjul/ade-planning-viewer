@@ -4,8 +4,12 @@ body {
     background-color: #EEE;
 }
 
-h2, p, td {
+h2, td {
     text-align: center;
+}
+
+p, li {
+    text-align: justify;
 }
 
 table {
@@ -15,6 +19,10 @@ table {
 
 td {
     vertical-align: middle;
+}
+
+.centre {
+    text-align: center;
 }
 
 a {

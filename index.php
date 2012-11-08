@@ -108,7 +108,7 @@ if(isset($_POST['submit']))
 $idPianoDay = '0,1,2,3,4'.($saturday == 'yes' ? ',5' : '').''.($sunday == 'yes' ? ',6' : '');
 
 # Le(s) groupe(s) concernés
-$idTree = (isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree'])) ? $_COOKIE['idTree'] : ID_TREE));
+$_SESSION['idTree'] = (isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree'])) ? $_COOKIE['idTree'] : ID_TREE));
 
 # Les dimensions
 $width = isset($_POST['width']) ? intval($_POST['width']) : WIDTH;
@@ -142,7 +142,7 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
         <title>Planning IUT Info</title>
         <?php
         # Flux RSS
-        echo '<link rel="alternate" type="application/rss+xml" title="Flux RSS des '.NB_DAYS_RSS.' jours à venir" href="'.URL_ADE.'/rss?projectId='.PROJECT_ID.'&amp;resources='.$idTree.'&amp;nbDays='.NB_DAYS_RSS.'" />';
+        echo '<link rel="alternate" type="application/rss+xml" title="Flux RSS des '.NB_DAYS_RSS.' jours à venir" href="'.URL_ADE.'/rss?projectId='.PROJECT_ID.'&amp;resources='.$_SESSION['idTree'].'&amp;nbDays='.NB_DAYS_RSS.'" />';
         ?>
         <link title="Planning" type="text/css" rel="stylesheet" href="style.css" />
 
@@ -187,7 +187,7 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
                 echo '<optgroup label="'.$kInitLoop.'">';
 
                 foreach($vInitLoop as $kLoop => $vLoop)
-                    echo '<option value="'.$vLoop.'"'.($idTree == $vLoop ? SELECTED : '').'>'.$kLoop.'</option>';
+                    echo '<option value="'.$vLoop.'"'.($_SESSION['idTree'] == $vLoop ? SELECTED : '').'>'.$kLoop.'</option>';
 
                 echo '</optgroup>';
             }
@@ -230,12 +230,12 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
             list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval($weeks[$idPianoWeek] + 6 * ONE_DAY)));
 
             # On prépare l’URL de l’image
-            $imageSrc = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.$idTree.'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId;
+            $imageSrc = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.$_SESSION['idTree'].'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId;
 
             # Et on affiche les liens et l’image
-            echo '<p><a href="'.URL_ADE.'/custom/modules/plannings/anonymous_cal.jsp?resources='.$idTree.'&amp;projectId='.PROJECT_ID.'&amp;startDay='.$startDay.'&amp;startMonth='.$startMonth.'&amp;startYear='.$startYear.'&amp;endDay='.$endDay.'&amp;endMonth='.$endMonth.'&amp;endYear='.$endYear.'&amp;calType=ical" title="Exporter au format iCalendar ICS/VCS"><strong>Exporter au format iCal</strong></a> / <a href="'.$imageSrc.'">Télécharger l’image</a><br /><img src="'.$imageSrc.'" alt="Serveur non-accessible ou mise à jour requise" /></p>';
+            echo '<p class="centre"><a href="export.php" title="Exporter le planning au format iCalendar ICS/VCS"><strong>Exporter l’agenda</strong></a><br /><img src="'.$imageSrc.'" alt="Serveur non-accessible ou mise à jour requise" /><br /><a href="'.$imageSrc.'">Télécharger l’image</a></p>';
             ?>
-            <p><input type="checkbox" name="saturday" id="saturday" value="yes" onchange="document.getElementById('submit').click();"<?php echo ($saturday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="saturday"> Samedi</label> <input type="checkbox" name="sunday" id="sunday" value="yes" onchange="document.getElementById('submit').click();"<?php echo ($sunday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="sunday"> Dimanche</label>
+            <p class="centre"><input type="checkbox" name="saturday" id="saturday" value="yes" onchange="document.getElementById('submit').click();"<?php echo ($saturday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="saturday"> Samedi</label> <input type="checkbox" name="sunday" id="sunday" value="yes" onchange="document.getElementById('submit').click();"<?php echo ($sunday == 'yes') ? ' checked="checked"' : ''; ?> /><label for="sunday"> Dimanche</label>
             <br />
             <select id="displayConfId" name="displayConfId" onchange="document.getElementById('submit').click();">
                 <option value="41"<?php echo ($displayConfId == 41) ? SELECTED : ''; ?>>Horizontal</option>
@@ -251,11 +251,11 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
                 ?>
             </select></p>
 
-            <p><input type="submit" id="submit" name="submit" value="Récupérer le planning" /></p>
+            <p class="centre"><input type="submit" id="submit" name="submit" value="Récupérer le planning" /></p>
         </form>
 
         <p>&nbsp;</p>
 
-        <p>Copyright © 2012 <a href="https://github.com/Yurienu/PlanningIUTInfo">Planning IUT Info</a></p>
+        <p class="centre">Copyright © 2012 <a href="https://github.com/Yurienu/PlanningIUTInfo">Planning IUT Info</a></p>
     </body>
 </html>
