@@ -38,7 +38,7 @@ $groups = array('1re année'   => array('1re année (tous)' => '8385,8386,8387,8
                                         'Groupe 2' => '8402,8403',
                                         'Groupe 3' => '8404,8405',
                                         'Groupe 4' => '3772,3773'),
-                'Licence Pro' => array('LP' => '6445'),
+                'Licence Pro' => array('LP' => 6445),
                 'Tous'        => array('Toutes années' => '8385,8386,8387,8388,8389,8390,8391,8392,8393,8394,8400,8401,8402,8403,8404,8405,3772,3773,6445'),
                 'Enseignants' => array('BERNE Michel'         => 5156,
                                        'BOITARD Didier'       => 5581,
