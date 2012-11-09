@@ -4,7 +4,7 @@ body {
     background-color: #EEE;
 }
 
-h2, td {
+h2, td, .centre {
     text-align: center;
 }
 
@@ -19,10 +19,6 @@ table {
 
 td {
     vertical-align: middle;
-}
-
-.centre {
-    text-align: center;
 }
 
 a {
@@ -43,6 +39,23 @@ a:hover {
 a:active {
     color: #009b7e;
     text-decoration: none;
+}
+
+img.vertical {
+    max-width: 250px;
+}
+
+img.horizontal {
+    max-width: 500px;
+}
+
+#url {
+    font-family: Monospace, sans-serif;
+}
+
+.error {
+    font-weight: bold;
+    color: red;
 }
 
 .buttonWeek {

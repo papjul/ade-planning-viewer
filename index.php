@@ -27,7 +27,8 @@ if(isset($_POST['submit']))
     setcookie('idTree', $_POST['idTree'], time() + ONE_YEAR, null, null, false, true);
 
 ## Création des groupes dans un tableau de tableaux
-$groups = array('1re année'   => array('1re année (tous)' => '8385,8386,8387,8388,8389,8390,8391,8392,8393,8394',
+$groups = array('Tous'        => array('Toutes années' => '8385,8386,8387,8388,8389,8390,8391,8392,8393,8394,8400,8401,8402,8403,8404,8405,3772,3773,6445'),
+                '1re année'   => array('1re année (tous)' => '8385,8386,8387,8388,8389,8390,8391,8392,8393,8394',
                                         'Groupe 1' => '8385,8386',
                                         'Groupe 2' => '8387,8388',
                                         'Groupe 3' => '8389,8390',
@@ -39,7 +40,6 @@ $groups = array('1re année'   => array('1re année (tous)' => '8385,8386,8387,8
                                         'Groupe 3' => '8404,8405',
                                         'Groupe 4' => '3772,3773'),
                 'Licence Pro' => array('LP' => 6445),
-                'Tous'        => array('Toutes années' => '8385,8386,8387,8388,8389,8390,8391,8392,8393,8394,8400,8401,8402,8403,8404,8405,3772,3773,6445'),
                 'Enseignants' => array('BERNE Michel'         => 5156,
                                        'BOITARD Didier'       => 5581,
                                        'BONHOMME Christian'   => 5115,
@@ -178,7 +178,7 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
         }
         </script>
 
-        <form id="myform" method="post" action="index.php">
+        <form method="post" action="index.php">
             <!-- Le groupe -->
             <table><tbody><tr><td colspan="3"><select name="idTree" id="idTree" onchange="javascript:checkWidth(this);">
             <?php
