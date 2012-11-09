@@ -41,14 +41,6 @@ a:active {
     text-decoration: none;
 }
 
-img.vertical {
-    max-width: 250px;
-}
-
-img.horizontal {
-    max-width: 500px;
-}
-
 #url {
     font-family: Monospace, sans-serif;
 }

@@ -51,15 +51,25 @@ require_once ROOT.'/config.php'; # Configuration
 
         <p><strong>Le planning de l’IUT Info est souvent sujet à des modifications, c’est pourquoi si vous voulez avoir un agenda toujours à jour, <ins>vous devez le synchroniser régulièrement</ins>.</strong></p>
 
-        <p>Voici ce que vous serez capable de faire à la fin de ce tutoriel, sur un téléphone Android par exemple (mais fonctionne aussi sur un ordinateur, ou sur d’autres smartphones) :</p>
+        <p>Voici ce que vous serez capable de faire à la fin de ce tutoriel :</p>
 
-        <p class="centre"><a href="img/android1.png"><img class="vertical" src="img/android1.png" alt="" /></a> <a href="img/android2.png"><img class="vertical" src="img/android2.png" alt="" /></a><br /><a href="img/android3.png"><img class="horizontal" src="img/android3.png" alt="" /></a></p>
+        <p class="centre"><strong>Navigateur Internet (Firefox, Opera, Chrome, etc)</strong></p>
+
+        <p class="centre"><a href="img/browser.png"><img src="img/browser.min.png" alt="" /></a></p>
+
+        <p class="centre"><strong>Android</strong></p>
+
+        <p class="centre"><a href="img/android1.png"><img src="img/android1.min.png" alt="" /></a> <a href="img/android2.png"><img src="img/android2.min.png" alt="" /></a><br /><a href="img/android3.png"><img src="img/android3.min.png" alt="" /></a></p>
+
+        <p class="centre"><strong>iOS (iPhone, iPod, etc)</strong></p>
+
+        <p class="centre"><a href="img/ios.jpg"><img src="img/ios.min.jpg" alt="" /></a></p>
 
         <p>Si vous ne savez pas comment faire, j’ai choisi de vous présenter le service <strong>Google Calendar</strong> car il est facilement consultable sur n’importe quel navigateur mais peut aussi être accédé depuis la plupart des smartphones (Android, iOS, Windows, etc).</p>
 
         <p>Commencez par aller <a href="http://www.google.com/calendar">sur le site</a>, connectez-vous à votre compte Google si ce n’est pas déjà fait et cliquez sur « Ajouter par URL », comme indiqué ci-dessous :</p>
 
-        <p class="centre"><img class="horizontal" src="img/googlecalendar1.png" alt="Image non trouvée" /></p>
+        <p class="centre"><img src="img/googlecalendar1.png" alt="Image non trouvée" /></p>
 
         <p>Ajoutez ensuite l’URL correspondant au groupe que vous voulez suivre :</p>
 
@@ -122,7 +132,7 @@ $groups = array('Tous'        => array('Toutes années' => '8385,8386,8387,8388,
         echo '<p id="url">'.URL_ADE.'<wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources='.$idTree.'<wbr />&amp;projectId='.PROJECT_ID.'<wbr />&amp;startDay='.$startDay.'<wbr />&amp;startMonth='.$startMonth.'<wbr />&amp;startYear='.$startYear.'<wbr />&amp;endDay='.$endDay.'<wbr />&amp;endMonth='.$endMonth.'<wbr />&amp;endYear='.$endYear.'<wbr />&amp;calType=ical</p>';
         ?>
 
-        <p class="centre"><img class="horizontal" src="img/googlecalendar2.png" alt="Image non trouvée" /></p>
+        <p class="centre"><img src="img/googlecalendar2.png" alt="Image non trouvée" /></p>
 
         <p>&nbsp;</p>
 
