@@ -58,9 +58,6 @@ function SecureVar($value)
 $_GET  = array_map('SecureVar', $_GET);
 $_POST = array_map('SecureVar', $_POST);
 
-# Démarre la session
-session_start();
-
 # Désactive le content sniffing d’IE8. Les autres navigateurs devraient ignorer cette ligne
 header('X-Content-Type-Options: nosniff');
 

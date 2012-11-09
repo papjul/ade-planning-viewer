@@ -108,7 +108,7 @@ if(isset($_POST['submit']))
 $idPianoDay = '0,1,2,3,4'.($saturday == 'yes' ? ',5' : '').''.($sunday == 'yes' ? ',6' : '');
 
 # Le(s) groupe(s) concernés
-$_SESSION['idTree'] = (isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree'])) ? $_COOKIE['idTree'] : ID_TREE));
+$idTree = (isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree'])) ? $_COOKIE['idTree'] : ID_TREE));
 
 # Les dimensions
 $width = isset($_POST['width']) ? intval($_POST['width']) : WIDTH;
@@ -142,7 +142,7 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
         <title>Planning IUT Info</title>
         <?php
         # Flux RSS
-        echo '<link rel="alternate" type="application/rss+xml" title="Flux RSS des '.NB_DAYS_RSS.' jours à venir" href="'.URL_ADE.'/rss?projectId='.PROJECT_ID.'&amp;resources='.$_SESSION['idTree'].'&amp;nbDays='.NB_DAYS_RSS.'" />';
+        echo '<link rel="alternate" type="application/rss+xml" title="Flux RSS des '.NB_DAYS_RSS.' jours à venir" href="'.URL_ADE.'/rss?projectId='.PROJECT_ID.'&amp;resources='.$idTree.'&amp;nbDays='.NB_DAYS_RSS.'" />';
         ?>
         <link title="Planning" type="text/css" rel="stylesheet" href="style.css" />
 
@@ -187,7 +187,7 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
                 echo '<optgroup label="'.$kInitLoop.'">';
 
                 foreach($vInitLoop as $kLoop => $vLoop)
-                    echo '<option value="'.$vLoop.'"'.($_SESSION['idTree'] == $vLoop ? SELECTED : '').'>'.$kLoop.'</option>';
+                    echo '<option value="'.$vLoop.'"'.($idTree == $vLoop ? SELECTED : '').'>'.$kLoop.'</option>';
 
                 echo '</optgroup>';
             }
@@ -230,7 +230,7 @@ $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']
             list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval($weeks[$idPianoWeek] + 6 * ONE_DAY)));
 
             # On prépare l’URL de l’image
-            $imageSrc = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.$_SESSION['idTree'].'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId;
+            $imageSrc = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.$idTree.'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId;
 
             # Et on affiche les liens et l’image
             echo '<p class="centre"><a href="export.php" title="Exporter le planning au format iCalendar ICS/VCS"><strong>Exporter l’agenda</strong></a><br /><img src="'.$imageSrc.'" alt="Serveur non-accessible ou mise à jour requise" /><br /><a href="'.$imageSrc.'">Télécharger l’image</a></p>';

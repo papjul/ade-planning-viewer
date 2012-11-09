@@ -100,14 +100,14 @@ $groups = array('Tous'        => array('Toutes années' => '8385,8386,8387,8388,
                                        'SLEZAK Eileen'        => 5670,
                                        'VAQUIERI Josee'       => 5345,
                                        'YAHI Safa'            => 6323));
-            $_SESSION['idTree'] = (isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree'])) ? $_COOKIE['idTree'] : ID_TREE));
+            $idTree = (isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree'])) ? $_COOKIE['idTree'] : ID_TREE));
 
             foreach($groups as $kInitLoop => $vInitLoop)
             {
                 echo '<optgroup label="'.$kInitLoop.'">';
 
                 foreach($vInitLoop as $kLoop => $vLoop)
-                    echo '<option value="'.$vLoop.'"'.($_SESSION['idTree'] == $vLoop ? SELECTED : '').'>'.$kLoop.'</option>';
+                    echo '<option value="'.$vLoop.'"'.($idTree == $vLoop ? SELECTED : '').'>'.$kLoop.'</option>';
 
                 echo '</optgroup>';
             }
@@ -119,7 +119,7 @@ $groups = array('Tous'        => array('Toutes années' => '8385,8386,8387,8388,
         list($startDay, $startMonth, $startYear) = explode('/', gmdate('d\/m\/Y', FIRST_WEEK));
         list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval(FIRST_WEEK + (NB_WEEKS * ONE_WEEK))));
 
-        echo '<p id="url">'.URL_ADE.'<wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources='.$_SESSION['idTree'].'<wbr />&amp;projectId='.PROJECT_ID.'<wbr />&amp;startDay='.$startDay.'<wbr />&amp;startMonth='.$startMonth.'<wbr />&amp;startYear='.$startYear.'<wbr />&amp;endDay='.$endDay.'<wbr />&amp;endMonth='.$endMonth.'<wbr />&amp;endYear='.$endYear.'<wbr />&amp;calType=ical</p>';
+        echo '<p id="url">'.URL_ADE.'<wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources='.$idTree.'<wbr />&amp;projectId='.PROJECT_ID.'<wbr />&amp;startDay='.$startDay.'<wbr />&amp;startMonth='.$startMonth.'<wbr />&amp;startYear='.$startYear.'<wbr />&amp;endDay='.$endDay.'<wbr />&amp;endMonth='.$endMonth.'<wbr />&amp;endYear='.$endYear.'<wbr />&amp;calType=ical</p>';
         ?>
 
         <p class="centre"><img class="horizontal" src="img/googlecalendar2.png" alt="Image non trouvée" /></p>
