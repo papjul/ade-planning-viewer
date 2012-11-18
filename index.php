@@ -102,13 +102,13 @@ $saturday = SATURDAY;
 $sunday = SUNDAY;
 if(isset($_POST['submit']))
 {
-  $saturday = (isset($_POST['saturday']) ? 'yes' : 'no');
-  $sunday = (isset($_POST['sunday']) ? 'yes' : 'no');
+  $saturday = isset($_POST['saturday']) ? 'yes' : 'no';
+  $sunday = isset($_POST['sunday']) ? 'yes' : 'no';
 }
 $idPianoDay = '0,1,2,3,4'.($saturday == 'yes' ? ',5' : '').''.($sunday == 'yes' ? ',6' : '');
 
 # Le(s) groupe(s) concernés
-$idTree = (isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree'])) ? $_COOKIE['idTree'] : ID_TREE));
+$idTree = isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree'])) ? $_COOKIE['idTree'] : ID_TREE);
 
 # Les dimensions
 $width = isset($_POST['width']) ? intval($_POST['width']) : WIDTH;
@@ -211,11 +211,9 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
           </td>
         </tr>
         <tr>
-          <?php
-          # On affiche les flèches de navigation vers les semaines précédentes et suivantes, si possible
-          if($idPianoWeek > 0)
-            echo '<td><input type="button" name="previous_week" id="previous_week" class="week" value="&lt;&lt;" onclick="javascript:previous_week(this);" /></td>';
-          ?>
+          <td>
+            <?= ($idPianoWeek > 0) ? '<input type="button" name="previous_week" id="previous_week" class="week" value="&lt;&lt;" onclick="javascript:previous_week(this);" />' : '&nbsp;' ?>
+          </td>
 
           <td>
             <select name="idPianoWeek" id="idPianoWeek" onchange="document.getElementById('submit').click();">
@@ -230,10 +228,9 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
             </select>
           </td>
 
-          <?php
-          if($idPianoWeek < NB_WEEKS - 1)
-            echo '<td><input type="button" name="next_week" id="next_week" class="week" value="&gt;&gt;" onclick="javascript:next_week(this);" /></td>';
-          ?>
+          <td>
+            <?= ($idPianoWeek < NB_WEEKS - 1) ? '<input type="button" name="next_week" id="next_week" class="week" value="&gt;&gt;" onclick="javascript:next_week(this);" />' : '&nbsp;' ?>
+          </td>
         </tr>
       </tbody>
     </table>
