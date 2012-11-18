@@ -23,36 +23,36 @@
 
 # Supprime les variables globales
 foreach ($GLOBALS as $k => $v)
-    if(in_array($k, array('GLOBALS', '_POST', '_GET', '_COOKIE', '_FILES', '_SERVER', '_ENV', '_REQUEST', '_SESSION')) === false)
-    {
-        $GLOBALS[$k] = NULL;
-        unset($GLOBALS[$k]);
-    }
+  if(in_array($k, array('GLOBALS', '_POST', '_GET', '_COOKIE', '_FILES', '_SERVER', '_ENV', '_REQUEST', '_SESSION')) === false)
+  {
+    $GLOBALS[$k] = NULL;
+    unset($GLOBALS[$k]);
+  }
 
 # Protection contre les injections SQL (UNION) et XSS/CSS
 $query_string = strtolower(rawurldecode($_SERVER['QUERY_STRING']));
 $bad_string   = array('%20union%20', '/*', '*/union/*', '+union+', 'load_file', 'outfile', 'document.cookie', 'onmouse', '<script', '<iframe', '<applet', '<meta', '<style', '<form', '<img', '<body', '<link', '..', 'http://', '%3C%3F');
 $size = count($bad_string);
 for($i = 0; $i < $size; ++$i)
-     if(strpos($query_string, $bad_string[$i])) exit('Qu’essayiez-vous de faire ?');
+  if(strpos($query_string, $bad_string[$i])) exit('Qu’essayiez-vous de faire ?');
 
 unset($query_string, $bad_string, $string_value);
 
 # Protège les variables
 function SecureVar($value)
 {
-    if(is_array($value))
-    {
-        foreach($value as $k => $v)
-            $value[$k] = SecureVar($value[$k]);
+  if(is_array($value))
+  {
+    foreach($value as $k => $v)
+      $value[$k] = SecureVar($value[$k]);
 
-        return $value;
-    }
-    elseif(!get_magic_quotes_gpc())
-        return str_replace(array('&', '<', '>', '0x'), array('&amp;', '&lt;', '&gt;', '\0x'), addslashes($value)) ;
+    return $value;
+  }
+  elseif(!get_magic_quotes_gpc())
+    return str_replace(array('&', '<', '>', '0x'), array('&amp;', '&lt;', '&gt;', '\0x'), addslashes($value)) ;
 
-    else
-        return str_replace(array('&', '<', '>', '0x'), array('&amp;', '&lt;', '&gt;', '\0x'), $value);
+  else
+    return str_replace(array('&', '<', '>', '0x'), array('&amp;', '&lt;', '&gt;', '\0x'), $value);
 }
 
 $_GET  = array_map('SecureVar', $_GET);
