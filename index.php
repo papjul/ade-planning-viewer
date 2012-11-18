@@ -272,5 +272,5 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
   <hr />
 
   <footer><p>Copyright © 2012 <a href="https://github.com/Yurienu/PlanningIUTInfo">Planning IUT Info</a></p></footer>
-  </body>
+</body>
 </html>
