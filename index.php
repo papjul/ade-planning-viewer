@@ -138,20 +138,12 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
   <meta charset="utf-8" />
 
   <title>Planning IUT Info</title>
-
-  <meta name="title" content="Planning IUT Info" />
-  <meta name="abstract" content="Planning de l’IUT Informatique d’Aix-en-Provence" />
   <meta name="description" content="Planning IUT Info est une application en PHP pour récupérer le planning de l’ADE sur l’ENT de l’IUT Informatique d’Aix-en-Provence via une interface suivant le principe KISS" />
   <meta name="keywords" content="planning, emploi, temps, ade, ent, iut, dut, info, informatique, aix, aix-en-provence" />
-  <meta name="owner" content="Julien Papasian" />
   <meta name="author" content="Julien Papasian" />
-
-  <meta http-equiv="content-language" content="french" />
   <meta name="robots" content="noindex, nofollow" />
 
-  <!-- Flux RSS -->
   <link rel="alternate" type="application/rss+xml" title="Flux RSS des <?= NB_DAYS_RSS ?> jours à venir" href="<?php echo URL_ADE, '/rss?projectId=', PROJECT_ID, '&amp;resources=', $idTree, '&amp;nbDays=', NB_DAYS_RSS; ?>" />
-
   <link rel="stylesheet" title="Planning" type="text/css" href="style.css" />
 
   <script type="text/javascript">

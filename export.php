@@ -32,15 +32,9 @@ list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval(FIRST
   <meta charset="utf-8" />
 
   <title>Planning IUT Info — Exporter l’agenda</title>
-
-  <meta name="title" content="Planning IUT Info" />
-  <meta name="abstract" content="Planning de l’IUT Informatique d’Aix-en-Provence" />
   <meta name="description" content="Planning IUT Info est une application en PHP pour récupérer le planning de l’ADE sur l’ENT de l’IUT Informatique d’Aix-en-Provence via une interface suivant le principe KISS" />
   <meta name="keywords" content="planning, emploi, temps, ade, ent, iut, dut, info, informatique, aix, aix-en-provence" />
-  <meta name="owner" content="Julien Papasian" />
   <meta name="author" content="Julien Papasian" />
-
-  <meta http-equiv="content-language" content="french" />
   <meta name="robots" content="noindex, nofollow" />
 
   <link rel="stylesheet" title="Planning" type="text/css" href="style.css" />
