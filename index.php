@@ -156,33 +156,7 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
 <body>
   <header><h1>Planning IUT Info</h1></header>
 
-  <!-- Les scripts -->
-  <script type="text/javascript">
-  // <![CDATA[
-  /* Permet de passer automatiquement la taille du planning à 1920x1080 en cas de sélection de tous les groupes */
-  function check_width(formulaire) {
-    if(formulaire.form.elements['idTree'].options[formulaire.form.elements['idTree'].selectedIndex].value == '<?= $groups['Tous']['Toutes années'] ?>') document.getElementById("width").selectedIndex = 8;
-
-    document.getElementById('submit').click();
-  }
-
-  /* Bouton Semaine précédente */
-  function previous_week(formulaire) {
-    document.getElementById("idPianoWeek").selectedIndex = parseInt(formulaire.form.elements['idPianoWeek'].options[formulaire.form.elements['idPianoWeek'].selectedIndex].value) - 1;
-
-    document.getElementById('submit').click();
-  }
-
-  /* Bouton Semaine suivante */
-  function next_week(formulaire) {
-    document.getElementById("idPianoWeek").selectedIndex = parseInt(formulaire.form.elements['idPianoWeek'].options[formulaire.form.elements['idPianoWeek'].selectedIndex].value) + 1;
-
-    document.getElementById('submit').click();
-  }
-  // ]]>
-  </script>
-
-  <form id="planning" method="post" action="index.php">
+  <form id="planning" name="planning" method="post" action="index.php">
     <table>
       <tbody>
         <tr>
@@ -204,7 +178,7 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
         </tr>
         <tr>
           <td>
-            <?= ($idPianoWeek > 0) ? '<input type="button" name="previous_week" id="previous_week" class="week" value="&lt;&lt;" onclick="javascript:previous_week(this);" />' : '&nbsp;' ?>
+            <?= ($idPianoWeek > 0) ? '<input type="button" name="previous_week" id="previous_week" class="week" value="&lt;&lt;" onclick="javascript:go_previous_week(this);" />' : '&nbsp;' ?>
           </td>
 
           <td>
@@ -221,7 +195,7 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
           </td>
 
           <td>
-            <?= ($idPianoWeek < NB_WEEKS - 1) ? '<input type="button" name="next_week" id="next_week" class="week" value="&gt;&gt;" onclick="javascript:next_week(this);" />' : '&nbsp;' ?>
+            <?= ($idPianoWeek < NB_WEEKS - 1) ? '<input type="button" name="next_week" id="next_week" class="week" value="&gt;&gt;" onclick="javascript:go_next_week(this);" />' : '&nbsp;' ?>
           </td>
         </tr>
       </tbody>
@@ -261,5 +235,28 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
   <hr />
 
   <footer><p>Copyright © 2012 <a href="https://github.com/Yurienu/PlanningIUTInfo">Planning IUT Info</a></p></footer>
+
+  <!-- Les scripts -->
+  <script type="text/javascript">
+  // <![CDATA[
+  /* Permet de passer automatiquement la taille du planning à 1920x1080 en cas de sélection de tous les groupes */
+  function check_width(formulaire) {
+    if(document.getElementById('idTree').value == '<?= $groups['Tous']['Toutes années'] ?>') document.getElementById('width').selectedIndex = 8;
+    document.getElementById('submit').click();
+  }
+
+  /* Bouton Semaine précédente */
+  function go_previous_week(formulaire) {
+    document.getElementById('idPianoWeek').selectedIndex = parseInt(document.getElementById('idPianoWeek').selectedIndex) - 1;
+    document.getElementById('submit').click();
+  }
+
+  /* Bouton Semaine suivante */
+  function go_next_week(formulaire) {
+    document.getElementById('idPianoWeek').selectedIndex = parseInt(document.getElementById('idPianoWeek').selectedIndex) + 1;
+    document.getElementById('submit').click();
+  }
+  // ]]>
+  </script>
 </body>
 </html>
