@@ -125,10 +125,6 @@ else
 # Le format (horizontal/vertical)
 $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']) : DISPLAY_CONF_ID;
 
-# On prépare l’export en iCal
-list($startDay, $startMonth, $startYear) = explode('/', gmdate('d\/m\/Y', $weeks[$idPianoWeek]));
-list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval($weeks[$idPianoWeek] + 6 * ONE_DAY)));
-
 # On prépare l’URL de l’image
 $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.$idTree.'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId;
 ?>
@@ -161,7 +157,7 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
       <tbody>
         <tr>
           <td colspan="3">
-            <select name="idTree" id="idTree" onchange="check_width()">
+            <select name="idTree" id="idTree" onchange="check_groups()">
               <?php
               foreach($groups as $kInitLoop => $vInitLoop)
               {
@@ -203,9 +199,9 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
 
     <p><a href="export.php" title="Exporter le planning au format iCalendar ICS/VCS"><strong>Exporter l’agenda</strong></a></p>
 
-    <p><img src="<?= $img_src ?>" alt="Serveur non-accessible ou mise à jour requise" /></p>
+    <p><img id="img_planning" src="<?= $img_src ?>" alt="Serveur inaccessible ou mise à jour requise" /></p>
 
-    <p><a href="<?= $img_src ?>">Télécharger l’image</a></p>
+    <p><a id="href_planning" href="<?= $img_src ?>">Télécharger l’image</a></p>
 
     <hr />
 
@@ -241,12 +237,44 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
   // <![CDATA[
   /* Envoyer le formulaire */
   function submit_form() {
-    document.getElementById('submit').click();
+    var dimensions = new Array();
+    <?php
+    echo "dimensions[".WIDTH."] = ".HEIGHT.";\n";
+
+    foreach($dimensions as $dWidth => $dHeight)
+      echo "dimensions[".$dWidth."] = ".$dHeight.";\n";
+    ?>
+
+    var idPianoWeek   = document.getElementById('idPianoWeek').value;
+    var idPianoDay    = "0,1,2,3,4";
+    var idTree        = document.getElementById('idTree').value;
+    var width         = document.getElementById('width').value;
+    var height        = dimensions[parseInt(width)];
+    var displayConfId = document.getElementById('displayConfId').value;
+
+    if(document.getElementById('saturday').checked == true) idPianoDay += ",5";
+    if(document.getElementById('sunday').checked == true) idPianoDay += ",6";
+
+    var url = "<?= URL_ADE ?>/imageEt?identifier=<?= $identifier ?>\&projectId=<?= PROJECT_ID ?>\&idPianoWeek=" + idPianoWeek + "\&idPianoDay=" + idPianoDay + "\&idTree=" + idTree + "\&width=" + width + "\&height=" + height + "\&lunchName=REPAS\&displayMode=1057855\&showLoad=false\&ttl=<?= time() ?>000\&displayConfId=" + displayConfId + "";
+
+    document.getElementById('img_planning').src = url;
+    document.getElementById('href_planning').href = url;
   }
 
-  /* Permet de passer automatiquement la taille du planning à 1920x1080 en cas de sélection de tous les groupes */
-  function check_width() {
+  /* Vérification en cas de changement du groupe */
+  function check_groups() {
+    /* Permet d’envoyer en cookie le nouveau groupe sélectionné */
+    var idTree = document.getElementById('idTree').value;
+
+    var date = new Date();
+    date.setTime(date.getTime() + <?= ONE_YEAR ?>);
+    var expires = "; expires=" + date.toGMTString();
+
+    document.cookie = "idTree="+idTree+expires+"; path=/";
+
+    /* Permet de passer automatiquement la taille du planning à 1920x1080 en cas de sélection de tous les groupes */
     if(document.getElementById('idTree').value == '<?= $groups['Tous']['Toutes années'] ?>') document.getElementById('width').selectedIndex = 8;
+
     submit_form();
   }
 
