@@ -156,12 +156,12 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
 <body>
   <header><h1>Planning IUT Info</h1></header>
 
-  <form id="planning" name="planning" method="post" action="index.php">
+  <form id="planning" name="myform" method="post" action="index.php">
     <table>
       <tbody>
         <tr>
           <td colspan="3">
-            <select name="idTree" id="idTree" onchange="javascript:check_width(this);">
+            <select name="idTree" id="idTree" onchange="check_width()">
               <?php
               foreach($groups as $kInitLoop => $vInitLoop)
               {
@@ -178,11 +178,11 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
         </tr>
         <tr>
           <td>
-            <?= ($idPianoWeek > 0) ? '<input type="button" name="previous_week" id="previous_week" class="week" value="&lt;&lt;" onclick="javascript:go_previous_week(this);" />' : '&nbsp;' ?>
+            <?= ($idPianoWeek > 0) ? '<input type="button" name="previous_week" id="previous_week" class="week" value="&lt;&lt;" onclick="go_previous_week()" />' : '&nbsp;' ?>
           </td>
 
           <td>
-            <select name="idPianoWeek" id="idPianoWeek" onchange="document.getElementById('submit').click();">
+            <select name="idPianoWeek" id="idPianoWeek" onchange="submit_form()">
               <?php
               # Boucle sur NB_WEEKS semaines
               for($i = 0; $i < NB_WEEKS; ++$i)
@@ -195,7 +195,7 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
           </td>
 
           <td>
-            <?= ($idPianoWeek < NB_WEEKS - 1) ? '<input type="button" name="next_week" id="next_week" class="week" value="&gt;&gt;" onclick="javascript:go_next_week(this);" />' : '&nbsp;' ?>
+            <?= ($idPianoWeek < NB_WEEKS - 1) ? '<input type="button" name="next_week" id="next_week" class="week" value="&gt;&gt;" onclick="go_next_week()" />' : '&nbsp;' ?>
           </td>
         </tr>
       </tbody>
@@ -210,16 +210,16 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
     <hr />
 
     <p>
-      <input type="checkbox" name="saturday" id="saturday" value="yes" onchange="document.getElementById('submit').click();"<?= ($saturday == 'yes') ? ' checked="checked"' : '' ?> /><label for="saturday"> Samedi</label>
-      <input type="checkbox" name="sunday" id="sunday" value="yes" onchange="document.getElementById('submit').click();"<?= ($sunday == 'yes') ? ' checked="checked"' : '' ?> /><label for="sunday"> Dimanche</label>
+      <input type="checkbox" name="saturday" id="saturday" value="yes" onchange="submit_form()"<?= ($saturday == 'yes') ? ' checked="checked"' : '' ?> /><label for="saturday"> Samedi</label>
+      <input type="checkbox" name="sunday" id="sunday" value="yes" onchange="submit_form()"<?= ($sunday == 'yes') ? ' checked="checked"' : '' ?> /><label for="sunday"> Dimanche</label>
     </p>
 
     <p>
-      <select id="displayConfId" name="displayConfId" onchange="document.getElementById('submit').click();">
+      <select id="displayConfId" name="displayConfId" onchange="submit_form()">
         <option value="41"<?= ($displayConfId == 41) ? SELECTED : '' ?>>Horizontal</option>
         <option value="8"<?= ($displayConfId == 8) ? SELECTED : '' ?>>Vertical</option>
       </select>
-      <select id="width" name="width" onchange="document.getElementById('submit').click();">
+      <select id="width" name="width" onchange="submit_form()">
         <?php
         echo '<option value="', WIDTH, '" ', ($width == WIDTH) ? SELECTED : '', '>', WIDTH, ' x ', HEIGHT, ' (par défaut)</option>';
 
@@ -239,22 +239,27 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
   <!-- Les scripts -->
   <script type="text/javascript">
   // <![CDATA[
-  /* Permet de passer automatiquement la taille du planning à 1920x1080 en cas de sélection de tous les groupes */
-  function check_width(formulaire) {
-    if(document.getElementById('idTree').value == '<?= $groups['Tous']['Toutes années'] ?>') document.getElementById('width').selectedIndex = 8;
+  /* Envoyer le formulaire */
+  function submit_form() {
     document.getElementById('submit').click();
+  }
+
+  /* Permet de passer automatiquement la taille du planning à 1920x1080 en cas de sélection de tous les groupes */
+  function check_width() {
+    if(document.getElementById('idTree').value == '<?= $groups['Tous']['Toutes années'] ?>') document.getElementById('width').selectedIndex = 8;
+    submit_form();
   }
 
   /* Bouton Semaine précédente */
-  function go_previous_week(formulaire) {
+  function go_previous_week() {
     document.getElementById('idPianoWeek').selectedIndex = parseInt(document.getElementById('idPianoWeek').selectedIndex) - 1;
-    document.getElementById('submit').click();
+    submit_form();
   }
 
   /* Bouton Semaine suivante */
-  function go_next_week(formulaire) {
+  function go_next_week() {
     document.getElementById('idPianoWeek').selectedIndex = parseInt(document.getElementById('idPianoWeek').selectedIndex) + 1;
-    document.getElementById('submit').click();
+    submit_form();
   }
   // ]]>
   </script>
