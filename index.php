@@ -30,7 +30,7 @@ if(DEBUG)
 }
 
 # On donne le cookie à bouffer au navigo le plus tôt possible
-if(isset($_POST['submit']))
+if(isset($_POST['idTree']))
   setcookie('idTree', implode(',', $_POST['idTree']), time() + ONE_YEAR, null, null, false, true);
 
 ## Création des groupes dans un tableau de tableaux
@@ -146,7 +146,7 @@ else
 $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']) : DISPLAY_CONF_ID;
 
 # On prépare l’URL de l’image
-$img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.implode(',', $idTree).'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId;
+$img_src = (implode(',', $idTree) != 0) ? URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.implode(',', $idTree).'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId : 'img/bgExpertBlanc.gif';
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
@@ -300,7 +300,12 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
     if(document.getElementById('saturday').checked == true) idPianoDay += ",5";
     if(document.getElementById('sunday').checked == true) idPianoDay += ",6";
 
-    var url = "<?= URL_ADE ?>/imageEt?identifier=<?= $identifier ?>\&projectId=<?= PROJECT_ID ?>\&idPianoWeek=" + idPianoWeek + "\&idPianoDay=" + idPianoDay + "\&idTree=" + idTree + "\&width=" + width + "\&height=" + height + "\&lunchName=REPAS\&displayMode=1057855\&showLoad=false\&ttl=<?= time() ?>000\&displayConfId=" + displayConfId + "";
+    if(idTree != '') {
+      var url = "<?= URL_ADE ?>/imageEt?identifier=<?= $identifier ?>\&projectId=<?= PROJECT_ID ?>\&idPianoWeek=" + idPianoWeek + "\&idPianoDay=" + idPianoDay + "\&idTree=" + idTree + "\&width=" + width + "\&height=" + height + "\&lunchName=REPAS\&displayMode=1057855\&showLoad=false\&ttl=<?= time() ?>000\&displayConfId=" + displayConfId + "";
+    }
+    else {
+      var url = "img/bgExpertBlanc.gif";
+    }
 
     document.getElementById('img_planning').src = url;
     document.getElementById('href_planning').href = url;
@@ -308,12 +313,15 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
 
   /* Permet d’envoyer en cookie le nouveau groupe sélectionné */
   function check_groups() {
-    var idTree        = getMultipleSelectById('idTree');
-    var date = new Date();
-    date.setTime(date.getTime() + <?= ONE_YEAR ?>);
-    var expires = "; expires=" + date.toGMTString();
+    var idTree = getMultipleSelectById('idTree');
 
-    document.cookie = "idTree="+idTree+expires+"; path=/";
+    if(idTree != '') {
+      var date = new Date();
+      date.setTime(date.getTime() + <?= ONE_YEAR ?>);
+      var expires = "; expires=" + date.toGMTString();
+
+      document.cookie = "idTree="+idTree+expires+"; path=/";
+    }
 
     submit_form();
   }
