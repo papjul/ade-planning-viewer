@@ -22,6 +22,13 @@ define('ROOT', dirname( __FILE__ ));
 require_once ROOT.'/init.php';   # Sécurité principalement
 require_once ROOT.'/config.php'; # Configuration
 
+# Activation des erreurs
+if(DEBUG)
+{
+  error_reporting(E_ALL);
+  ini_set('display_errors', true);
+}
+
 # On donne le cookie à bouffer au navigo le plus tôt possible
 if(isset($_POST['submit']))
   setcookie('idTree', $_POST['idTree'], time() + ONE_YEAR, null, null, false, true);
@@ -145,7 +152,7 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
   <script type="text/javascript">
   // <![CDATA[
   /* Quelques trucs en CSS pour ceux qui ont JavaScript désactivé */
-  document.write('<style type="text/css">input[type="submit"] { display: none; } input[type="button"].week { display: inline; }</style>');
+  document.write('<style type="text/css"><?= !DEBUG ? 'input[type="submit"] { display: none; } ' : '' ?>input[type="button"].week { display: inline; }</style>');
   // ]]>
   </script>
 </head>

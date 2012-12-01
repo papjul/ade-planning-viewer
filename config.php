@@ -20,6 +20,9 @@
 if(!defined('SAFE')) exit('Nothing to do here');
 
 ### Configuration
+# Affiche les messages d’erreur ou non
+define('DEBUG', false);
+
 # Différentes ressources web
 define('URL_ADE', 'http://planning.univmed.fr/ade');
 define('URL_IDENTIFIER', 'https://raw.github.com/Yurienu/PlanningIUTInfo/master/identifier');
