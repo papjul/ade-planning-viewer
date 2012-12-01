@@ -74,70 +74,84 @@ list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval(FIRST
 
     <p class="center"><img src="img/googlecalendar1.png" alt="Image non trouvée" /></p>
 
-    <p>Ajoutez ensuite l’URL correspondant au groupe que vous voulez suivre :</p>
+    <p>Ajoutez ensuite l’URL correspondant au(x) groupe(s) que vous voulez suivre :</p>
 
     <form method="post" action="export.php#url">
+      <?php
+      # Le(s) groupe(s) concernés
+      $idTree = array();
+      if(isset($_POST['idTree'])) $idTree = $_POST['idTree'];
+      elseif(isset($_COOKIE['idTree'])) $idTree = explode(',', $_COOKIE['idTree']);
+      else $idTree = explode(',', 0);
+
+      if(implode(',',$idTree) != 0)
+        echo '<p id="url">', URL_ADE, '<wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources=', implode(',',$idTree), '<wbr />&amp;projectId=', PROJECT_ID, '<wbr />&amp;startDay=', $startDay, '<wbr />&amp;startMonth=', $startMonth, '<wbr />&amp;startYear=', $startYear, '<wbr />&amp;endDay=', $endDay, '<wbr />&amp;endMonth=', $endMonth, '<wbr />&amp;endYear=', $endYear, '<wbr />&amp;calType=ical</p>';
+      ?>
       <p>
-        <select name="idTree" id="idTree" onchange="document.getElementById('submit').click();">
+        <select name="idTree[]" id="idTree" onchange="document.getElementById('submit').click();" multiple="multiple">
           <?php
-          $groups = array('1re année'   => array('Groupe 1A' => 8385,
-                                                 'Groupe 1B' => 8386,
-                                                 'Groupe 2A' => 8387,
-                                                 'Groupe 2B' => 8388,
-                                                 'Groupe 3A' => 8389,
-                                                 'Groupe 3B' => 8390,
-                                                 'Groupe 4A' => 8391,
-                                                 'Groupe 4B' => 8392,
-                                                 'Groupe 5A' => 8393,
-                                                 'Groupe 5B' => 8394),
-                          '2e année'    => array('Groupe 1A' => 8400,
-                                                 'Groupe 1B' => 8401,
-                                                 'Groupe 2A' => 8402,
-                                                 'Groupe 2B' => 8403,
-                                                 'Groupe 3A' => 8404,
-                                                 'Groupe 3B' => 8405,
-                                                 'Groupe 4A' => 3772,
-                                                 'Groupe 4B' => 3773),
-                          'Licence Pro' => array('LP' => 6445),
-                          'Enseignants' => array('BERNE Michel'         => 5156,
-                                                 'BOITARD Didier'       => 5581,
-                                                 'BONHOMME Christian'   => 5115,
-                                                 'BROCHE Martine'       => 5579,
-                                                 'CACCHIA Marie claude' => 5419,
-                                                 'CASALI Alain'         => 321,
-                                                 'CICCHETTI Rosine'     => 254,
-                                                 'DRAGUT Andreea'       => 5639,
-                                                 'GAITAN Patricia'      => 5204,
-                                                 'KIAN Yavar'           => 1236,
-                                                 'LAKHAL Lotfi'         => 144,
-                                                 'LANKESTER Robert'     => 5351,
-                                                 'LAPORTE Marc'         => 5570,
-                                                 'MONNET Marlène'       => 9836,
-                                                 'NEDJAR Sebastien'     => 578,
-                                                 'PAIN BARRE Cyril'     => 5179,
-                                                 'RISCH Vincent'        => 5173,
-                                                 'SLEZAK Eileen'        => 5670,
-                                                 'VAQUIERI Josee'       => 5345,
-                                                 'YAHI Safa'            => 6323));
-          $idTree = isset($_POST['idTree']) ? $_POST['idTree'] : 8385;
+          $groups = array('1re année'    => 0,
+                            'Groupe 1A'  => 8385,
+                            'Groupe 1B'  => 8386,
+                            'Groupe 2A'  => 8387,
+                            'Groupe 2B'  => 8388,
+                            'Groupe 3A'  => 8389,
+                            'Groupe 3B'  => 8390,
+                            'Groupe 4A'  => 8391,
+                            'Groupe 4B'  => 8392,
+                            'Groupe 5A'  => 8393,
+                            'Groupe 5B'  => 8394,
+                          '2e année'     => 0,
+                            'Groupe 1A ' => 8400,
+                            'Groupe 1B ' => 8401,
+                            'Groupe 2A ' => 8402,
+                            'Groupe 2B ' => 8403,
+                            'Groupe 3A ' => 8404,
+                            'Groupe 3B ' => 8405,
+                            'Groupe 4A ' => 3772,
+                            'Groupe 4B ' => 3773,
+                          'Licence Pro'  => 0,
+                            'LP'         => 6445,
+                          'Enseignants'  => 0,
+                            'BERNE Michel'         => 5156,
+                            'BOITARD Didier'       => 5581,
+                            'BONHOMME Christian'   => 5115,
+                            'BROCHE Martine'       => 5579,
+                            'CACCHIA Marie claude' => 5419,
+                            'CASALI Alain'         => 321,
+                            'CICCHETTI Rosine'     => 254,
+                            'DRAGUT Andreea'       => 5639,
+                            'GAITAN Patricia'      => 5204,
+                            'KIAN Yavar'           => 1236,
+                            'LAKHAL Lotfi'         => 144,
+                            'LANKESTER Robert'     => 5351,
+                            'LAPORTE Marc'         => 5570,
+                            'MONNET Marlène'       => 9836,
+                            'NEDJAR Sebastien'     => 578,
+                            'PAIN BARRE Cyril'     => 5179,
+                            'RISCH Vincent'        => 5173,
+                            'SLEZAK Eileen'        => 5670,
+                            'VAQUIERI Josee'       => 5345,
+                            'YAHI Safa'            => 6323);
 
-          foreach($groups as $kInitLoop => $vInitLoop)
+          $first_optgroup = true;
+          foreach($groups as $kLoop => $vLoop)
           {
-            echo '<optgroup label="', $kInitLoop, '">';
+            if($vLoop != 0)
+              echo '<option value="', $vLoop, '"', (in_array($vLoop, $idTree)) ? SELECTED : '', '>', $kLoop, '</option>';
 
-            foreach($vInitLoop as $kLoop => $vLoop)
-              echo '<option value="', $vLoop, '"', ($idTree == $vLoop) ? SELECTED : '', '>', $kLoop, '</option>';
-
-            echo '</optgroup>';
+            else
+            {
+              echo (!$first_optgroup ? '</optgroup>' : '').'<optgroup label="'.$kLoop.'">';
+              $first_optgroup = false;
+            }
           }
+          echo '</optgroup>';
           ?>
         </select>
         <input type="submit" id="submit" name="submit" value="OK" />
       </p>
     </form>
-    <?php
-    echo '<p id="url">', URL_ADE, '<wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources=', $idTree, '<wbr />&amp;projectId=', PROJECT_ID, '<wbr />&amp;startDay=', $startDay, '<wbr />&amp;startMonth=', $startMonth, '<wbr />&amp;startYear=', $startYear, '<wbr />&amp;endDay=', $endDay, '<wbr />&amp;endMonth=', $endMonth, '<wbr />&amp;endYear=', $endYear, '<wbr />&amp;calType=ical</p>';
-    ?>
 
     <p class="center"><img src="img/googlecalendar2.png" alt="Image non trouvée" /></p>
 
