@@ -97,6 +97,11 @@ form#planning p, footer p {
   padding-bottom: 5px;
 }
 
+select#idTree {
+  width: 100%;
+  height: 200px;
+}
+
 #content {
   padding: 10px;
 }

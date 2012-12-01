@@ -31,42 +31,52 @@ if(DEBUG)
 
 # On donne le cookie à bouffer au navigo le plus tôt possible
 if(isset($_POST['submit']))
-  setcookie('idTree', $_POST['idTree'], time() + ONE_YEAR, null, null, false, true);
+  setcookie('idTree', implode(',', $_POST['idTree']), time() + ONE_YEAR, null, null, false, true);
 
 ## Création des groupes dans un tableau de tableaux
-$groups = array('Tous'        => array('Toutes années' => '8385,8386,8387,8388,8389,8390,8391,8392,8393,8394,8400,8401,8402,8403,8404,8405,3772,3773,6445'),
-                '1re année'   => array('1re année (tous)' => '8385,8386,8387,8388,8389,8390,8391,8392,8393,8394',
-                                        'Groupe 1' => '8385,8386',
-                                        'Groupe 2' => '8387,8388',
-                                        'Groupe 3' => '8389,8390',
-                                        'Groupe 4' => '8391,8392',
-                                        'Groupe 5' => '8393,8394'),
-                '2e année'    => array('2e année (tous)' => '8400,8401,8402,8403,8404,8405,3772,3773',
-                                        'Groupe 1' => '8400,8401',
-                                        'Groupe 2' => '8402,8403',
-                                        'Groupe 3' => '8404,8405',
-                                        'Groupe 4' => '3772,3773'),
-                'Licence Pro' => array('LP' => 6445),
-                'Enseignants' => array('BERNE Michel'         => 5156,
-                                       'BOITARD Didier'       => 5581,
-                                       'BONHOMME Christian'   => 5115,
-                                       'BROCHE Martine'       => 5579,
-                                       'CACCHIA Marie claude' => 5419,
-                                       'CASALI Alain'         => 321,
-                                       'CICCHETTI Rosine'     => 254,
-                                       'DRAGUT Andreea'       => 5639,
-                                       'GAITAN Patricia'      => 5204,
-                                       'KIAN Yavar'           => 1236,
-                                       'LAKHAL Lotfi'         => 144,
-                                       'LANKESTER Robert'     => 5351,
-                                       'LAPORTE Marc'         => 5570,
-                                       'MONNET Marlène'       => 9836,
-                                       'NEDJAR Sebastien'     => 578,
-                                       'PAIN BARRE Cyril'     => 5179,
-                                       'RISCH Vincent'        => 5173,
-                                       'SLEZAK Eileen'        => 5670,
-                                       'VAQUIERI Josee'       => 5345,
-                                       'YAHI Safa'            => 6323));
+$groups = array('1re année'    => 0,
+                  'Groupe 1A'  => 8385,
+                  'Groupe 1B'  => 8386,
+                  'Groupe 2A'  => 8387,
+                  'Groupe 2B'  => 8388,
+                  'Groupe 3A'  => 8389,
+                  'Groupe 3B'  => 8390,
+                  'Groupe 4A'  => 8391,
+                  'Groupe 4B'  => 8392,
+                  'Groupe 5A'  => 8393,
+                  'Groupe 5B'  => 8394,
+                '2e année'     => 0,
+                  'Groupe 1A ' => 8400,
+                  'Groupe 1B ' => 8401,
+                  'Groupe 2A ' => 8402,
+                  'Groupe 2B ' => 8403,
+                  'Groupe 3A ' => 8404,
+                  'Groupe 3B ' => 8405,
+                  'Groupe 4A ' => 3772,
+                  'Groupe 4B ' => 3773,
+                'Licence Pro'  => 0,
+                  'LP'         => 6445,
+                'Enseignants'  => 0,
+                  'BERNE Michel'         => 5156,
+                  'BOITARD Didier'       => 5581,
+                  'BONHOMME Christian'   => 5115,
+                  'BROCHE Martine'       => 5579,
+                  'CACCHIA Marie claude' => 5419,
+                  'CASALI Alain'         => 321,
+                  'CICCHETTI Rosine'     => 254,
+                  'DRAGUT Andreea'       => 5639,
+                  'GAITAN Patricia'      => 5204,
+                  'KIAN Yavar'           => 1236,
+                  'LAKHAL Lotfi'         => 144,
+                  'LANKESTER Robert'     => 5351,
+                  'LAPORTE Marc'         => 5570,
+                  'MONNET Marlène'       => 9836,
+                  'NEDJAR Sebastien'     => 578,
+                  'PAIN BARRE Cyril'     => 5179,
+                  'RISCH Vincent'        => 5173,
+                  'SLEZAK Eileen'        => 5670,
+                  'VAQUIERI Josee'       => 5345,
+                  'YAHI Safa'            => 6323);
 
 ## Création des associations numéro de semaine → timestamp dans un tableau
 $weeks = array();
@@ -115,7 +125,10 @@ if(isset($_POST['submit']))
 $idPianoDay = '0,1,2,3,4'.($saturday == 'yes' ? ',5' : '').''.($sunday == 'yes' ? ',6' : '');
 
 # Le(s) groupe(s) concernés
-$idTree = isset($_POST['idTree']) ? $_POST['idTree'] : ((isset($_COOKIE['idTree'])) ? $_COOKIE['idTree'] : ID_TREE);
+$idTree = array();
+if(isset($_POST['idTree'])) $idTree = $_POST['idTree'];
+elseif(isset($_COOKIE['idTree'])) $idTree = explode(',', $_COOKIE['idTree']);
+else $idTree = explode(',', ID_TREE);
 
 # Les dimensions
 $width = isset($_POST['width']) ? intval($_POST['width']) : WIDTH;
@@ -133,7 +146,7 @@ else
 $displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']) : DISPLAY_CONF_ID;
 
 # On prépare l’URL de l’image
-$img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.$idTree.'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId;
+$img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.implode(',', $idTree).'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId;
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
@@ -164,17 +177,21 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
       <tbody>
         <tr>
           <td colspan="3">
-            <select name="idTree" id="idTree" onchange="check_groups()">
+            <select name="idTree[]" id="idTree" onchange="check_groups()" multiple="multiple">
               <?php
-              foreach($groups as $kInitLoop => $vInitLoop)
+              $first_optgroup = true;
+              foreach($groups as $kLoop => $vLoop)
               {
-                echo '<optgroup label="', $kInitLoop, '">';
+                if($vLoop != 0)
+                  echo '<option value="', $vLoop, '"', (in_array($vLoop, $idTree)) ? SELECTED : '', '>', $kLoop, '</option>';
 
-                foreach($vInitLoop as $kLoop => $vLoop)
-                  echo '<option value="', $vLoop, '"', ($idTree == $vLoop) ? SELECTED : '', '>', $kLoop, '</option>';
-
-                echo '</optgroup>';
+                else
+                {
+                  echo (!$first_optgroup ? '</optgroup>' : '').'<optgroup label="'.$kLoop.'">';
+                  $first_optgroup = false;
+                }
               }
+              echo '</optgroup>';
               ?>
             </select>
           </td>
@@ -235,6 +252,9 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
     <p><input type="submit" id="submit" name="submit" value="Récupérer le planning" /></p>
   </form>
 
+  <p class="center"><em>L’image peut mettre un certain temps à s’actualiser en fonction de votre connexion</em></p>
+  <p class="center"><em>Vous pouvez sélectionner plusieurs groupes à la fois en maintenant Ctrl ou Maj dans la liste</em></p>
+
   <hr />
 
   <footer><p>Copyright © 2012 <a href="https://github.com/Yurienu/PlanningIUTInfo">Planning IUT Info</a></p></footer>
@@ -242,6 +262,24 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
   <!-- Les scripts -->
   <script type="text/javascript">
   // <![CDATA[
+  /* Renvoie un array contenant les éléments sélectionnés d’un select multiple */
+  function getMultipleSelectById(selectId) {
+    var elmt = document.getElementById(selectId);
+    var values = new Array();
+    var j = 0;
+
+    for(var i = 0; i < elmt.options.length; ++i)
+    {
+      if(elmt.options[i].selected == true)
+      {
+        values[j] = elmt.options[i].value;
+        ++j;
+      }
+    }
+
+    return values;
+  }
+
   /* Envoyer le formulaire */
   function submit_form() {
     var dimensions = new Array();
@@ -254,7 +292,7 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
 
     var idPianoWeek   = document.getElementById('idPianoWeek').value;
     var idPianoDay    = "0,1,2,3,4";
-    var idTree        = document.getElementById('idTree').value;
+    var idTree        = getMultipleSelectById('idTree');
     var width         = document.getElementById('width').value;
     var height        = dimensions[parseInt(width)];
     var displayConfId = document.getElementById('displayConfId').value;
@@ -268,19 +306,14 @@ $img_src = URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.PROJECT_
     document.getElementById('href_planning').href = url;
   }
 
-  /* Vérification en cas de changement du groupe */
+  /* Permet d’envoyer en cookie le nouveau groupe sélectionné */
   function check_groups() {
-    /* Permet d’envoyer en cookie le nouveau groupe sélectionné */
-    var idTree = document.getElementById('idTree').value;
-
+    var idTree        = getMultipleSelectById('idTree');
     var date = new Date();
     date.setTime(date.getTime() + <?= ONE_YEAR ?>);
     var expires = "; expires=" + date.toGMTString();
 
     document.cookie = "idTree="+idTree+expires+"; path=/";
-
-    /* Permet de passer automatiquement la taille du planning à 1920x1080 en cas de sélection de tous les groupes */
-    if(document.getElementById('idTree').value == '<?= $groups['Tous']['Toutes années'] ?>') document.getElementById('width').selectedIndex = 8;
 
     submit_form();
   }
