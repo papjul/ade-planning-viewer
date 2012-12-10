@@ -126,6 +126,7 @@ list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval(FIRST
                             'LAKHAL Lotfi'         => 144,
                             'LANKESTER Robert'     => 5351,
                             'LAPORTE Marc'         => 5570,
+                            'MARTIN-NEVOT Mickael' => 4533,
                             'MONNET Marlène'       => 9836,
                             'NEDJAR Sebastien'     => 578,
                             'PAIN BARRE Cyril'     => 5179,
