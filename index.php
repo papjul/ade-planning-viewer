@@ -161,7 +161,7 @@ $img_src = (implode(',', $idTree) != 0) ? URL_ADE.'/imageEt?identifier='.$identi
   <meta name="author" content="Julien Papasian" />
   <meta name="robots" content="noindex, nofollow" />
 
-  <link rel="alternate" type="application/rss+xml" title="Flux RSS des <?= NB_DAYS_RSS ?> jours à venir" href="<?php echo URL_ADE, '/rss?projectId=', PROJECT_ID, '&amp;resources=', $idTree, '&amp;nbDays=', NB_DAYS_RSS; ?>" />
+  <?= (implode(',', $idTree) != 0) ? '<link rel="alternate" type="application/rss+xml" title="Flux RSS des '.NB_DAYS_RSS.' jours à venir" href="'.URL_ADE.'/rss?projectId='.PROJECT_ID.'&amp;resources='.implode(',', $idTree).'&amp;nbDays='.NB_DAYS_RSS.'" />' : '' ?>
   <link rel="stylesheet" title="Planning" type="text/css" href="style.css" />
 
   <script type="text/javascript">
