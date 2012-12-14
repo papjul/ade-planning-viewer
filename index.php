@@ -243,10 +243,10 @@ $img_src = (implode(',', $idTree) != 0) ? URL_ADE.'/imageEt?identifier='.$identi
       </select>
       <select id="width" name="width" onchange="submit_form()">
         <?php
-        echo '<option value="', WIDTH, '" ', ($width == WIDTH) ? SELECTED : '', '>', WIDTH, ' x ', HEIGHT, ' (par défaut)</option>';
+        echo '<option value="', WIDTH, '"', ($width == WIDTH) ? SELECTED : '', '>', WIDTH, ' x ', HEIGHT, ' (par défaut)</option>';
 
         foreach($dimensions as $dWidth => $dHeight)
-          echo '<option value="', $dWidth, '" ', ($width == $dWidth) ? SELECTED : '', '>', $dWidth, ' x ', $dHeight, '</option>';
+          echo '<option value="', $dWidth, '"', ($width == $dWidth) ? SELECTED : '', '>', $dWidth, ' x ', $dHeight, '</option>';
         ?>
       </select>
     </p>
