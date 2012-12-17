@@ -74,18 +74,14 @@ list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval(FIRST
 
     <p class="center"><img src="img/googlecalendar1.png" alt="Image non trouvée" /></p>
 
+    <hr />
+
     <p>Ajoutez ensuite l’URL correspondant au(x) groupe(s) que vous voulez suivre :</p>
 
-    <form method="post" action="export.php#url">
+    <form method="post" action="export.php#idTree">
       <?php
       # Le(s) groupe(s) concernés
-      $idTree = array();
-      if(isset($_POST['idTree'])) $idTree = $_POST['idTree'];
-      elseif(isset($_COOKIE['idTree'])) $idTree = explode(',', $_COOKIE['idTree']);
-      else $idTree = explode(',', 0);
-
-      if(implode(',',$idTree) != 0)
-        echo '<p id="url">', URL_ADE, '<wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources=', implode(',',$idTree), '<wbr />&amp;projectId=', PROJECT_ID, '<wbr />&amp;startDay=', $startDay, '<wbr />&amp;startMonth=', $startMonth, '<wbr />&amp;startYear=', $startYear, '<wbr />&amp;endDay=', $endDay, '<wbr />&amp;endMonth=', $endMonth, '<wbr />&amp;endYear=', $endYear, '<wbr />&amp;calType=ical</p>';
+      $idTree = (isset($_POST['idTree'])) ? $_POST['idTree'] : explode(',', 0);
       ?>
       <p>
         <select name="idTree[]" id="idTree" onchange="document.getElementById('submit').click();" multiple="multiple">
@@ -162,6 +158,11 @@ list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval(FIRST
         </select>
         <input type="submit" id="submit" name="submit" value="OK" />
       </p>
+
+      <?php
+      if(implode(',',$idTree) != 0)
+        echo '<fieldset><legend>URL générée</legend><p id="url">', URL_ADE, '<wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources=', implode(',',$idTree), '<wbr />&amp;projectId=', PROJECT_ID, '<wbr />&amp;startDay=', $startDay, '<wbr />&amp;startMonth=', $startMonth, '<wbr />&amp;startYear=', $startYear, '<wbr />&amp;endDay=', $endDay, '<wbr />&amp;endMonth=', $endMonth, '<wbr />&amp;endYear=', $endYear, '<wbr />&amp;calType=ical</p></fieldset>';
+      ?>
     </form>
 
     <p class="center"><img src="img/googlecalendar2.png" alt="Image non trouvée" /></p>
