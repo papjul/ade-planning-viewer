@@ -87,7 +87,13 @@ $groups = array('1re année'    => 0,
                   'SLEZAK Eileen'          => 5670,
                   'VAQUIERI Josee'         => 5345,
                   'YAHI Safa'              => 6323,
-                  'WOOD David'             => 2070);
+                  'WOOD David'             => 2070,
+                'Salles de TD' => 0,
+                  'Salle A'    => 8414,
+                  'Salle B'    => 8415,
+                  'Salle C'    => 8416,
+                  'Salle D'    => 8417,
+                  'Salle E'    => 8418);
 
 ## Création des associations numéro de semaine → timestamp dans un tableau
 $weeks = array();
