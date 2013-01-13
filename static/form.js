@@ -57,7 +57,6 @@ function submitForm()
   {
     var url = 'img/bgExpertBlanc.gif';
   }
-  document.getElementById('href_planning').href = url;
 
   img_planning.onload = function() {
     document.getElementById('img_planning').src = url;
