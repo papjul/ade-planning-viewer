@@ -126,7 +126,11 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
 <body>
   <header><h1>Planning IUT Info</h1></header>
 
+  <hr />
+
   <form id="planning" method="post" action="index.php">
+    <p><a href="export.php" title="Exporter le planning au format iCalendar ICS/VCS"><strong>Exporter l’agenda</strong></a></p>
+
     <table class="selectors">
       <tbody>
         <tr>
@@ -175,12 +179,8 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
       </tbody>
     </table>
 
-    <p><a href="export.php" title="Exporter le planning au format iCalendar ICS/VCS"><strong>Exporter l’agenda</strong></a></p>
-
+    <hr />
     <p><img id="img_planning" src="<?= $img_src ?>" alt="Serveur inaccessible ou mise à jour requise" /></p>
-
-    <p><a id="href_planning" href="<?= $img_src ?>">Télécharger l’image</a></p>
-
     <hr />
 
     <p>
