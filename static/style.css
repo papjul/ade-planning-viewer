@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /* Normalisation */
-html, body,form, h1, p {
+html, body, form, h1, p {
   margin: 0;
   padding: 0;
 }
