@@ -1,7 +1,7 @@
 <?php
 /** 
  * Planning IUT Info
- * Copyright © 2012 Julien Papasian
+ * Copyright © 2012-2013 Julien Papasian
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -208,7 +208,7 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
 
   <hr />
 
-  <footer><p>Copyright © 2012 <a href="https://github.com/Yurienu/PlanningIUTInfo">Planning IUT Info</a></p></footer>
+  <footer><p>Copyright © 2012-<?= date('Y') ?> <a href="https://github.com/Yurienu/PlanningIUTInfo">Planning IUT Info</a></p></footer>
 
   <script type="text/javascript">
   // <![CDATA[
