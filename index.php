@@ -31,7 +31,7 @@ $file = array('conf'       => file_get_contents(ROOT.'/config/constants.conf'),
 $conf       = json_decode($file['conf']);
 $groups     = json_decode($file['groups']);
 $dimensions = json_decode($file['dimensions']);
-$file['identifier'] = file($conf->URL_IDENTIFIER);
+$file['identifier'] = file($conf->URL_IDENTIFIER, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
 # On donne le cookie à bouffer au navigo le plus tôt possible
 if(isset($_POST['idTree']))
