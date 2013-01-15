@@ -65,7 +65,7 @@ function submitForm()
 }
 
 // Permet d’envoyer en cookie le nouveau groupe sélectionné
-function check_groups()
+function update_groups()
 {
   var idTree = new Array();
   var elmt = document.getElementById('idTree');
@@ -92,15 +92,35 @@ function check_groups()
 }
 
 // Bouton Semaine précédente
-function go_previous_week()
+function go_previous_week(event)
 {
+  stopEvent(event);
   document.getElementById('idPianoWeek').selectedIndex = parseInt(document.getElementById('idPianoWeek').selectedIndex) - 1;
   submitForm();
 }
 
 // Bouton Semaine suivante
-function go_next_week()
+function go_next_week(event)
 {
+  stopEvent(event);
   document.getElementById('idPianoWeek').selectedIndex = parseInt(document.getElementById('idPianoWeek').selectedIndex) + 1;
   submitForm();
+}
+
+// Stoppe la propagation d’un événement
+function stopEvent(event)
+{
+  if(event.stopPropagation) {
+    event.stopPropagation();
+  }
+  else {
+    event.cancelBubble = true;
+  }
+
+  if(event.preventDefault) {
+    event.preventDefault();
+  }
+  else {
+    event.returnValue = false;
+  }
 }

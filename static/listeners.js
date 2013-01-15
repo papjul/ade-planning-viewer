@@ -26,11 +26,11 @@ if(select_idTree)
 {
   if(select_idTree.addEventListener)
   {
-    select_idTree.addEventListener('change', check_groups, false);
+    select_idTree.addEventListener('change', update_groups, false);
   }
   else
   {
-    select_idTree.attachEvent('onchange', check_groups);
+    select_idTree.attachEvent('onchange', update_groups);
   }
 }
 
