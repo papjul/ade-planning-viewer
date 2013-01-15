@@ -119,7 +119,7 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
   <script type="text/javascript">
   // <![CDATA[
   /* Quelques trucs en CSS pour ceux qui ont JavaScript désactivé */
-  document.write('<style type="text/css">input[type="submit"] { display: none; } input[type="button"].week { display: inline; }</style>');
+  document.write('<style type="text/css">input[type="submit"] { display: none; } button.week { display: inline; }</style>');
   // ]]>
   </script>
 </head>
@@ -203,7 +203,7 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
       </select>
     </p>
 
-    <p><input type="submit" id="submit" name="submit" value="Récupérer le planning" /></p>
+    <p><input type="submit" name="submit" value="Récupérer le planning" /></p>
   </form>
 
   <hr />

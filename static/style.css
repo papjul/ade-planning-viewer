@@ -88,7 +88,7 @@ a:active {
   color: #009b7e;
 }
 
-input[type="button"].week {
+button.week {
   display: none;
 }
 
