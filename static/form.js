@@ -25,33 +25,51 @@ function submitForm()
 {
   document.getElementById('img_planning').src = 'img/loading.gif';
 
-  var idPianoWeek   = document.getElementById('idPianoWeek').value;
-  var idPianoDay    = '0,1,2,3,4';
-  var idTree        = new Array();
-  var width         = document.getElementById('width').value;
-  var height        = dimensions[parseInt(width)];
-  var displayConfId = document.getElementById('displayConfId').value;
-  var today         = new Date();
+  var perconf = { };
+  perconf.idTree        = new Array();
+  perconf.idPianoWeek   = document.getElementById('idPianoWeek').value;
+  perconf.saturday      = 'no';
+  perconf.sunday        = 'no';
+  perconf.displayConfId = document.getElementById('displayConfId').value;
+  perconf.width         = document.getElementById('width').value;
+  var height            = dimensions[parseInt(perconf.width)];
+  var idPianoDay        = '0,1,2,3,4';
+
+  if(document.getElementById('saturday').checked == true)
+  {
+    perconf.saturday = 'yes';
+    idPianoDay += ',5';
+  }
+  if(document.getElementById('sunday').checked == true)
+  {
+    perconf.sunday = 'yes';
+    idPianoDay += ',6';
+  }
 
   var elmt = document.getElementById('idTree');
-  var j = 0;
-  for(var i = 0; i < elmt.options.length; ++i)
+  for(var i = 0, j = 0; i < elmt.options.length; ++i)
   {
     if(elmt.options[i].selected == true)
     {
-      idTree[j] = elmt.options[i].value;
+      perconf.idTree[j] = elmt.options[i].value;
       ++j;
     }
   }
 
-  if(document.getElementById('saturday').checked == true) idPianoDay += ',5';
-  if(document.getElementById('sunday').checked == true) idPianoDay += ',6';
+  if(idTree == '') idTree[0] = 0;
 
+  // Envoi du cookie
+  var today = new Date();
+  today.setTime(today.getTime() + 365 * 24 * 3600);
+  var expires = "; expires=" + today.toGMTString();
+  document.cookie = conf.COOKIE_NAME+"="+encodeURIComponent(JSON.stringify(perconf))+expires+"; path=/";
+
+  // Traitement de l’image
   img_planning = new Image();
   
   if(idTree != '')
   {
-    var url = conf.URL_ADE + "/imageEt?identifier=" + identifier + "\&projectId=" + conf.PROJECT_ID + "\&idPianoWeek=" + idPianoWeek + "\&idPianoDay=" + idPianoDay + "\&idTree=" + idTree + "\&width=" + width + "\&height=" + height + "\&lunchName=REPAS\&displayMode=1057855\&showLoad=false\&ttl=" + today.getTime() + "000\&displayConfId=" + displayConfId;
+    var url = conf.URL_ADE + "/imageEt?identifier=" + identifier + "\&projectId=" + conf.PROJECT_ID + "\&idPianoWeek=" + perconf.idPianoWeek + "\&idPianoDay=" + idPianoDay + "\&idTree=" + perconf.idTree + "\&width=" + perconf.width + "\&height=" + height + "\&lunchName=REPAS\&displayMode=1057855\&showLoad=false\&ttl=" + today.getTime() + "000\&displayConfId=" + perconf.displayConfId;
   }
   else
   {
@@ -74,33 +92,6 @@ function selectOptionsByOptgroup(event)
     options[i].selected = 'selected';
   }
   update_groups();
-}
-
-// Permet d’envoyer en cookie le nouveau groupe sélectionné
-function update_groups()
-{
-  var idTree = new Array();
-  var elmt = document.getElementById('idTree');
-  var j = 0;
-  for(var i = 0; i < elmt.options.length; ++i)
-  {
-    if(elmt.options[i].selected == true)
-    {
-      idTree[j] = elmt.options[i].value;
-      ++j;
-    }
-  }
-
-  if(idTree != '')
-  {
-    var date = new Date();
-    date.setTime(date.getTime() + 365 * 24 * 3600);
-    var expires = "; expires=" + date.toGMTString();
-
-    document.cookie = "idTree="+idTree+expires+"; path=/";
-  }
-
-  submitForm();
 }
 
 // Bouton Semaine précédente

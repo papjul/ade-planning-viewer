@@ -33,9 +33,22 @@ $groups     = json_decode($file['groups']);
 $dimensions = json_decode($file['dimensions']);
 $file['identifier'] = file($conf->URL_IDENTIFIER, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
-# On donne le cookie à bouffer au navigo le plus tôt possible
-if(isset($_POST['idTree']))
-  setcookie('idTree', implode(',', $_POST['idTree']), time() + 365 * 24 * 3600, null, null, false, true);
+# Enregistrement des données POST en cookie
+if(isset($_POST['idPianoWeek']))
+{
+  $perconf = array('idTree'        => isset($_POST['idTree']) ? $_POST['idTree'] : 0,
+                   'idPianoWeek'   => $_POST['idPianoWeek'],
+                   'saturday'      => isset($_POST['saturday']) ? 'yes' : 'no',
+                   'sunday'        => isset($_POST['sunday']) ? 'yes' : 'no',
+                   'displayConfId' => $_POST['displayConfId'],
+                   'width'         => $_POST['width']);
+
+  setcookie($conf->COOKIE_NAME, json_encode($perconf), time() + 365 * 24 * 3600, '/', null, false, true);
+}
+
+# Récupération du cookie
+if(isset($_COOKIE[$conf->COOKIE_NAME]))
+  $perconf = json_decode($_COOKIE[$conf->COOKIE_NAME]);
 
 ## Création des associations numéro de semaine → timestamp dans un tableau
 $weeks = array();
@@ -66,29 +79,21 @@ for($i = 0; $i < $conf->NB_WEEKS; ++$i)
 $identifier = $file['identifier'][rand(0, count($file['identifier']) - 1)];
 
 # La semaine à afficher
-$idPianoWeek = isset($_POST['idPianoWeek']) ? intval($_POST['idPianoWeek']) : $current_week;
+$idPianoWeek = isset($perconf) ? intval($perconf->idPianoWeek) : $current_week;
 
 # Les jours de la semaine
-$saturday = $conf->SATURDAY;
-$sunday   = $conf->SUNDAY;
-if(isset($_POST['submit']))
-{
-  $saturday = isset($_POST['saturday']) ? 'yes' : 'no';
-  $sunday = isset($_POST['sunday']) ? 'yes' : 'no';
-}
+$saturday = isset($perconf) ? $perconf->saturday : $conf->SATURDAY;
+$sunday   = isset($perconf) ? $perconf->sunday   : $conf->SUNDAY;
 $idPianoDay = '0,1,2,3,4'.($saturday == 'yes' ? ',5' : '').''.($sunday == 'yes' ? ',6' : '');
 
 # Le(s) groupe(s) concernés
-$idTree = array();
-if(isset($_POST['idTree'])) $idTree = $_POST['idTree'];
-elseif(isset($_COOKIE['idTree'])) $idTree = explode(',', $_COOKIE['idTree']);
-else $idTree = explode(',', $conf->ID_TREE);
+$idTree = (isset($perconf)) ? $perconf->idTree : explode(',', $conf->ID_TREE);
 
 # Les dimensions
-$width = isset($_POST['width']) ? intval($_POST['width']) : $conf->WIDTH;
+$width = isset($perconf) ? intval($perconf->width) : $conf->WIDTH;
 
-if(array_key_exists($width, $dimensions))
-  $height = $dimensions[$width];
+if(isset($dimensions->$width))
+  $height = $dimensions->$width;
 
 else
 {
@@ -97,7 +102,7 @@ else
 }
 
 # Le format (horizontal/vertical)
-$displayConfId = isset($_POST['displayConfId']) ? intval($_POST['displayConfId']) : $conf->DISPLAY_CONF_ID;
+$displayConfId = isset($perconf) ? intval($perconf->displayConfId) : $conf->DISPLAY_CONF_ID;
 
 # On prépare l’URL de l’image
 $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.$conf->PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.implode(',', $idTree).'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId : 'img/bgExpertBlanc.gif';
