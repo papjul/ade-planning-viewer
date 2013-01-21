@@ -116,6 +116,10 @@ select#idTree {
 }
 
 #url {
+  display: none;
+}
+
+#url p {
   font-family: Monospace, sans-serif;
   text-align: left!important
 }

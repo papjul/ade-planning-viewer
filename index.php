@@ -145,7 +145,7 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
   <script type="text/javascript">
   // <![CDATA[
   /* Quelques trucs en CSS pour ceux qui ont JavaScript désactivé */
-  document.write('<style type="text/css">input[type="submit"] { display: none; } button.week { display: inline; }</style>');
+  document.write('<style type="text/css">input[type="submit"] { display: none; } button.week { display: inline; } <?= (implode(',',$idTree) != 0) ? '#url { display: block; }' : '' ?></style>');
   // ]]>
   </script>
 </head>
@@ -226,8 +226,7 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
     </p>
 
     <?php
-    if(implode(',',$idTree) != 0)
-      echo '<fieldset><legend>URL d’export du calendrier au format iCal</legend><p id="url">'.$conf->URL_ADE.'<wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources=<span id="resources">'.implode(',',$idTree).'</span><wbr />&amp;projectId='.$conf->PROJECT_ID.'<wbr />&amp;startDay='.$startDay.'<wbr />&amp;startMonth='.$startMonth.'<wbr />&amp;startYear='.$startYear.'<wbr />&amp;endDay='.$endDay.'<wbr />&amp;endMonth='.$endMonth.'<wbr />&amp;endYear='.$endYear.'<wbr />&amp;calType=ical</p></fieldset>';
+    echo '<fieldset id="url"><legend>URL d’export du calendrier au format iCal</legend><p>'.$conf->URL_ADE.'<wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources=<span id="resources">'.implode(',',$idTree).'</span><wbr />&amp;projectId='.$conf->PROJECT_ID.'<wbr />&amp;startDay='.$startDay.'<wbr />&amp;startMonth='.$startMonth.'<wbr />&amp;startYear='.$startYear.'<wbr />&amp;endDay='.$endDay.'<wbr />&amp;endMonth='.$endMonth.'<wbr />&amp;endYear='.$endYear.'<wbr />&amp;calType=ical</p></fieldset>';
     ?>
 
     <p><input type="submit" name="submit" value="Récupérer le planning" /></p>

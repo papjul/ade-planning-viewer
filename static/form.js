@@ -56,8 +56,6 @@ function submitForm()
     }
   }
 
-  if(perconf.idTree == '') perconf.idTree[0] = 0;
-
   // Envoi du cookie
   var today = new Date();
   today.setTime(today.getTime() + 365 * 24 * 3600);
@@ -65,18 +63,21 @@ function submitForm()
   document.cookie = conf.COOKIE_NAME+"="+encodeURIComponent(JSON.stringify(perconf))+expires+"; path=/";
 
   // Export iCal
+  var fieldset = document.getElementById('url');
   document.getElementById('resources').innerHTML = perconf.idTree;
 
   // Traitement de l’image
   img_planning = new Image();
   
-  if(idTree != '')
+  if(perconf.idTree != '')
   {
     var url = conf.URL_ADE + "/imageEt?identifier=" + identifier + "\&projectId=" + conf.PROJECT_ID + "\&idPianoWeek=" + perconf.idPianoWeek + "\&idPianoDay=" + idPianoDay + "\&idTree=" + perconf.idTree + "\&width=" + perconf.width + "\&height=" + height + "\&lunchName=REPAS\&displayMode=1057855\&showLoad=false\&ttl=" + today.getTime() + "000\&displayConfId=" + perconf.displayConfId;
+    fieldset.style.display = 'block';
   }
   else
   {
     var url = 'img/bgExpertBlanc.gif';
+    fieldset.style.display = 'none';
   }
 
   img_planning.onload = function() {
