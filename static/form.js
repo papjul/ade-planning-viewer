@@ -64,6 +64,17 @@ function submitForm()
   img_planning.src = url;
 }
 
+// Sélectionne plusieurs groupes à la fois
+function selectOptionsByOptgroup(event)
+{
+  var options = event.target.getElementsByTagName("option");
+  for(var i = 0, len = options.length; i < len; ++i)
+  {
+    options[i].selected = 'selected';
+  }
+  update_groups();
+}
+
 // Permet d’envoyer en cookie le nouveau groupe sélectionné
 function update_groups()
 {
