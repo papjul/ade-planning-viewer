@@ -195,10 +195,8 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
       </select>
       <select id="width" name="width">
         <?php
-        echo '<option value="'.$conf->WIDTH.'"'.(($width == $conf->WIDTH) ? ' selected="selected"' : '').'>'.$conf->WIDTH.' x '.$conf->HEIGHT.' (par défaut)</option>';
-
         foreach($dimensions as $dWidth => $dHeight)
-          echo '<option value="'.$dWidth.'"'.(($width == $dWidth) ? ' selected="selected"' : '').'>'.$dWidth.' x '.$dHeight.'</option>';
+          echo '<option value="'.$dWidth.'"'.(($width == $dWidth) ? ' selected="selected"' : '').'>'.$dWidth.' x '.$dHeight.''.(($dWidth == $conf->WIDTH && $dHeight == $conf->HEIGHT) ? ' (par défaut)' : '').'</option>';
         ?>
       </select>
     </p>
@@ -215,7 +213,6 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
   var conf       = <?= $file['conf'] ?>;
   var dimensions = <?= $file['dimensions'] ?>;
   var identifier = '<?= $identifier ?>';
-  dimensions[<?= $conf->WIDTH ?>] = <?= $conf->HEIGHT ?>;
   // ]]>
   </script>
   <script type="text/javascript" src="static/form.js"></script>
