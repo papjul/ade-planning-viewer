@@ -131,3 +131,16 @@ if(select_width)
     select_width.attachEvent('onchange', submitForm);
   }
 }
+
+// Image
+var img_planning = document.getElementById('img_planning');
+if(img_planning)
+{
+  img_planning.onerror = function () {
+    img_planning.onerror = null;
+    img_planning.src = 'img/error.png';
+  }
+  img_planning.onabort = function () {
+    img_planning.src = 'img/error.png';
+  }
+}
