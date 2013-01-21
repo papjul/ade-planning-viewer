@@ -121,6 +121,10 @@ else
 # Le format (horizontal/vertical)
 $displayConfId = isset($perconf) ? intval($perconf->displayConfId) : $conf->DISPLAY_CONF_ID;
 
+# On prépare l’export en iCal
+list($startDay, $startMonth, $startYear) = explode('/', gmdate('d\/m\/Y', $conf->FIRST_WEEK));
+list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval($conf->FIRST_WEEK + ($conf->NB_WEEKS * 7 * 24 * 3600))));
+
 # On prépare l’URL de l’image
 $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.$conf->PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.implode(',', $idTree).'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId : 'img/bgExpertBlanc.gif';
 ?>
@@ -151,8 +155,6 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
   <hr />
 
   <form id="planning" method="post" action="index.php">
-    <p><a href="export.php" title="Exporter le planning au format iCalendar ICS/VCS"><strong>Exporter l’agenda</strong></a></p>
-
     <table class="selectors">
       <tbody>
         <tr>
@@ -222,6 +224,11 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
         ?>
       </select>
     </p>
+
+    <?php
+    if(implode(',',$idTree) != 0)
+      echo '<fieldset><legend>URL d’export du calendrier au format iCal</legend><p id="url">'.$conf->URL_ADE.'<wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources=<span id="resources">'.implode(',',$idTree).'</span><wbr />&amp;projectId='.$conf->PROJECT_ID.'<wbr />&amp;startDay='.$startDay.'<wbr />&amp;startMonth='.$startMonth.'<wbr />&amp;startYear='.$startYear.'<wbr />&amp;endDay='.$endDay.'<wbr />&amp;endMonth='.$endMonth.'<wbr />&amp;endYear='.$endYear.'<wbr />&amp;calType=ical</p></fieldset>';
+    ?>
 
     <p><input type="submit" name="submit" value="Récupérer le planning" /></p>
   </form>

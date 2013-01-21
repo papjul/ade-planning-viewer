@@ -56,13 +56,16 @@ function submitForm()
     }
   }
 
-  if(idTree == '') idTree[0] = 0;
+  if(perconf.idTree == '') perconf.idTree[0] = 0;
 
   // Envoi du cookie
   var today = new Date();
   today.setTime(today.getTime() + 365 * 24 * 3600);
   var expires = "; expires=" + today.toGMTString();
   document.cookie = conf.COOKIE_NAME+"="+encodeURIComponent(JSON.stringify(perconf))+expires+"; path=/";
+
+  // Export iCal
+  document.getElementById('resources').innerHTML = perconf.idTree;
 
   // Traitement de l’image
   img_planning = new Image();
