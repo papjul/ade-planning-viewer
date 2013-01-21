@@ -64,7 +64,6 @@ function submitForm()
 
   // Export iCal
   var fieldset = document.getElementById('url');
-  document.getElementById('resources').innerHTML = perconf.idTree;
 
   // Traitement de l’image
   img_planning = new Image();
@@ -73,6 +72,7 @@ function submitForm()
   {
     var url = conf.URL_ADE + "/imageEt?identifier=" + identifier + "\&projectId=" + conf.PROJECT_ID + "\&idPianoWeek=" + perconf.idPianoWeek + "\&idPianoDay=" + idPianoDay + "\&idTree=" + perconf.idTree + "\&width=" + perconf.width + "\&height=" + height + "\&lunchName=REPAS\&displayMode=1057855\&showLoad=false\&ttl=" + today.getTime() + "000\&displayConfId=" + perconf.displayConfId;
     fieldset.style.display = 'block';
+    document.getElementById('resources').innerHTML = perconf.idTree;
   }
   else
   {
@@ -82,7 +82,7 @@ function submitForm()
 
   img_planning.onload = function() {
     document.getElementById('img_planning').src = url;
-  }
+  };
   img_planning.src = url;
 }
 
