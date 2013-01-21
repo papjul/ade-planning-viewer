@@ -95,7 +95,7 @@ function selectOptionsByOptgroup(event)
   {
     options[i].selected = 'selected';
   }
-  update_groups();
+  submitForm();
 }
 
 // Bouton Semaine précédente
