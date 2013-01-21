@@ -68,7 +68,8 @@ function submitForm()
 function selectOptionsByOptgroup(event)
 {
   var options = event.target.getElementsByTagName("option");
-  for(var i = 0, len = options.length; i < len; ++i)
+  var len = options.length;
+  for(var i = len - 1; i >= 0; --i)
   {
     options[i].selected = 'selected';
   }
