@@ -213,7 +213,6 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
   <script type="text/javascript">
   // <![CDATA[
   var conf       = <?= $file['conf'] ?>;
-  var groups     = <?= $file['groups'] ?>;
   var dimensions = <?= $file['dimensions'] ?>;
   var identifier = '<?= $identifier ?>';
   dimensions[<?= $conf->WIDTH ?>] = <?= $conf->HEIGHT ?>;
