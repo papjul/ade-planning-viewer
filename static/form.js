@@ -61,6 +61,12 @@ function submitForm()
   img_planning.onload = function() {
     document.getElementById('img_planning').src = url;
   }
+  img_planning.onerror = function() {
+    document.getElementById('img_planning').src = 'img/error.png';
+  }
+  img_planning.onabort = function() {
+    document.getElementById('img_planning').src = 'img/error.png';
+  }
   img_planning.src = url;
 }
 
