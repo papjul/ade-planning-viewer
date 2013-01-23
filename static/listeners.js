@@ -35,31 +35,36 @@ if(select_idTree)
 }
 
 // Optgroup de sélection de groupe
-// Stoppe la propagation
-var idTree_option = document.getElementById('idTree').getElementsByTagName('option');
-for(var i = 0, len = idTree_option.length; i < len; ++i)
+// On est obligé d’éliminer IE, version 10 comprise car il ne supporte pas
+// l’arrêt du bouillonnement/propagation avec ses propres fonctions
+if(navigator.appName != 'Microsoft Internet Explorer')
 {
-  if(idTree_option[i].addEventListener)
+  // Stoppe la propagation
+  var idTree_option = document.getElementById('idTree').getElementsByTagName('option');
+  for(var i = 0, len = idTree_option.length; i < len; ++i)
   {
-    idTree_option[i].addEventListener('click', stopEvent, false);
+    if(idTree_option[i].addEventListener)
+    {
+      idTree_option[i].addEventListener('click', stopEvent, false);
+    }
+    else
+    {
+      idTree_option[i].attachEvent('onclick', stopEvent);
+    }
   }
-  else
-  {
-    idTree_option[i].attachEvent('onclick', stopEvent);
-  }
-}
 
-// Sélectionne tous les groupes
-var optgroup_idTree = document.getElementById('idTree');
-if(optgroup_idTree)
-{
-  if(optgroup_idTree.addEventListener)
+  // Sélectionne tous les groupes
+  var optgroup_idTree = document.getElementById('idTree');
+  if(optgroup_idTree)
   {
-    optgroup_idTree.addEventListener('click', selectOptionsByOptgroup, false);
-  }
-  else
-  {
-    optgroup_idTree.attachEvent('onclick', selectOptionsByOptgroup);
+    if(optgroup_idTree.addEventListener)
+    {
+      optgroup_idTree.addEventListener('click', selectOptionsByOptgroup, false);
+    }
+    else
+    {
+      optgroup_idTree.attachEvent('onclick', selectOptionsByOptgroup);
+    }
   }
 }
 
@@ -168,8 +173,8 @@ if(img_planning)
   img_planning.onerror = function () {
     img_planning.onerror = null;
     img_planning.src = 'img/error.png';
-  }
+  };
   img_planning.onabort = function () {
     img_planning.src = 'img/error.png';
-  }
+  };
 }
