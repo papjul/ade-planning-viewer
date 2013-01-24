@@ -46,11 +46,11 @@ header('Content-Type: text/html; charset=utf-8');
 
 ## Récupération de la configuration
 $file = array('conf'       => file_get_contents(ROOT.'/config/constants.json'),
-              'groups'     => file_get_contents(ROOT.'/config/groups.json'),
+              'ressources' => file_get_contents(ROOT.'/config/ressources.json'),
               'dimensions' => file_get_contents(ROOT.'/config/dimensions.json'));
 
 $conf       = json_decode($file['conf'], true);
-$groups     = json_decode($file['groups'], true);
+$ressources = json_decode($file['ressources'], true);
 $dimensions = json_decode($file['dimensions'], true);
 $file['identifier'] = file($conf['URL_IDENTIFIER'], FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
@@ -171,7 +171,7 @@ $img_src = (implode(',', $idTree) != 0) ? $conf['URL_ADE'].'/imageEt?identifier=
             <select name="idTree[]" id="idTree" multiple="multiple">
               <?php
               $first_optgroup = true;
-              foreach($groups as $kLoop => $vLoop)
+              foreach($ressources as $kLoop => $vLoop)
               {
                 if($vLoop != 0)
                   echo '<option value="'.$vLoop.'"'.((in_array($vLoop, $idTree)) ? ' selected="selected"' : '').'>'.$kLoop.'</option>';
