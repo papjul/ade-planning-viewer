@@ -24,6 +24,7 @@
 function submitForm()
 {
   document.getElementById('img_planning').src = 'img/loading.gif';
+  document.getElementById('url').style.display = 'none';
 
   var perconf = { };
   perconf.idTree        = new Array();
@@ -63,7 +64,7 @@ function submitForm()
   document.cookie = conf.COOKIE_NAME+"="+encodeURIComponent(JSON.stringify(perconf))+expires+"; path=/";
 
   // Export iCal
-  var fieldset = document.getElementById('url');
+  var button = document.getElementById('genbutton');
 
   // Traitement de l’image
   img_planning = new Image();
@@ -71,13 +72,13 @@ function submitForm()
   if(perconf.idTree != '')
   {
     var url = conf.URL_ADE + "/imageEt?identifier=" + identifier + "\&projectId=" + conf.PROJECT_ID + "\&idPianoWeek=" + perconf.idPianoWeek + "\&idPianoDay=" + idPianoDay + "\&idTree=" + perconf.idTree + "\&width=" + perconf.width + "\&height=" + height + "\&lunchName=REPAS\&displayMode=1057855\&showLoad=false\&ttl=" + today.getTime() + "000\&displayConfId=" + perconf.displayConfId;
-    fieldset.style.display = 'block';
+    button.style.display = 'inline';
     document.getElementById('resources').innerHTML = perconf.idTree;
   }
   else
   {
     var url = 'img/bgExpertBlanc.gif';
-    fieldset.style.display = 'none';
+    button.style.display = 'none';
   }
 
   img_planning.onload = function() {
@@ -112,6 +113,12 @@ function go_next_week(event)
   stopEvent(event);
   document.getElementById('idPianoWeek').selectedIndex = parseInt(document.getElementById('idPianoWeek').selectedIndex) + 1;
   submitForm();
+}
+
+function showiCal(event)
+{
+  stopEvent(event);
+  document.getElementById('url').style.display = 'block';
 }
 
 // Stoppe la propagation d’un événement

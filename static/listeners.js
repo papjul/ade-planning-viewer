@@ -178,3 +178,17 @@ if(img_planning)
     img_planning.src = 'img/error.png';
   };
 }
+
+// Bouton iCal
+var ical_button = document.getElementById('genbutton');
+if(ical_button)
+{
+  if(ical_button.addEventListener)
+  {
+    ical_button.addEventListener('click', showiCal, false);
+  }
+  else
+  {
+    ical_button.attachEvent('onclick', showiCal);
+  }
+}

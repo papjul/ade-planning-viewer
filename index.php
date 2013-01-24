@@ -54,6 +54,10 @@ $groups     = json_decode($file['groups'], true);
 $dimensions = json_decode($file['dimensions'], true);
 $file['identifier'] = file($conf['URL_IDENTIFIER'], FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
+# Récupération du cookie
+if(isset($_COOKIE[$conf['COOKIE_NAME']]))
+  $perconf = json_decode($_COOKIE[$conf['COOKIE_NAME']], true);
+
 # Enregistrement des données POST en cookie
 if(isset($_POST['idPianoWeek']))
 {
@@ -66,10 +70,6 @@ if(isset($_POST['idPianoWeek']))
 
   setcookie($conf['COOKIE_NAME'], json_encode($perconf), time() + 365 * 24 * 3600, '/', null, false, true);
 }
-
-# Récupération du cookie
-if(isset($_COOKIE[$conf['COOKIE_NAME']]))
-  $perconf = json_decode($_COOKIE[$conf['COOKIE_NAME']], true);
 
 ## Création des associations numéro de semaine → timestamp dans un tableau
 $weeks = array();
@@ -149,7 +149,12 @@ $img_src = (implode(',', $idTree) != 0) ? $conf['URL_ADE'].'/imageEt?identifier=
   <script type="text/javascript">
   // <![CDATA[
   /* Quelques trucs en CSS pour ceux qui ont JavaScript désactivé */
-  document.write('<style type="text/css">input[type="submit"] { display: none; } button.week { display: inline; } <?= (implode(',',$idTree) != 0) ? '#url { display: block; }' : '' ?></style>');
+  document.write('<style type="text/css">');
+  document.write('  input[type="submit"] { display: none; }');
+  document.write('  button.week { display: inline; }');
+  document.write('  #url { display: none; }');
+  <?= (implode(',',$idTree) != 0) ? 'document.write(\'  #genbutton { display: inline; }\');' : '' ?>
+  document.write('</style>');
   // ]]>
   </script>
 </head>
@@ -229,11 +234,11 @@ $img_src = (implode(',', $idTree) != 0) ? $conf['URL_ADE'].'/imageEt?identifier=
       </select>
     </p>
 
+    <p><input type="submit" name="submit" value="Récupérer le planning" /><button id="genbutton">Exporter en iCal</button></p>
+
     <?php
     echo '<fieldset id="url"><legend>URL d’export du calendrier au format iCal</legend><p>'.$conf['URL_ADE'].'<wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources=<span id="resources">'.implode(',',$idTree).'</span><wbr />&amp;projectId='.$conf['PROJECT_ID'].'<wbr />&amp;startDay='.$startDay.'<wbr />&amp;startMonth='.$startMonth.'<wbr />&amp;startYear='.$startYear.'<wbr />&amp;endDay='.$endDay.'<wbr />&amp;endMonth='.$endMonth.'<wbr />&amp;endYear='.$endYear.'<wbr />&amp;calType=ical</p></fieldset>';
     ?>
-
-    <p><input type="submit" name="submit" value="Récupérer le planning" /></p>
   </form>
 
   <hr />
