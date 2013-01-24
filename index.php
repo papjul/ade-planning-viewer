@@ -21,34 +21,38 @@
 define('ROOT', dirname( __FILE__ ));
 
 # Force la désactivation des guillemets magiques
-if(get_magic_quotes_gpc()) {
-    $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
-    while (list($key, $val) = each($process)) {
-        foreach ($val as $k => $v) {
-            unset($process[$key][$k]);
-            if (is_array($v)) {
-                $process[$key][stripslashes($k)] = $v;
-                $process[] = &$process[$key][stripslashes($k)];
-            } else {
-                $process[$key][stripslashes($k)] = stripslashes($v);
-            }
-        }
+if(get_magic_quotes_gpc())
+{
+  $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
+  while(list($key, $val) = each($process))
+  {
+    foreach($val as $k => $v)
+    {
+      unset($process[$key][$k]);
+      if(is_array($v))
+      {
+        $process[$key][stripslashes($k)] = $v;
+        $process[] = &$process[$key][stripslashes($k)];
+      }
+      else
+        $process[$key][stripslashes($k)] = stripslashes($v);
     }
-    unset($process);
+  }
+  unset($process);
 }
 
 # En-tête
 header('Content-Type: text/html; charset=utf-8');
 
 ## Récupération de la configuration
-$file = array('conf'       => file_get_contents(ROOT.'/config/constants.conf'),
-              'groups'     => file_get_contents(ROOT.'/config/groups.conf'),
-              'dimensions' => file_get_contents(ROOT.'/config/dimensions.conf'));
+$file = array('conf'       => file_get_contents(ROOT.'/config/constants.json'),
+              'groups'     => file_get_contents(ROOT.'/config/groups.json'),
+              'dimensions' => file_get_contents(ROOT.'/config/dimensions.json'));
 
-$conf       = json_decode($file['conf']);
-$groups     = json_decode($file['groups']);
-$dimensions = json_decode($file['dimensions']);
-$file['identifier'] = file($conf->URL_IDENTIFIER, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+$conf       = json_decode($file['conf'], true);
+$groups     = json_decode($file['groups'], true);
+$dimensions = json_decode($file['dimensions'], true);
+$file['identifier'] = file($conf['URL_IDENTIFIER'], FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
 # Enregistrement des données POST en cookie
 if(isset($_POST['idPianoWeek']))
@@ -60,20 +64,20 @@ if(isset($_POST['idPianoWeek']))
                    'displayConfId' => $_POST['displayConfId'],
                    'width'         => $_POST['width']);
 
-  setcookie($conf->COOKIE_NAME, json_encode($perconf), time() + 365 * 24 * 3600, '/', null, false, true);
+  setcookie($conf['COOKIE_NAME'], json_encode($perconf), time() + 365 * 24 * 3600, '/', null, false, true);
 }
 
 # Récupération du cookie
-if(isset($_COOKIE[$conf->COOKIE_NAME]))
-  $perconf = json_decode($_COOKIE[$conf->COOKIE_NAME]);
+if(isset($_COOKIE[$conf['COOKIE_NAME']]))
+  $perconf = json_decode($_COOKIE[$conf['COOKIE_NAME']], true);
 
 ## Création des associations numéro de semaine → timestamp dans un tableau
 $weeks = array();
 $already_selected = false;
 
 # Boucle sur NB_WEEKS semaines
-$timestamp = $conf->FIRST_WEEK;
-for($i = 0; $i < $conf->NB_WEEKS; ++$i)
+$timestamp = $conf['FIRST_WEEK'];
+for($i = 0; $i < $conf['NB_WEEKS']; ++$i)
 {
   $weeks[$i] = $timestamp;
 
@@ -96,37 +100,37 @@ for($i = 0; $i < $conf->NB_WEEKS; ++$i)
 $identifier = $file['identifier'][rand(0, count($file['identifier']) - 1)];
 
 # La semaine à afficher
-$idPianoWeek = isset($perconf) ? intval($perconf->idPianoWeek) : $current_week;
+$idPianoWeek = isset($perconf) ? intval($perconf['idPianoWeek']) : $current_week;
 
 # Les jours de la semaine
-$saturday = isset($perconf) ? $perconf->saturday : $conf->SATURDAY;
-$sunday   = isset($perconf) ? $perconf->sunday   : $conf->SUNDAY;
+$saturday = isset($perconf) ? $perconf['saturday'] : $conf['SATURDAY'];
+$sunday   = isset($perconf) ? $perconf['sunday']   : $conf['SUNDAY'];
 $idPianoDay = '0,1,2,3,4'.($saturday == 'yes' ? ',5' : '').''.($sunday == 'yes' ? ',6' : '');
 
 # Le(s) groupe(s) concernés
-$idTree = (isset($perconf)) ? $perconf->idTree : explode(',', $conf->ID_TREE);
+$idTree = (isset($perconf)) ? $perconf['idTree'] : explode(',', $conf['ID_TREE']);
 
 # Les dimensions
-$width = isset($perconf) ? intval($perconf->width) : $conf->WIDTH;
+$width = isset($perconf) ? intval($perconf['width']) : $conf['WIDTH'];
 
-if(isset($dimensions->$width))
-  $height = $dimensions->$width;
+if(isset($dimensions[$width]))
+  $height = $dimensions[$width];
 
 else
 {
-  $width  = $conf->WIDTH;
-  $height = $conf->HEIGHT;
+  $width  = $conf['WIDTH'];
+  $height = $conf['HEIGHT'];
 }
 
 # Le format (horizontal/vertical)
-$displayConfId = isset($perconf) ? intval($perconf->displayConfId) : $conf->DISPLAY_CONF_ID;
+$displayConfId = isset($perconf) ? intval($perconf['displayConfId']) : $conf['DISPLAY_CONF_ID'];
 
 # On prépare l’export en iCal
-list($startDay, $startMonth, $startYear) = explode('/', gmdate('d\/m\/Y', $conf->FIRST_WEEK));
-list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval($conf->FIRST_WEEK + ($conf->NB_WEEKS * 7 * 24 * 3600))));
+list($startDay, $startMonth, $startYear) = explode('/', gmdate('d\/m\/Y', $conf['FIRST_WEEK']));
+list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval($conf['FIRST_WEEK'] + ($conf['NB_WEEKS'] * 7 * 24 * 3600))));
 
 # On prépare l’URL de l’image
-$img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.$identifier.'&amp;projectId='.$conf->PROJECT_ID.'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.implode(',', $idTree).'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId : 'img/bgExpertBlanc.gif';
+$img_src = (implode(',', $idTree) != 0) ? $conf['URL_ADE'].'/imageEt?identifier='.$identifier.'&amp;projectId='.$conf['PROJECT_ID'].'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.implode(',', $idTree).'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId : 'img/bgExpertBlanc.gif';
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
@@ -139,7 +143,7 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
   <meta name="author" content="Julien Papasian" />
   <meta name="robots" content="noindex, nofollow" />
 
-  <?= (implode(',', $idTree) != 0) ? '<link rel="alternate" type="application/rss+xml" title="Flux RSS des '.$conf->NB_DAYS_RSS.' jours à venir" href="'.$conf->URL_ADE.'/rss?projectId='.$conf->PROJECT_ID.'&amp;resources='.implode(',', $idTree).'&amp;nbDays='.$conf->NB_DAYS_RSS.'" />' : '' ?>
+  <?= (implode(',', $idTree) != 0) ? '<link rel="alternate" type="application/rss+xml" title="Flux RSS des '.$conf['NB_DAYS_RSS'].' jours à venir" href="'.$conf['URL_ADE'].'/rss?projectId='.$conf['PROJECT_ID'].'&amp;resources='.implode(',', $idTree).'&amp;nbDays='.$conf['NB_DAYS_RSS'].'" />' : '' ?>
   <link rel="stylesheet" title="Planning" type="text/css" href="static/style.css" />
 
   <script type="text/javascript">
@@ -187,7 +191,7 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
             <select name="idPianoWeek" id="idPianoWeek">
               <?php
               # Boucle sur NB_WEEKS semaines
-              for($i = 0; $i < $conf->NB_WEEKS; ++$i)
+              for($i = 0; $i < $conf['NB_WEEKS']; ++$i)
               {
                 echo '<option value="'.$i.'"'.(($idPianoWeek == $i) ? ' selected="selected"' : '').'>Semaine du '.gmdate('d\/m\/Y', $weeks[$i]).'</option>';
                 $timestamp += 7 * 24 * 3600;
@@ -197,7 +201,7 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
           </td>
 
           <td>
-            <?= ($idPianoWeek < $conf->NB_WEEKS - 1) ? '<button id="next_week" class="week">&gt;&gt;</button>' : '&nbsp;' ?>
+            <?= ($idPianoWeek < $conf['NB_WEEKS'] - 1) ? '<button id="next_week" class="week">&gt;&gt;</button>' : '&nbsp;' ?>
           </td>
         </tr>
       </tbody>
@@ -220,13 +224,13 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
       <select id="width" name="width">
         <?php
         foreach($dimensions as $dWidth => $dHeight)
-          echo '<option value="'.$dWidth.'"'.(($width == $dWidth) ? ' selected="selected"' : '').'>'.$dWidth.' x '.$dHeight.''.(($dWidth == $conf->WIDTH && $dHeight == $conf->HEIGHT) ? ' (par défaut)' : '').'</option>';
+          echo '<option value="'.$dWidth.'"'.(($width == $dWidth) ? ' selected="selected"' : '').'>'.$dWidth.' x '.$dHeight.''.(($dWidth == $conf['WIDTH'] && $dHeight == $conf['HEIGHT']) ? ' (par défaut)' : '').'</option>';
         ?>
       </select>
     </p>
 
     <?php
-    echo '<fieldset id="url"><legend>URL d’export du calendrier au format iCal</legend><p>'.$conf->URL_ADE.'<wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources=<span id="resources">'.implode(',',$idTree).'</span><wbr />&amp;projectId='.$conf->PROJECT_ID.'<wbr />&amp;startDay='.$startDay.'<wbr />&amp;startMonth='.$startMonth.'<wbr />&amp;startYear='.$startYear.'<wbr />&amp;endDay='.$endDay.'<wbr />&amp;endMonth='.$endMonth.'<wbr />&amp;endYear='.$endYear.'<wbr />&amp;calType=ical</p></fieldset>';
+    echo '<fieldset id="url"><legend>URL d’export du calendrier au format iCal</legend><p>'.$conf['URL_ADE'].'<wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources=<span id="resources">'.implode(',',$idTree).'</span><wbr />&amp;projectId='.$conf['PROJECT_ID'].'<wbr />&amp;startDay='.$startDay.'<wbr />&amp;startMonth='.$startMonth.'<wbr />&amp;startYear='.$startYear.'<wbr />&amp;endDay='.$endDay.'<wbr />&amp;endMonth='.$endMonth.'<wbr />&amp;endYear='.$endYear.'<wbr />&amp;calType=ical</p></fieldset>';
     ?>
 
     <p><input type="submit" name="submit" value="Récupérer le planning" /></p>
@@ -238,8 +242,8 @@ $img_src = (implode(',', $idTree) != 0) ? $conf->URL_ADE.'/imageEt?identifier='.
 
   <script type="text/javascript">
   // <![CDATA[
-  var conf       = <?= $file['conf'] ?>;
-  var dimensions = <?= $file['dimensions'] ?>;
+  var conf       = <?= json_encode($conf) ?>;
+  var dimensions = <?= json_encode($dimensions) ?>;
   var identifier = '<?= $identifier ?>';
   // ]]>
   </script>
