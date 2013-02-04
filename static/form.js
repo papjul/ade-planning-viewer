@@ -87,18 +87,6 @@ function submitForm()
   img_planning.src = url;
 }
 
-// Sélectionne plusieurs groupes à la fois
-function selectOptionsByOptgroup(event)
-{
-  var options = event.target.getElementsByTagName("option");
-  var len = options.length;
-  for(var i = len - 1; i >= 0; --i)
-  {
-    options[i].selected = 'selected';
-  }
-  submitForm();
-}
-
 // Bouton Semaine précédente
 function go_previous_week(event)
 {
@@ -115,6 +103,7 @@ function go_next_week(event)
   submitForm();
 }
 
+// Afficher l’URL iCal
 function showiCal(event)
 {
   stopEvent(event);

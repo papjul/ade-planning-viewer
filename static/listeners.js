@@ -34,40 +34,6 @@ if(select_idTree)
   }
 }
 
-// Optgroup de sélection de groupe
-// On est obligé d’éliminer IE, version 10 comprise car il ne supporte pas
-// l’arrêt du bouillonnement/propagation avec ses propres fonctions
-if(navigator.appName != 'Microsoft Internet Explorer')
-{
-  // Stoppe la propagation
-  var idTree_option = document.getElementById('idTree').getElementsByTagName('option');
-  for(var i = 0, len = idTree_option.length; i < len; ++i)
-  {
-    if(idTree_option[i].addEventListener)
-    {
-      idTree_option[i].addEventListener('click', stopEvent, false);
-    }
-    else
-    {
-      idTree_option[i].attachEvent('onclick', stopEvent);
-    }
-  }
-
-  // Sélectionne tous les groupes
-  var optgroup_idTree = document.getElementById('idTree');
-  if(optgroup_idTree)
-  {
-    if(optgroup_idTree.addEventListener)
-    {
-      optgroup_idTree.addEventListener('click', selectOptionsByOptgroup, false);
-    }
-    else
-    {
-      optgroup_idTree.attachEvent('onclick', selectOptionsByOptgroup);
-    }
-  }
-}
-
 // Sélecteur de semaine
 var select_idPianoWeek = document.getElementById('idPianoWeek');
 if(select_idPianoWeek)
