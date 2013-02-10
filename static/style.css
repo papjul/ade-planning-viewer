@@ -92,9 +92,12 @@ button.week {
   display: none;
 }
 
-form#planning p:not(form#planning p:first-child), footer p {
-  text-align: center;
+form#planning p:not(form#planning p:first-child) {
   padding-bottom: 5px;
+}
+
+form#planning p, footer p {
+  text-align: center;
 }
 
 select#idTree {
