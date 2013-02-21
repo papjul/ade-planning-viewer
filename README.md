@@ -12,9 +12,21 @@ Compatibilité
 **Testé** sous *PHP 5.3* et *PHP 5.4*.
 
 
+Installation
+-------------
+Vous devez récupérer la dernière version de [RainTPL 3](https://github.com/rainphp/raintpl3/tags) et déposer le dossier library/ à la racine du projet.
+
+Accordez ensuite les droits en écriture sur le dossier tmp/ et le tour est joué ;)
+
+
+Si vous souhaitez bénéficier du design de Bootstrap, téléchargez-en [la dernière version](http://twitter.github.com/bootstrap/) et placer les fichiers bootstrap.min.css et bootstrap-responsive.min.css dans le dossier static/
+
+Sinon, pensez à enlever les balises <link non-nécessaires dans le fichier tpl/layout.head.html
+
+
 Démonstration
 -------------
-Un exemple de cette application en fonctionnement est disponible à cette adresse : http://amenysta-world.servhome.org/iut/planning.php
+Un exemple de cette application en fonctionnement, intégré à un site web, est disponible à [cette adresse](http://amenysta-world.servhome.org/iut)
 
 
 Licence
