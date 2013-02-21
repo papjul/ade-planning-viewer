@@ -1,0 +1,71 @@
+<h1>Planning IUT Info</h1>
+
+<hr />
+
+<form id="planning" method="post" action="index.php">
+  <table class="selectors">
+    <tbody>
+      <tr>
+        <td colspan="3">
+          <select name="idTree[]" id="idTree" multiple="multiple">
+            {$first_optgroup=true}
+            {loop="$ressources"}
+              {if="$value.value != 0"}
+                <option value="{$value.value}"{if="$value.selected"} selected="selected"{/if}>{$key}</option>
+
+                {else}
+                  {if="!$first_optgroup"}</optgroup>{/if}
+                  <optgroup label="{$key}">
+                  {$first_optgroup=false}
+              {/if}
+            {/loop}
+            </optgroup>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {if="$idPianoWeek > 0"}<button id="previous_week" class="week btn">&lt;&lt;</button>{else}&nbsp;{/if}
+        </td>
+
+        <td>
+          <select name="idPianoWeek" id="idPianoWeek">
+            <!-- Boucle sur NB_WEEKS semaines -->
+            {loop="$weeks"}
+              <option value="{$counter}"{if="$idPianoWeek == $counter"} selected="selected"{/if}>Semaine du {$value.date}</option>
+            {/loop}
+          </select>
+        </td>
+
+        <td>
+          {if="$idPianoWeek < $conf['NB_WEEKS'] - 1"}<button id="next_week" class="week btn">&gt;&gt;</button>{else}&nbsp;{/if}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr />
+  <p><img id="img_planning" src="{$img_src}" alt="Serveur inaccessible ou mise à jour requise" /></p>
+  <hr />
+
+  <p>
+    <label class="checkbox inline" for="saturday"><input type="checkbox" name="saturday" id="saturday" value="yes"{if="$saturday == 'yes'"} checked="checked"{/if} /> Samedi</label>
+    <label class="checkbox inline" for="sunday"><input type="checkbox" name="sunday" id="sunday" value="yes"{if="$sunday == 'yes'"} checked="checked"{/if} /> Dimanche</label>
+  </p>
+
+  <p>
+    <select id="displayConfId" name="displayConfId" class="inline">
+      <option value="41"{if="$displayConfId == 41"} selected="selected"{/if}>Horizontal</option>
+      <option value="8"{if="$displayConfId == 8"} selected="selected"{/if}>Vertical</option>
+    </select>
+    <select id="width" name="width" class="inline">
+      {loop="$dimensions"}
+        <option value="{$key}"{if="$width == $key"} selected="selected"{/if}>{$key} x {$value}{if="$key == $conf['WIDTH'] && $value == $conf['HEIGHT']"} (par défaut){/if}</option>
+      {/loop}
+    </select>
+  </p>
+
+  <p><input type="submit" name="submit" value="Récupérer le planning" /><button class="btn btn-info" id="genbutton">Exporter en iCal</button></p>
+
+  <fieldset id="url"><legend>URL d’export du calendrier au format iCal</legend><p>{$conf['URL_ADE']}<wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources=<span id="resources">{$idTree_implode}</span><wbr />&amp;projectId={$conf['PROJECT_ID']}<wbr />&amp;startDay={$startDay}<wbr />&amp;startMonth={$startMonth}<wbr />&amp;startYear={$startYear}<wbr />&amp;endDay={$endDay}<wbr />&amp;endMonth={$endMonth}<wbr />&amp;endYear={$endYear}<wbr />&amp;calType=ical</p></fieldset>
+</form>
