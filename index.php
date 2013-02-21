@@ -142,7 +142,7 @@ $img_src = (implode(',', $idTree) != 0) ? $conf['URL_ADE'].'/imageEt?identifier=
 
 ### Préparation du template
 # Template
-require_once(ROOT.'/lib/rain.tpl.class.php');
+require_once(ROOT.'/library/Rain/Tpl.php');
 $tpl = new Rain\Tpl;
 $tpl->configure('tpl_dir',   'tpl/');
 $tpl->configure('cache_dir', 'tmp/');
