@@ -52,7 +52,7 @@ $file = array('conf'       => file_get_contents(ROOT.'/data/constants.json'),
 $conf       = json_decode($file['conf'], true);
 $ressources = json_decode($file['ressources'], true);
 $dimensions = json_decode($file['dimensions'], true);
-$file_identifier = is_readable($conf['URL_IDENTIFIER']) ? $conf['URL_IDENTIFIER'] : ROOT.'/data/identifier';
+$file_identifier = fopen($conf['URL_IDENTIFIER'], 'r') ? $conf['URL_IDENTIFIER'] : ROOT.'/data/identifier';
 $file['identifier'] = file($file_identifier, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
 # Récupération du cookie
