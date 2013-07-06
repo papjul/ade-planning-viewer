@@ -1,8 +1,8 @@
 {
   "URL_ADE": "http://planning.univmed.fr/ade",
-  "URL_IDENTIFIER": "https://raw.github.com/Yurienu/PlanningIUTInfo/master/identifier",
-  "PROJECT_ID": 22,
-  "FIRST_WEEK": 1344816000,
+  "URL_IDENTIFIER": "https://raw.github.com/Yurienu/PlanningIUTInfo/master/data/identifier",
+  "PROJECT_ID": 18,
+  "FIRST_WEEK": 1377475200,
   "NB_WEEKS": 54,
   "ID_TREE": 0,
   "SATURDAY": "yes",
