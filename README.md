@@ -26,7 +26,7 @@ Sinon, pensez à enlever les balises <link non-nécessaires dans le fichier tpl/
 
 Démonstration
 -------------
-Un exemple de cette application en fonctionnement, intégré à un site web, est disponible à [cette adresse](http://amenysta-world.servhome.org/iut)
+Un exemple de cette application en fonctionnement, intégré à un site web, est disponible à [cette adresse](http://amenysta.net/iut)
 
 
 Licence
