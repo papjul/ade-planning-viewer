@@ -4,12 +4,13 @@ Planning IUT Info
 Description
 -------------
 L’application Planning IUT Info est une application en PHP pour récupérer le planning de l’ADE sur l’ENT de l’IUT Informatique d’Aix-en-Provence via une interface suivant le principe KISS. Elle s’inspire de l’application Java, Planning Viewer, développée par Alexis Mimran, aujourd’hui hors de fonctionnement.
+
 Planning IUT Info est mis à votre disposition dans l’espoir qu’il vous sera utile.
 
 
 Compatibilité
 -------------
-**Testé** sous *PHP 5.3* et *PHP 5.4*.
+**Fonctionne** sur les versions stables de PHP. Dernière version testée : 5.5.
 
 
 Installation
@@ -22,6 +23,9 @@ Accordez ensuite les droits en écriture sur le dossier tmp/ et le tour est jou�
 Si vous souhaitez bénéficier du design de Bootstrap, téléchargez-en [la dernière version](http://twitter.github.com/bootstrap/) et placer les fichiers bootstrap.min.css et bootstrap-responsive.min.css dans le dossier static/
 
 Sinon, pensez à enlever les balises <link non-nécessaires dans le fichier tpl/layout.head.html
+
+
+Pour pouvoir réinitialiser l’identifiant à l’aide du script reset.php, accordez les droits en écriture sur le fichier data/identifier.
 
 
 Démonstration
