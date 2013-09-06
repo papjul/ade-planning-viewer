@@ -20,6 +20,9 @@
 # En-tête
 header('Content-Type: text/html; charset=utf-8');
 
+# Ce script ne peut être appelé que toutes les heures maximum pour des raisons de sécurité
+if(filemtime('data/identifier') > time() - 3600) exit('L’identifiant de connexion a déjà été réinitialisé il y a peu de temps.');
+
 # Initialisation de la session cURL
 $ch = curl_init();
 
