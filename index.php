@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * Planning IUT Info
  * Copyright © 2012-2013 Julien Papasian
  *
