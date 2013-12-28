@@ -27,6 +27,10 @@ select#idTree {
   height: 200px;
 }
 
+#img_planning {
+  max-width: 100%;
+}
+
 #planning_content {
   padding: 10px;
 }
