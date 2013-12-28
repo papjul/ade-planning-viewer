@@ -10,27 +10,19 @@ Planning IUT Info est mis à votre disposition dans l’espoir qu’il vous sera
 
 Compatibilité
 -------------
-**Fonctionne** sur les versions stables de PHP. Dernière version testée : 5.5.
+**Incompatible** avec les versions inférieures à 5.3 de PHP. Dernière version testée : 5.5.
 
 
 Installation
 -------------
-Vous devez récupérer la dernière version de [RainTPL 3](https://github.com/rainphp/raintpl3/tags) et déposer le dossier library/ à la racine du projet.
+Vous devez récupérer les dépendances avec Composer (le fichier composer.json est fourni). Toutes les instructions d’installation et d’utilisation sont ici selon votre système : http://getcomposer.org/doc/00-intro.md
 
-Accordez ensuite les droits en écriture sur le dossier tmp/ et le tour est joué ;)
-
-
-Si vous souhaitez bénéficier du design de Bootstrap, téléchargez-en [la dernière version](http://twitter.github.com/bootstrap/) et placer les fichiers bootstrap.min.css et bootstrap-responsive.min.css dans le dossier static/
-
-Sinon, pensez à enlever les balises <link non-nécessaires dans le fichier tpl/layout.head.html
-
-
-Pour pouvoir réinitialiser l’identifiant à l’aide du script reset.php, accordez les droits en écriture sur le fichier data/identifier.
+Accordez ensuite les droits en écriture sur le dossier tmp/ pour permettre la mise en cache et sur le fichier data/identifier pour pouvoir réinitialiser l’identifiant à l’aide du script reset.php.
 
 
 Démonstration
 -------------
-Un exemple de cette application en fonctionnement, intégré à un site web, est disponible à [cette adresse](http://amenysta.net/iut)
+Un exemple de cette application en fonctionnement, intégré à un site web, sera bientôt disponible.
 
 
 Licence
