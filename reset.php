@@ -1,7 +1,7 @@
 <?php
 /**
  * Planning IUT Info
- * Copyright © 2012-2013 Julien Papasian
+ * Copyright © 2012-2014 Julien Papasian
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License

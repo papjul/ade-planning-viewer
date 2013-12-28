@@ -1,0 +1,6 @@
+{
+    "require": {
+        "rain/raintpl": ">=3.1.0",
+        "twitter/bootstrap": ">=3.0.3"
+    }
+}

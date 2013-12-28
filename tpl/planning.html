@@ -2,12 +2,12 @@
 
 <hr />
 
-<form id="planning" method="post" action="index.php">
+<form id="planning" method="post" action="index.php" class="form-inline">
   <table class="selectors">
     <tbody>
       <tr>
         <td colspan="3">
-          <select name="idTree[]" id="idTree" multiple="multiple">
+          <select name="idTree[]" id="idTree" multiple="multiple" class="form-control">
             {$first_optgroup=true}
             {loop="$ressources"}
               {if="$value.value != 0"}
@@ -29,7 +29,7 @@
         </td>
 
         <td>
-          <select name="idPianoWeek" id="idPianoWeek">
+          <select name="idPianoWeek" id="idPianoWeek" class="form-control">
             <!-- Boucle sur NB_WEEKS semaines -->
             {loop="$weeks"}
               <option value="{$counter}"{if="$idPianoWeek == $counter"} selected="selected"{/if}>Semaine du {$value.date}</option>
@@ -54,11 +54,11 @@
   </p>
 
   <p>
-    <select id="displayConfId" name="displayConfId" class="inline">
+    <select id="displayConfId" name="displayConfId" class="form-control">
       <option value="41"{if="$displayConfId == 41"} selected="selected"{/if}>Horizontal</option>
       <option value="8"{if="$displayConfId == 8"} selected="selected"{/if}>Vertical</option>
     </select>
-    <select id="width" name="width" class="inline">
+    <select id="width" name="width" class="form-control">
       {loop="$dimensions"}
         <option value="{$key}"{if="$width == $key"} selected="selected"{/if}>{$key} x {$value}{if="$key == $conf['WIDTH'] && $value == $conf['HEIGHT']"} (par défaut){/if}</option>
       {/loop}

@@ -1,7 +1,7 @@
 <?php
 /**
  * Planning IUT Info
- * Copyright © 2012-2013 Julien Papasian
+ * Copyright © 2012-2014 Julien Papasian
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,27 +19,6 @@
 
 ### Initialisation
 define('ROOT', dirname( __FILE__ ));
-
-# Force la désactivation des guillemets magiques
-if(get_magic_quotes_gpc())
-{
-  $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
-  while(list($key, $val) = each($process))
-  {
-    foreach($val as $k => $v)
-    {
-      unset($process[$key][$k]);
-      if(is_array($v))
-      {
-        $process[$key][stripslashes($k)] = $v;
-        $process[] = &$process[$key][stripslashes($k)];
-      }
-      else
-        $process[$key][stripslashes($k)] = stripslashes($v);
-    }
-  }
-  unset($process);
-}
 
 # En-tête
 header('Content-Type: text/html; charset=utf-8');
@@ -137,14 +116,16 @@ list($startDay, $startMonth, $startYear) = explode('/', gmdate('d\/m\/Y', $conf[
 list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval($conf['FIRST_WEEK'] + ($conf['NB_WEEKS'] * 7 * 24 * 3600))));
 
 # On prépare l’URL de l’image
-$img_src = (implode(',', $idTree) != 0) ? $conf['URL_ADE'].'/imageEt?identifier='.$identifier.'&amp;projectId='.$conf['PROJECT_ID'].'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.implode(',', $idTree).'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId : 'static/img/bgExpertBlanc.gif';
+$img_src = (implode(',', $idTree) != 0) ? $conf['URL_ADE'].'/imageEt?identifier='.$identifier.'&amp;projectId='.$conf['PROJECT_ID'].'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.implode(',', $idTree).'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId : 'img/bgExpertBlanc.gif';
 
 ### Préparation du template
-# Template
-require_once(ROOT.'/library/Rain/Tpl.php');
+# Récupère les dépendances sur Composer
+require_once(ROOT.'/vendor/autoload.php');
+
 $tpl = new Rain\Tpl;
 $tpl->configure('tpl_dir',   'tpl/');
 $tpl->configure('cache_dir', 'tmp/');
+$tpl->configure('auto_escape', false);
 $tpl->assign(array('img_src'         => $img_src,
                    'json_conf'       => json_encode($conf),
                    'json_dimensions' => json_encode($dimensions),
