@@ -22,7 +22,7 @@ Accordez ensuite les droits en écriture sur le dossier tmp/ pour permettre la m
 
 Démonstration
 -------------
-Un exemple de cette application en fonctionnement, intégré à un site web, sera bientôt disponible.
+L’association Inform’Aix utilise un exemple de cette application en fonctionnement à cette adresse : http://informaix.com/planning/
 
 
 Licence
