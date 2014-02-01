@@ -84,6 +84,7 @@ function submitForm()
 
   img_planning.onload = function() {
     document.getElementById('img_planning').src = url;
+    document.getElementById('href_planning').href = url;
   };
   img_planning.src = url;
 }
