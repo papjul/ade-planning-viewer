@@ -27,4 +27,4 @@ Un exemple de cette application en fonctionnement, intégré à un site web, ser
 
 Licence
 -------------
-Vous pouvez partager, modifier cette application, en veillant à respecter la licence GNU GPLv2+ disponible dans le fichier LICENSE distribué avec ce logiciel.
+Vous pouvez partager, modifier cette application, en veillant à respecter la licence Affero General Public License (AGPL) version 1 ou supérieure disponible dans le fichier LICENSE distribué avec ce logiciel.
