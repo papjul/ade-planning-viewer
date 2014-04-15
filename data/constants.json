@@ -1,14 +1,14 @@
 {
-  "URL_ADE": "http://planning.univ-amu.fr/ade",
-  "PROJECT_ID": 26,
-  "FIRST_WEEK": 1377475200,
-  "NB_WEEKS": 54,
-  "ID_TREE": 0,
-  "SATURDAY": "yes",
-  "SUNDAY": "no",
-  "DISPLAY_CONF_ID": 41,
-  "WIDTH": 1000,
-  "HEIGHT": 500,
-  "NB_DAYS_RSS": 15,
-  "COOKIE_NAME": "planning"
+    "URL_ADE": "http://planning.univ-amu.fr/ade",
+    "PROJECT_ID": 26,
+    "FIRST_WEEK": 1377475200,
+    "NB_WEEKS": 54,
+    "ID_TREE": 0,
+    "SATURDAY": "yes",
+    "SUNDAY": "no",
+    "DISPLAY_CONF_ID": 41,
+    "WIDTH": 1000,
+    "HEIGHT": 500,
+    "NB_DAYS_RSS": 15,
+    "COOKIE_NAME": "planning"
 }

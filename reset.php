@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * Planning IUT Info
  * Copyright © 2012-2014 Julien Papasian
  *
@@ -7,22 +7,22 @@
  * modify it under the terms of the Affero General Public License
  * as published by Affero; either version 1 of the License, or (at
  * your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the Affero General Public
  * License along with this program. If not, see
  * <http://www.affero.org/oagpl.html>.
  */
-
 # En-tête
 header('Content-Type: text/html; charset=utf-8');
 
 # Ce script ne peut être appelé que toutes les heures maximum pour des raisons de sécurité
-if(filemtime('data/identifier') > time() - 3600) exit('L’identifiant de connexion a déjà été réinitialisé il y a peu de temps.');
+if(filemtime('data/identifier') > time() - 3600)
+    exit('L’identifiant de connexion a déjà été réinitialisé il y a peu de temps.');
 
 # Initialisation de la session cURL
 $ch = curl_init();
@@ -32,7 +32,6 @@ curl_setopt($ch, CURLOPT_URL, 'http://planning.univ-amu.fr/ade/custom/modules/pl
 curl_setopt($ch, CURLOPT_HEADER, true);         # Affiche les headers (pour récupérer le cookie)
 curl_setopt($ch, CURLOPT_NOBODY, true);         # Affiche UNIQUEMENT les headers (pas le contenu)
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); # Affiche le contenu sous forme de string
-
 # Récupère le cookie
 $content = curl_exec($ch);
 preg_match_all('|Set-Cookie: (.*);|U', $content, $results);
@@ -41,7 +40,6 @@ $cookies = implode(';', $results[1]);
 # Envoie le cookie
 curl_setopt($ch, CURLOPT_COOKIE, $cookies);
 curl_setopt($ch, CURLOPT_HEADER, false); # Désactive l’affichage des headers
-
 ## Sélectionne une ressource
 # Déroule le menu des enseignants
 curl_setopt($ch, CURLOPT_URL, 'http://planning.univ-amu.fr/ade/standard/gui/tree.jsp?category=instructor&expand=false&forceLoad=false&reload=false&scroll=0');

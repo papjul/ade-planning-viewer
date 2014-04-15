@@ -1,5 +1,5 @@
 {
-  "1re année": 0,
+    "1re année": 0,
     "Groupe 1A": 8385,
     "Groupe 1B": 8386,
     "Groupe 2A": 8387,
@@ -10,19 +10,16 @@
     "Groupe 4B": 8392,
     "Groupe 5A": 8393,
     "Groupe 5B": 8394,
-
-  "2e année": 0,
+    "2e année": 0,
     "Groupe 1A ": 8400,
     "Groupe 1B ": 8401,
     "Groupe 2A ": 8402,
     "Groupe 2B ": 8403,
     "Groupe 3A ": 8404,
     "Groupe 3B ": 8405,
-
-  "Licence Pro": 0,
+    "Licence Pro": 0,
     "LP": 6445,
-
-  "Enseignants": 0,
+    "Enseignants": 0,
     "BERNE Michel": 333,
     "BERTHET Anne-Charlotte": 10974,
     "BERTRAND Luc": 8953,
@@ -33,7 +30,7 @@
     "CASALI Alain": 1244,
     "CICCHETTI Rosine": 983,
     "CREUX Philippe": 2100,
-    "DUBROMELLE Yves" : 11443,
+    "DUBROMELLE Yves": 11443,
     "FERRY Jonas": 2038,
     "GAITAN Patricia": 479,
     "HURST Kristen": 100,
@@ -54,8 +51,7 @@
     "VAQUIERI Josee": 803,
     "YAHI Safa": 2062,
     "WOOD David": 2070,
-
-  "Salles de TP": 0,
+    "Salles de TP": 0,
     "Salle A": 8414,
     "Salle B": 8415,
     "Salle C": 8416,
