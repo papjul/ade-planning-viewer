@@ -21,9 +21,9 @@
 header('Content-Type: text/html; charset=utf-8');
 
 # Ce script ne peut être appelé que toutes les heures maximum pour des raisons de sécurité
-/*if(filemtime('data/identifier') > time() - 3600)
+if(filemtime('data/identifier') > time() - 3600)
     exit('L’identifiant de connexion a déjà été réinitialisé il y a peu de temps.');
-*/
+
 # Initialisation de la session cURL
 $ch = curl_init();
 
@@ -61,7 +61,6 @@ curl_exec($ch);
 curl_setopt($ch, CURLOPT_NOBODY, false); # Réactive la récupération du contenu de la page
 curl_setopt($ch, CURLOPT_URL, 'http://planning.univ-amu.fr/ade/custom/modules/plannings/imagemap.jsp?week=6&reset=false&width=1360&height=591');
 $image = curl_exec($ch);
-error_log($image);
 
 # Récupération de l’identifiant
 preg_match('|identifier=(.*)&|U', $image, $identifier);
