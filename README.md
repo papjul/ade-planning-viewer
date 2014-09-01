@@ -10,7 +10,7 @@ Planning IUT Info est mis à votre disposition dans l’espoir qu’il vous sera
 
 Compatibilité
 -------------
-**Incompatible** avec les versions inférieures à 5.3 de PHP. Dernière version testée : 5.5.
+**Incompatible** avec les versions inférieures à 5.3 de PHP (vous ne devriez pas utiliser de versions inférieures à 5.4 de toute façon). Dernière version testée : 5.6.
 
 
 Installation
