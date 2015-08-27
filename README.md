@@ -6,8 +6,8 @@ Planning IUT Info
 **Le code ne sera pas mis à jour avec cette version pour trois raisons :**
 
 1. **Je ne suis plus à l’IUT**
-2. **Le système n’utilise plus des images mais des ensembles de blocs div complétés par des requêtes adressées et retournées par un serveur Java, soit une manière de fonctionner totalement différent de l’ancien système**
-3. **La sécurité du système a été renforcée avec des jetons de vérification par POST qui réduit la faisabilité**
+2. **Le système n’utilise plus des images mais des ensembles de blocs div complétés par des requêtes adressées et retournées par un serveur Java, soit une manière de fonctionner totalement différente de l’ancien système (une simple image avec des paramètres GET)**
+3. **La sécurité du système a été renforcée avec des jetons de vérification par POST qui réduit la faisabilité (l’ancien système utilisait un jeton commun à tous par GET)**
 
 Description
 -------------
