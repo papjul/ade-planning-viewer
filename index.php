@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Planning IUT Info
  * Copyright © 2012-2014 Julien Papasian
@@ -24,21 +25,21 @@ define('ROOT', dirname(__FILE__));
 header('Content-Type: text/html; charset=utf-8');
 
 ## Récupération de la configuration
-$file = array('conf' => file_get_contents(ROOT.'/data/constants.json'),
-    'ressources' => file_get_contents(ROOT.'/data/ressources.json'),
-    'dimensions' => file_get_contents(ROOT.'/data/dimensions.json'));
+$file = array('conf' => file_get_contents(ROOT . '/data/constants.json'),
+    'ressources' => file_get_contents(ROOT . '/data/ressources.json'),
+    'dimensions' => file_get_contents(ROOT . '/data/dimensions.json'));
 
 $conf = json_decode($file['conf'], true);
 $ressources = json_decode($file['ressources'], true);
 $dimensions = json_decode($file['dimensions'], true);
-$file['identifier'] = file(ROOT.'/data/identifier', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+$file['identifier'] = file(ROOT . '/data/identifier', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
 # Récupération du cookie
-if(isset($_COOKIE[$conf['COOKIE_NAME']]))
+if (isset($_COOKIE[$conf['COOKIE_NAME']]))
     $perconf = json_decode($_COOKIE[$conf['COOKIE_NAME']], true);
 
 # Enregistrement des données POST en cookie
-if(isset($_POST['idPianoWeek'])) {
+if (isset($_POST['idPianoWeek'])) {
     $perconf = array('idTree' => isset($_POST['idTree']) ? $_POST['idTree'] : 0,
         'idPianoWeek' => $_POST['idPianoWeek'],
         'saturday' => isset($_POST['saturday']) ? 'yes' : 'no',
@@ -55,7 +56,7 @@ $already_selected = false;
 
 # Boucle sur NB_WEEKS semaines
 $timestamp = $conf['FIRST_WEEK'];
-for($i = 0; $i < $conf['NB_WEEKS']; ++$i) {
+for ($i = 0; $i < $conf['NB_WEEKS']; ++$i) {
     $weeks[$i] = array('timestamp' => $timestamp,
         'date' => gmdate('d\/m\/Y', $timestamp));
 
@@ -63,7 +64,7 @@ for($i = 0; $i < $conf['NB_WEEKS']; ++$i) {
     $timestamp += 6 * 24 * 3600;
 
     # S’il s’agit de la semaine courante, on note la valeur pour plus tard
-    if(!$already_selected && $timestamp > time()) {
+    if (!$already_selected && $timestamp > time()) {
         $current_week = $i;
         $already_selected = true;
     }
@@ -82,7 +83,7 @@ $idPianoWeek = isset($perconf) ? intval($perconf['idPianoWeek']) : $current_week
 # Les jours de la semaine
 $saturday = isset($perconf) ? $perconf['saturday'] : $conf['SATURDAY'];
 $sunday = isset($perconf) ? $perconf['sunday'] : $conf['SUNDAY'];
-$idPianoDay = '0,1,2,3,4'.($saturday == 'yes' ? ',5' : '').''.($sunday == 'yes' ? ',6' : '');
+$idPianoDay = '0,1,2,3,4' . ($saturday == 'yes' ? ',5' : '') . '' . ($sunday == 'yes' ? ',6' : '');
 
 # Le(s) groupe(s) concernés
 $idTree = (isset($perconf)) ? $perconf['idTree'] : explode(',', $conf['ID_TREE']);
@@ -90,7 +91,7 @@ $idTree = (isset($perconf)) ? $perconf['idTree'] : explode(',', $conf['ID_TREE']
 # Les dimensions
 $width = isset($perconf) ? intval($perconf['width']) : $conf['WIDTH'];
 
-if(isset($dimensions[$width]))
+if (isset($dimensions[$width]))
     $height = $dimensions[$width];
 
 else {
@@ -103,7 +104,7 @@ $displayConfId = isset($perconf) ? intval($perconf['displayConfId']) : $conf['DI
 
 # On prépare l’affichage des ressources
 $ressources_display = array();
-foreach($ressources as $kLoop => $vLoop)
+foreach ($ressources as $kLoop => $vLoop)
     $ressources_display[$kLoop] = array('selected' => in_array($vLoop, $idTree),
         'value' => $vLoop);
 
@@ -112,11 +113,11 @@ list($startDay, $startMonth, $startYear) = explode('/', gmdate('d\/m\/Y', $conf[
 list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval($conf['FIRST_WEEK'] + ($conf['NB_WEEKS'] * 7 * 24 * 3600))));
 
 # On prépare l’URL de l’image
-$img_src = (implode(',', $idTree) != 0) ? $conf['URL_ADE'].'/imageEt?identifier='.$identifier.'&amp;projectId='.$conf['PROJECT_ID'].'&amp;idPianoWeek='.$idPianoWeek.'&amp;idPianoDay='.$idPianoDay.'&amp;idTree='.implode(',', $idTree).'&amp;width='.$width.'&amp;height='.$height.'&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl='.time().'000&amp;displayConfId='.$displayConfId : 'img/bgExpertBlanc.gif';
+$img_src = (implode(',', $idTree) != 0) ? $conf['URL_ADE'] . '/imageEt?identifier=' . $identifier . '&amp;projectId=' . $conf['PROJECT_ID'] . '&amp;idPianoWeek=' . $idPianoWeek . '&amp;idPianoDay=' . $idPianoDay . '&amp;idTree=' . implode(',', $idTree) . '&amp;width=' . $width . '&amp;height=' . $height . '&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl=' . time() . '000&amp;displayConfId=' . $displayConfId : 'img/bgAdeBlanc.png';
 
 ### Préparation du template
 # Récupère les dépendances sur Composer
-require_once(ROOT.'/vendor/autoload.php');
+require_once(ROOT . '/vendor/autoload.php');
 
 $tpl = new Rain\Tpl;
 $tpl->configure('tpl_dir', 'tpl/');

@@ -36,18 +36,18 @@ function submitForm() {
     var height = dimensions[parseInt(perconf.width)];
     var idPianoDay = '0,1,2,3,4';
 
-    if(document.getElementById('saturday').checked == true) {
+    if (document.getElementById('saturday').checked == true) {
         perconf.saturday = 'yes';
         idPianoDay += ',5';
     }
-    if(document.getElementById('sunday').checked == true) {
+    if (document.getElementById('sunday').checked == true) {
         perconf.sunday = 'yes';
         idPianoDay += ',6';
     }
 
     var elmt = document.getElementById('idTree');
-    for(var i = 0, j = 0; i < elmt.options.length; ++i) {
-        if(elmt.options[i].selected == true) {
+    for (var i = 0, j = 0; i < elmt.options.length; ++i) {
+        if (elmt.options[i].selected == true) {
             perconf.idTree[j] = elmt.options[i].value;
             ++j;
         }
@@ -65,16 +65,16 @@ function submitForm() {
     // Traitement de l’image
     img_planning = new Image();
 
-    if(perconf.idTree != '') {
+    if (perconf.idTree != '') {
         var url = conf.URL_ADE + "/imageEt?identifier=" + identifier + "\&projectId=" + conf.PROJECT_ID + "\&idPianoWeek=" + perconf.idPianoWeek + "\&idPianoDay=" + idPianoDay + "\&idTree=" + perconf.idTree + "\&width=" + perconf.width + "\&height=" + height + "\&lunchName=REPAS\&displayMode=1057855\&showLoad=false\&ttl=" + today.getTime() + "000\&displayConfId=" + perconf.displayConfId;
         button.style.display = 'inline';
         document.getElementById('resources').innerHTML = perconf.idTree;
     } else {
-        var url = 'img/bgExpertBlanc.gif';
+        var url = 'img/bgAdeBlanc.png';
         button.style.display = 'none';
     }
 
-    img_planning.onload = function() {
+    img_planning.onload = function () {
         document.getElementById('img_planning').src = url;
         document.getElementById('href_planning').href = url;
     };
@@ -103,13 +103,13 @@ function showiCal(event) {
 
 // Stoppe la propagation d’un événement
 function stopEvent(event) {
-    if(event.stopPropagation) {
+    if (event.stopPropagation) {
         event.stopPropagation();
     } else {
         event.cancelBubble = true;
     }
 
-    if(event.preventDefault) {
+    if (event.preventDefault) {
         event.preventDefault();
     } else {
         event.returnValue = false;
