@@ -10,5 +10,7 @@
     "WIDTH": 1000,
     "HEIGHT": 500,
     "NB_DAYS_RSS": 15,
-    "COOKIE_NAME": "planning"
+    "COOKIE_NAME": "planning",
+    "USE_BOOTSTRAP": true,
+    "USE_BOOTSTRAP_CDN": false
 }

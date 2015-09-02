@@ -2,11 +2,11 @@
 
 /**
  * Planning IUT Info
- * Copyright © 2012-2014 Julien Papasian
+ * Copyright © 2012-2015 Julien Papasian
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the Affero General Public License
- * as published by Affero; either version 1 of the License, or (at
+ * as published by Affero; either version 3 of the License, or (at
  * your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -16,7 +16,7 @@
  *
  * You should have received a copy of the Affero General Public
  * License along with this program. If not, see
- * <http://www.affero.org/oagpl.html>.
+ * <https://www.gnu.org/licenses/agpl-3.0.html>.
  */
 ### Initialisation
 define('ROOT', dirname(__FILE__));
@@ -26,17 +26,18 @@ header('Content-Type: text/html; charset=utf-8');
 
 ## Récupération de la configuration
 $file = array('conf' => file_get_contents(ROOT . '/data/constants.json'),
-    'ressources' => file_get_contents(ROOT . '/data/ressources.json'),
+    'resources' => file_get_contents(ROOT . '/data/resources.json'),
     'dimensions' => file_get_contents(ROOT . '/data/dimensions.json'));
 
 $conf = json_decode($file['conf'], true);
-$ressources = json_decode($file['ressources'], true);
+$resources = json_decode($file['resources'], true);
 $dimensions = json_decode($file['dimensions'], true);
 $file['identifier'] = file(ROOT . '/data/identifier', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
 # Récupération du cookie
-if (isset($_COOKIE[$conf['COOKIE_NAME']]))
+if (isset($_COOKIE[$conf['COOKIE_NAME']])) {
     $perconf = json_decode($_COOKIE[$conf['COOKIE_NAME']], true);
+}
 
 # Enregistrement des données POST en cookie
 if (isset($_POST['idPianoWeek'])) {
@@ -57,8 +58,7 @@ $already_selected = false;
 # Boucle sur NB_WEEKS semaines
 $timestamp = $conf['FIRST_WEEK'];
 for ($i = 0; $i < $conf['NB_WEEKS']; ++$i) {
-    $weeks[$i] = array('timestamp' => $timestamp,
-        'date' => gmdate('d\/m\/Y', $timestamp));
+    $weeks[$i] = gmdate('d\/m\/Y', $timestamp);
 
     # Semaine suivante (seulement 6 jours pour l’instant pour capter la semaine courante au dimanche)
     $timestamp += 6 * 24 * 3600;
@@ -91,10 +91,9 @@ $idTree = (isset($perconf)) ? $perconf['idTree'] : explode(',', $conf['ID_TREE']
 # Les dimensions
 $width = isset($perconf) ? intval($perconf['width']) : $conf['WIDTH'];
 
-if (isset($dimensions[$width]))
+if (isset($dimensions[$width])) {
     $height = $dimensions[$width];
-
-else {
+} else {
     $width = $conf['WIDTH'];
     $height = $conf['HEIGHT'];
 }
@@ -103,10 +102,10 @@ else {
 $displayConfId = isset($perconf) ? intval($perconf['displayConfId']) : $conf['DISPLAY_CONF_ID'];
 
 # On prépare l’affichage des ressources
-$ressources_display = array();
-foreach ($ressources as $kLoop => $vLoop)
-    $ressources_display[$kLoop] = array('selected' => in_array($vLoop, $idTree),
-        'value' => $vLoop);
+$resources_display = array();
+foreach ($resources as $kLoop => $vLoop) {
+    $resources_display[$kLoop] = array('selected' => in_array($vLoop, $idTree), 'value' => $vLoop);
+}
 
 # On prépare l’export en iCal
 list($startDay, $startMonth, $startYear) = explode('/', gmdate('d\/m\/Y', $conf['FIRST_WEEK']));
@@ -116,37 +115,6 @@ list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval($conf
 $img_src = (implode(',', $idTree) != 0) ? $conf['URL_ADE'] . '/imageEt?identifier=' . $identifier . '&amp;projectId=' . $conf['PROJECT_ID'] . '&amp;idPianoWeek=' . $idPianoWeek . '&amp;idPianoDay=' . $idPianoDay . '&amp;idTree=' . implode(',', $idTree) . '&amp;width=' . $width . '&amp;height=' . $height . '&amp;lunchName=REPAS&amp;displayMode=1057855&amp;showLoad=false&amp;ttl=' . time() . '000&amp;displayConfId=' . $displayConfId : 'img/bgAdeBlanc.png';
 
 ### Préparation du template
-# Récupère les dépendances sur Composer
-require_once(ROOT . '/vendor/autoload.php');
-
-$tpl = new Rain\Tpl;
-$tpl->configure('tpl_dir', 'tpl/');
-$tpl->configure('cache_dir', 'tmp/');
-$tpl->configure('auto_escape', false);
-$tpl->assign(array('img_src' => $img_src,
-    'json_conf' => json_encode($conf),
-    'json_dimensions' => json_encode($dimensions),
-    'identifier' => $identifier,
-    'idTree_implode' => implode(',', $idTree),
-    'startDay' => $startDay,
-    'startMonth' => $startMonth,
-    'startYear' => $startYear,
-    'endDay' => $endDay,
-    'endMonth' => $endMonth,
-    'endYear' => $endYear,
-    'conf' => $conf,
-    'ressources' => $ressources_display,
-    'idPianoWeek' => $idPianoWeek,
-    'saturday' => $saturday,
-    'sunday' => $sunday,
-    'dimensions' => $dimensions,
-    'width' => $width,
-    'weeks' => $weeks,
-    'displayConfId' => $displayConfId,
-    'this_year' => date('Y')));
-
-$tpl->draw('layout.head');
-$tpl->draw('planning');
-$tpl->draw('layout.foot');
+require_once('view/main.phtml');
 
 /** EOF /**/

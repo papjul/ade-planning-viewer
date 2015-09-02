@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Planning IUT Info</title>
+        <meta name="description" content="Planning IUT Info est une application en PHP pour récupérer le planning de l’ADE sur l’ENT de l’IUT Informatique d’Aix-en-Provence via une interface suivant le principe KISS" />
+        <meta name="keywords" content="planning, emploi, temps, ade, ent, iut, dut, info, informatique, aix, aix-en-provence" />
+        <meta name="author" content="Julien Papasian" />
+
+        <?php if (count($idTree)): ?>
+            <link rel="alternate" type="application/rss+xml" title="Flux RSS des <?php echo $conf['NB_DAYS_RSS'] ?> jours à venir" href="<?php echo $conf['URL_ADE'] ?>/rss?projectId=<?php echo $conf['PROJECT_ID'] ?>&amp;resources=<?php echo implode(',', $idTree) ?>&amp;nbDays=<?php echo $conf['NB_DAYS_RSS'] ?>" />
+        <?php endif; ?>
+
+        <?php if (isset($conf['USE_BOOTSTRAP']) && $conf['USE_BOOTSTRAP']): ?>
+            <link type="text/css" rel="stylesheet" href="<?php echo (isset($conf['USE_BOOTSTRAP_CDN']) && $conf['USE_BOOTSTRAP_CDN']) ? 'https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css' : 'vendor/twitter/bootstrap/dist/css/bootstrap.min.css' ?>" />
+        <?php endif; ?>
+
+        <link title="Planning IUT Info" type="text/css" rel="stylesheet" href="assets/style.css" />
+
+        <script type="text/javascript">
+            // <![CDATA[
+            /* Quelques trucs en CSS pour ceux qui ont JavaScript désactivé */
+            document.write('<style type="text/css">');
+            document.write('  input[type="submit"] { display: none; }');
+            document.write('  button.week { display: inline; }');
+            document.write('  #url { display: none; }');
+<?php if (count($idTree)): ?>
+                document.write('  #genbutton { display: inline; }');
+<?php endif; ?>
+            document.write('</style>');
+            // ]]>
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <?php require_once 'planning.phtml' ?>
+        </div>  <!-- /container -->
+        <hr />
+        <footer>
+            <div class="container">
+                <p class="copyright"><a href="https://github.com/papjul/PlanningIUTInfo">Planning IUT Info</a> © 2012-<?php echo date('Y') ?></p>
+            </div>
+        </footer>
+
+        <script type="text/javascript">
+            // <![CDATA[
+            var conf = <?php echo json_encode($conf); ?>;
+            var dimensions = <?php echo json_encode($dimensions); ?>;
+            var identifier = '<?php echo $identifier ?>';
+            // ]]>
+        </script>
+        <script type="text/javascript" src="assets/form.js"></script>
+        <script type="text/javascript" src="assets/listeners.js"></script>
+    </body>
+</html>

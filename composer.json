@@ -1,6 +1,5 @@
 {
     "require": {
-        "rain/raintpl": "*@stable",
         "twitter/bootstrap": "*@stable"
     }
 }

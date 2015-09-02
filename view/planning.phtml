@@ -1,0 +1,80 @@
+<h1>Planning IUT Info</h1>
+
+<hr />
+
+<form id="planning" method="post" action="index.php" class="form-inline">
+    <table class="selectors">
+        <tbody>
+            <tr>
+                <td colspan="3">
+                    <select name="idTree[]" id="idTree" multiple="multiple" class="form-control">
+                        <?php
+                        $first_optgroup = true;
+                        foreach ($resources_display as $key => $value):
+                            if ($value['value'] != 0):
+                                ?>
+                                <option value="<?php echo $value['value'] ?>"<?php echo ($value['selected']) ? ' selected="selected"' : '' ?>><?php echo $key ?></option>
+                                <?php
+                            else:
+                                echo (!$first_optgroup) ? '</optgroup>' : '';
+                                ?>
+                                <optgroup label="<?php echo $key ?>">
+                                    <?php
+                                    $first_optgroup = false;
+                                endif;
+                            endforeach;
+                            ?>
+                        </optgroup>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php if ($idPianoWeek > 0): ?>
+                        <button id="previous_week" class="week btn">&lt;&lt;</button>
+                    <?php endif; ?>
+                </td>
+
+                <td>
+                    <select name="idPianoWeek" id="idPianoWeek" class="form-control">
+                        <!-- Boucle sur NB_WEEKS semaines -->
+                        <?php foreach ($weeks as $key => $value): ?>
+                            <option value="<?php echo $key ?>"<?php echo ($idPianoWeek == $key) ? ' selected="selected"' : '' ?>>Semaine du <?php echo $value ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+
+                <td>
+                    <?php if ($idPianoWeek < $conf['NB_WEEKS'] - 1): ?>
+                        <button id="next_week" class="week btn">&gt;&gt;</button>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr />
+    <p><a href="<?php echo $img_src ?>" id="href_planning"><img id="img_planning" src="<?php echo $img_src ?>" alt="Serveur inaccessible ou mise à jour requise" /></a></p>
+    <hr />
+
+    <p>
+        <label class="checkbox inline" for="saturday"><input type="checkbox" name="saturday" id="saturday" value="yes"<?php echo ($saturday == 'yes') ? ' checked="checked"' : '' ?> /> Samedi</label>
+        <label class="checkbox inline" for="sunday"><input type="checkbox" name="sunday" id="sunday" value="yes"<?php echo ($sunday == 'yes') ? ' checked="checked"' : '' ?> /> Dimanche</label>
+    </p>
+
+    <p>
+        <select id="displayConfId" name="displayConfId" class="form-control">
+            <option value="53"<?php echo ($displayConfId == 53) ? ' selected="selected"' : '' ?>>Horizontal</option>
+            <option value="8"<?php echo ($displayConfId == 8) ? ' selected="selected"' : '' ?>>Vertical</option>
+        </select>
+        <select id="width" name="width" class="form-control">
+            <?php foreach ($dimensions as $key => $value): ?>
+                <option value="<?php echo $key ?>"<?php echo ($width == $key) ? ' selected="selected"' : '' ?>><?php echo $key ?> x <?php echo $value ?><?php echo ($key == $conf['WIDTH'] && $value == $conf['HEIGHT']) ? ' (par défaut)' : '' ?></option>
+            <?php endforeach; ?>
+        </select>
+    </p>
+
+    <p><input type="submit" name="submit" value="Récupérer le planning" /><button class="btn btn-info" id="genbutton">Exporter en iCal</button></p>
+
+    <fieldset id="url"><legend>URL d’export du calendrier au format iCal</legend><p><?php echo $conf['URL_ADE'] ?><wbr />/custom<wbr />/modules<wbr />/plannings<wbr />/anonymous_cal.jsp?<wbr />resources=<span id="resources"><?php echo implode(',', $idTree) ?></span><wbr />&amp;projectId=<?php echo $conf['PROJECT_ID'] ?><wbr />&amp;startDay=<?php echo $startDay ?><wbr />&amp;startMonth=<?php echo $startMonth ?><wbr />&amp;startYear=<?php echo $startYear ?><wbr />&amp;endDay=<?php echo $endDay ?><wbr />&amp;endMonth=<?php echo $endMonth ?><wbr />&amp;endYear=<?php echo $endYear ?><wbr />&amp;calType=ical</p></fieldset>
+</form>

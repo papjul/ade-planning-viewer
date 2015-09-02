@@ -2,11 +2,11 @@
 
 /**
  * Planning IUT Info
- * Copyright © 2012-2014 Julien Papasian
+ * Copyright © 2012-2015 Julien Papasian
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the Affero General Public License
- * as published by Affero; either version 1 of the License, or (at
+ * as published by Affero; either version 3 of the License, or (at
  * your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -16,7 +16,7 @@
  *
  * You should have received a copy of the Affero General Public
  * License along with this program. If not, see
- * <http://www.affero.org/oagpl.html>.
+ * <https://www.gnu.org/licenses/agpl-3.0.html>.
  */
 # En-tête
 header('Content-Type: text/html; charset=utf-8');
