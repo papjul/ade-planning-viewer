@@ -101,12 +101,6 @@ if (isset($dimensions[$width])) {
 # Le format (horizontal/vertical)
 $displayConfId = isset($perconf) ? intval($perconf['displayConfId']) : $conf['DISPLAY_CONF_ID'];
 
-# On prépare l’affichage des ressources
-$resources_display = array();
-foreach ($resources as $kLoop => $vLoop) {
-    $resources_display[$kLoop] = array('selected' => in_array($vLoop, $idTree), 'value' => $vLoop);
-}
-
 # On prépare l’export en iCal
 list($startDay, $startMonth, $startYear) = explode('/', gmdate('d\/m\/Y', $conf['FIRST_WEEK']));
 list($endDay, $endMonth, $endYear) = explode('/', gmdate('d\/m\/Y', intval($conf['FIRST_WEEK'] + ($conf['NB_WEEKS'] * 7 * 24 * 3600))));

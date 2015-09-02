@@ -7,23 +7,13 @@
             <tr>
                 <td colspan="3">
                     <select name="idTree[]" id="idTree" multiple="multiple" class="form-control">
-                        <?php
-                        $first_optgroup = true;
-                        foreach ($resources_display as $key => $value):
-                            if ($value['value'] != 0):
-                                ?>
-                                <option value="<?php echo $value['value'] ?>"<?php echo ($value['selected']) ? ' selected="selected"' : '' ?>><?php echo $key ?></option>
-                                <?php
-                            else:
-                                echo (!$first_optgroup) ? '</optgroup>' : '';
-                                ?>
-                                <optgroup label="<?php echo $key ?>">
-                                    <?php
-                                    $first_optgroup = false;
-                                endif;
-                            endforeach;
-                            ?>
-                        </optgroup>
+                        <?php foreach ($resources as $group => $entities): ?>
+                            <optgroup label="<?php echo $group ?>">
+                                <?php foreach ($entities as $key => $value): ?>
+                                    <option value="<?php echo $value ?>"<?php echo in_array($value, $idTree) ? ' selected="selected"' : '' ?>><?php echo $key ?></option>
+                                <?php endforeach; ?>
+                            </optgroup>
+                        <?php endforeach; ?>
                     </select>
                 </td>
             </tr>
