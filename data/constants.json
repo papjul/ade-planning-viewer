@@ -1,5 +1,6 @@
 {
     "URL_ADE": "http://ade-consult.pp.univ-amu.fr/jsp",
+    "PROJECT_NAME": "Planning IUT Info",
     "PROJECT_ID": 8,
     "FIRST_WEEK": 1440374400,
     "NB_WEEKS": 52,
