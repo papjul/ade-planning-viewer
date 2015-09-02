@@ -27,10 +27,12 @@ header('Content-Type: text/html; charset=utf-8');
 ## Récupération de la configuration
 $file = array('conf' => file_get_contents(ROOT . '/data/constants.json'),
     'resources' => file_get_contents(ROOT . '/data/resources.json'),
+    'displays' => file_get_contents(ROOT . '/data/displays.json'),
     'dimensions' => file_get_contents(ROOT . '/data/dimensions.json'));
 
 $conf = json_decode($file['conf'], true);
 $resources = json_decode($file['resources'], true);
+$displays = json_decode($file['displays'], true);
 $dimensions = json_decode($file['dimensions'], true);
 $file['identifier'] = file(ROOT . '/data/identifier', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 

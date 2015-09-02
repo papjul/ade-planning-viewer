@@ -24,10 +24,10 @@ Si vous souhaitez pouvoir réinitialiser l’identifiant à l’aide du script r
 La configuration est stockée au format Json dans le dossier data/.
 
 ### Constantes (constants.json)
-### Dimensions (dimensions.json)
-### Identifiant (identifier)
 ### Ressources (resources.json)
-
+### Affichages (displays.json)
+### Identifiant (identifier)
+### Dimensions (dimensions.json)
 
 ## Thème Bootstrap
 

@@ -53,8 +53,9 @@
 
     <p>
         <select id="displayConfId" name="displayConfId" class="form-control">
-            <option value="53"<?php echo ($displayConfId == 53) ? ' selected="selected"' : '' ?>>Horizontal</option>
-            <option value="8"<?php echo ($displayConfId == 8) ? ' selected="selected"' : '' ?>>Vertical</option>
+            <?php foreach ($displays as $key => $value): ?>
+                <option value="<?php echo $value ?>"<?php echo ($value == $displayConfId) ? ' selected="selected"' : '' ?>><?php echo $key ?></option>
+            <?php endforeach; ?>
         </select>
         <select id="width" name="width" class="form-control">
             <?php foreach ($dimensions as $key => $value): ?>
