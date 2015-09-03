@@ -18,17 +18,6 @@
  * License along with this program. If not, see
  * <https://www.gnu.org/licenses/agpl-3.0.html>.
  */
-# En-tête
-header('Content-Type: text/html; charset=utf-8');
-
-# Ce script ne peut être appelé que toutes les heures maximum pour des raisons de sécurité
-if (filemtime('data/identifier') > time() - 3600) {
-    exit('L’identifiant de connexion a déjà été réinitialisé il y a peu de temps.');
-}
-
-# Initialisation de la session cURL
-$ch = curl_init();
-
 ### Initialisation
 define('ROOT', dirname(__FILE__));
 
@@ -39,6 +28,14 @@ $planning = new Planning();
 ## Récupération de la configuration
 $conf = $planning->getConf();
 $reset = $planning->getReset();
+
+# En production, ce script ne peut être rappelé qu’après un certain temps pour des raisons de sécurité
+if (!$conf['DEBUG'] && filemtime('data/identifier') > time() - $conf['RESET_LIMIT']) {
+    exit('L’identifiant de connexion a déjà été réinitialisé il y a peu de temps.');
+}
+
+# Initialisation de la session cURL
+$ch = curl_init();
 
 # Ouvre une connexion anonyme
 curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/custom/modules/plannings/anonymous_cal.jsp');

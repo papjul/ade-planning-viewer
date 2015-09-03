@@ -13,3 +13,5 @@ NB_DAYS_RSS      : 15
 COOKIE_NAME      : planning
 USE_BOOTSTRAP    : true
 USE_BOOTSTRAP_CDN: false
+DEBUG            : false
+RESET_LIMIT      : 3600

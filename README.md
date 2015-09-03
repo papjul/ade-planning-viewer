@@ -119,6 +119,18 @@ Se référer à la section Thème. `USE_BOOTSTRAP` doit valoir `true` pour fonct
 
 Exemple : `false`
 
+`DEBUG` : `true` pour activer le mode débogage, `false` sinon.
+
+Le mode débogage ne sert qu’à pouvoir appeler le script de réinitialisation de l’identifiant sans limites à des fins de test. Il est important de passer cette valeur à `false` en production ou des personnes malhonnêtes pourront utiliser votre serveur pour spammer le serveur de l’ADE. Si vous rencontrez des problèmes de mise à jour de l’identifiant trop fréquentes, préférez mettre une valeur plus basse à `RESET_LIMIT` plutôt.
+
+Exemple : `false`
+
+`RESET_LIMIT` : nombre de secondes entre deux appels au script de réinitialisation de l’identifiant.
+
+Il est important de ne pas mettre une valeur trop basse ou des personnes malhonnêtes pourront utiliser votre serveur pour spammer le serveur de l’ADE toutes les `RESET_LIMIT` secondes. Lors de nos tests, il y avait au minimum un jour d’écart entre chaque nécessité de réinitialiser l’identifiant, donc une valeur d’une heure semble plus que raisonnable.
+
+Exemple : `3600` (une heure)
+
 ### Ressources (resources.yaml)
 Les ressources sont les entités pouvant avoir un emploi du temps. Cela peut être un étudiant, une formation, une classe, un groupe, une option, un enseignant, une salle (pour connaître sa disponibilité), etc.
 
