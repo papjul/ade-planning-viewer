@@ -158,6 +158,54 @@ Exemple :
 
 ### Identifiant (reset.yaml et identifier)
 
+L’identifiant est une chaîne alphanumérique permettant d’autoriser l’affichage d’une image de l’ADE. Il ne s’agit pas de vos identifiants de connexion, mais un identifiant qui peut être utilisé par plusieurs utilisateurs différents sur plusieurs projets différents. Sans cet identifiant, il sera impossible de charger une image.
+
+Il arrive souvent que cet identifiant ne soit plus fonctionnel, et dans ce cas-là, les images du planning ne s’afficheront plus.
+
+Il existe deux méthodes pour (ré)initialiser cet identifiant :
+
+#### Méthode automatique (recommandée)
+
+Un script reset.php est accessible depuis la racine de l’application pour rafraîchir automatiquement l’identifiant. Cependant, il faut lui donner un petit coup de pouce pour qu’il puisse récupérer cet identifiant.
+
+Tout d’abord, vérifiez que vous avez bien configuré le fichier constants.yaml et que le fichier data/identifier est bien accessible en écriture.
+
+Ensuite, ouvrez l’ADE, et de la même manière que vous avez fait pour les ressources, vous allez devoir récupérer tous les identifiants successifs menant jusqu’à une ressource.
+
+Cet exemple se basera sur ADE JSP mais avec un inspecteur d’élément, vous devriez pouvoir faire la même chose sur ADE Direct.
+
+Tout d’abord, à la racine de notre arbre de ressources, nous avons les catégories (Enseignants, Étudiants, Salles, etc). Choisissez une catégorie quelconque, ça n’a pas d’importance à partir du moment où il y a au moins une ressource à l’intérieur. En passant la souris sur la catégorie, vous allez voir un lien du type `javascript:openCategory(<category>)`. Insérez la valeur `<category>` trouvée dans le fichier reset.yaml.
+
+Juste après, nous avons les branches, ce sont un peu les sous-catégories qui mènent jusqu’à notre ressource. Pareil que tout à l’heure, vous devriez avoir un lien du type `javascript:openBranch(<branch>)`. Insérez toutes les valeurs `<branch>` trouvées dans l’ordre jusqu’à la ressource dans le fichier reset.yaml avec un tiret pour chaque branche, en veillant à bien indenter d’une tabulation avant le tiret.
+
+Enfin, au final, nous avons la ressource. Même méthode que pour la récupération des identifiants des ressources avec un lien de la forme `javascript:check(<resource>, true|false)`. Insérez la valeur `<resource>` trouvée dans le fichier reset.yaml.
+
+Exemple :
+```
+category: trainee
+branches:
+    - 6414
+    - 6432
+    - 8379
+    - 8382
+resource: 8385
+```
+
+Testons nos valeurs en passant la variable `DEBUG` du fichier de constantes à `true` et en allant sur script.php. Vous devriez voir une chaîne de caractère s’afficher. Si vous avez un autre message que Impossible de récupérer l’identifiant, il s’agit probablement d’une erreur de votre serveur. Sinon, vérifiez que les paramètres des constantes ont bien été configurés (`URL_ADE` et `PROJECT_ID`) ainsi que les paramètres de reset. Si vous n’y arrivez toujours pas, passez à la méthode manuelle ci-dessous.
+
+Repassez `DEBUG` à `false` une fois vos tests terminés.
+
+#### Méthode manuelle
+
+La méthode manuelle est à utiliser quand vous n’arrivez pas à utiliser la méthode automatique ou que vous n’avez pas la possibilité d’ouvrir des URL ou/et d’utiliser cURL depuis PHP sur votre serveur.
+
+Vous devez ouvrir l’ADE JSP et charger le planning d’une ressource. Cliquez droit sur l’image du planning affichée et faites Afficher l‘image. Regardez l’URL de l’image et trouvez le paramètre identifier. Ouvrez le fichier data/identifier et collez la chaîne de caractère trouvée.
+
+Exemple : `4a43107fe16cfe68d914c317b76ca2e7`
+
+
+Vous devriez maintenant pouvoir charger un planning sur la page d’accueil du site.
+
 ### Dispositions (displays.yaml)
 
 ### Dimensions (dimensions.yaml)
