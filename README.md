@@ -122,7 +122,7 @@ Exemple : `false`
 ### Ressources (resources.yaml)
 Les ressources sont les entités pouvant avoir un emploi du temps. Cela peut être un étudiant, une formation, une classe, un groupe, une option, un enseignant, une salle (pour connaître sa disponibilité), etc.
 
-Les ressources doivent être regroupées par catégorie, sans sous-catégorie. Chaque ressource faisant partie d’une catégorie doit être indentée par une tabulation en début de ligne. Le format d’une ligne de ressource est <identifiant>: <nom>. Le nom n’a aucune influence sur le fonctionnement de l’application.
+Les ressources doivent être regroupées par catégorie, sans sous-catégorie. Chaque ressource faisant partie d’une catégorie doit être indentée par une tabulation en début de ligne. Le format d’une ligne de ressource est `<identifiant>: <nom>`. Le nom n’a aucune influence sur le fonctionnement de l’application.
 
 Pour récupérer l’identifiant d’une ressource, vous devez vous rendre dans l’ADE et dérouler l’arbre des ressources jusqu’à votre ressource.
 
@@ -150,7 +150,7 @@ Exemple :
 
 ### Dimensions (dimensions.yaml)
 
-Les dimensions sont les tailles proposées à l’utilisateur. Généralement, les tailles fournies dans le fichier par défaut vous suffiront mais vous pouvez aussi les personnaliser selon le format <largeur>: <hauteur>. Attention, petite contrainte cependant, vous ne pouvez pas avoir deux largeurs identiques pour plusieurs hauteurs (unicité de la clé).
+Les dimensions sont les tailles proposées à l’utilisateur. Généralement, les tailles fournies dans le fichier par défaut vous suffiront mais vous pouvez aussi les personnaliser selon le format `<largeur>: <hauteur>`. Attention, petite contrainte cependant, vous ne pouvez pas avoir deux largeurs identiques pour plusieurs hauteurs (unicité de la clé).
 
 Il ne semble pas y avoir de limites de dimensions pour la taille d’une image mais évitez d’utiliser plusieurs dizaines de milliers de pixels, ça n’a aucun intérêt et la génération d’une telle image consommera beaucoup de ressources serveur.
 
