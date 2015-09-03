@@ -2,7 +2,7 @@
 
 ## Description
 
-ADE Planning Viewer est une application en Javascript et PHP pour afficher le planning d’ADE Campus utilisé par de nombreuses universités en France via une interface suivant le principe KISS. Ce logiciel est distribué avec un exemple fonctionnel pour l’IUT Informatique d’Aix-Marseille mais peut être réutilisé par n’importe quelle formation utilisant ADE Campus dans le respect de la licence AGPL v3.0+.
+ADE Planning Viewer est une application en Javascript et PHP pour afficher le planning d’ADE Campus utilisé par de nombreuses universités en France via une interface suivant le principe KISS. Ce programme est distribué avec un exemple fonctionnel pour l’IUT Informatique d’Aix-Marseille mais peut être réutilisé par n’importe quelle formation utilisant ADE Campus dans le respect de la licence AGPL v3.0+.
 
 ADE Planning Viewer est mis à votre disposition dans l’espoir qu’il vous sera utile sans aucune garantie.
 
