@@ -5,9 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <title><?php echo $conf['PROJECT_NAME'] ?></title>
-        <meta name="description" content="Planning IUT Info est une application en PHP pour récupérer le planning de l’ADE sur l’ENT de l’IUT Informatique d’Aix-en-Provence via une interface suivant le principe KISS" />
-        <meta name="keywords" content="planning, emploi, temps, ade, ent, iut, dut, info, informatique, aix, aix-en-provence" />
-        <meta name="author" content="Julien Papasian" />
 
         <?php if (count($idTree)): ?>
             <link rel="alternate" type="application/rss+xml" title="Flux RSS des <?php echo $conf['NB_DAYS_RSS'] ?> jours à venir" href="<?php echo $conf['URL_ADE'] ?>/rss?projectId=<?php echo $conf['PROJECT_ID'] ?>&amp;resources=<?php echo implode(',', $idTree) ?>&amp;nbDays=<?php echo $conf['NB_DAYS_RSS'] ?>" />
@@ -17,7 +14,7 @@
             <link type="text/css" rel="stylesheet" href="<?php echo (isset($conf['USE_BOOTSTRAP_CDN']) && $conf['USE_BOOTSTRAP_CDN']) ? 'https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css' : 'vendor/twitter/bootstrap/dist/css/bootstrap.min.css' ?>" />
         <?php endif; ?>
 
-        <link title="Planning IUT Info" type="text/css" rel="stylesheet" href="assets/style.css" />
+        <link title="ADE Planning Viewer" type="text/css" rel="stylesheet" href="assets/style.css" />
 
         <script type="text/javascript">
             // <![CDATA[
@@ -40,7 +37,7 @@
         <hr />
         <footer>
             <div class="container">
-                <p class="copyright"><a href="https://github.com/papjul/PlanningIUTInfo">Planning IUT Info</a> © 2012-<?php echo date('Y') ?></p>
+                <p class="copyright"><a href="https://github.com/papjul/ADEPlanningViewer">ADE Planning Viewer</a> © 2012-<?php echo date('Y') ?></p>
             </div>
         </footer>
 

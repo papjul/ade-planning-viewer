@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Planning IUT Info
+ * This file is part of ADE Planning Viewer.
  * Copyright © 2012-2015 Julien Papasian
  *
- * This program is free software; you can redistribute it and/or
+ * ADE Planning Viewer is free software; you can redistribute it and/or
  * modify it under the terms of the Affero General Public License
  * as published by Affero; either version 3 of the License, or (at
  * your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * ADE Planning Viewer is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Affero General Public License for more details.

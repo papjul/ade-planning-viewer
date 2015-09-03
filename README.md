@@ -1,10 +1,10 @@
-# Planning IUT Info
+# ADE Planning Viewer
 
 ## Description
 
-L’application Planning IUT Info est une application en Javascript et PHP pour récupérer le planning de l’ADE sur l’ENT de l’IUT Informatique d’Aix-en-Provence via une interface suivant le principe KISS. Elle s’inspire de l’application Java, Planning Viewer, développée par Alexis Mimran, aujourd’hui hors de fonctionnement.
+ADE Planning Viewer est une application en Javascript et PHP pour afficher le planning d’ADE Campus utilisé par de nombreuses universités en France via une interface suivant le principe KISS. Ce logiciel est distribué avec un exemple fonctionnel pour l’IUT Informatique d’Aix-Marseille mais peut être réutilisé par n’importe quelle formation utilisant ADE Campus dans le respect de la licence AGPL v3.0+.
 
-Planning IUT Info est mis à votre disposition dans l’espoir qu’il vous sera utile sans aucune garantie.
+ADE Planning Viewer est mis à votre disposition dans l’espoir qu’il vous sera utile sans aucune garantie.
 
 
 ## Prérequis
@@ -14,7 +14,7 @@ PHP 5.3 ou supérieur, avec l’extension PECL Yaml.
 
 ## Installation
 
-Téléchargez et dézippez https://github.com/papjul/PlanningIUTInfo/archive/master.zip
+Téléchargez et dézippez https://github.com/papjul/ADEPlanningViewer/archive/master.zip
 
 Si vous souhaitez pouvoir réinitialiser l’identifiant à l’aide du script reset.php, accordez les droits en écriture sur le fichier data/identifier.
 
