@@ -29,9 +29,99 @@ Si vous souhaitez pouvoir réinitialiser l’identifiant à l’aide du script r
 La configuration est stockée au format YAML dans le dossier data/. Ce format de données lisible par n’importe quel éditeur de texte devrait vous être intuitif.
 
 ### Constantes (constants.yaml)
+`URL_ADE` : URL de base de l’ADE version JSP.
+
+Si vous accédez à votre planning par une URL du type http://monurl/direct/<...>, il s’agit probablement de http://monurl/jsp. Sinon, pour les versions anciennes de l’ADE, essayez http://monurl/ade. En allant sur ces URL, vous devriez être redirigé sur la page d‘accueil du planning.
+
+Ne mettez surtout pas de / à la fin de cette URL.
+
+Exemple : `http://ade-consult.pp.univ-amu.fr/jsp`
+
+`PROJECT_NAME` : nom de votre projet.
+
+Vous pouvez mettre ce que vous voulez, ça n’a pas d’importance pour le fonctionnement de l’application. Cette valeur sera utilisée pour le titre de la page.
+
+Exemple : `Planning IUT Info`
+
+`PROJECT_ID` : identifiant du projet.
+
+Certaines universités utilisent un projet par année, par formation, etc. Pour connaître cette valeur, affichez un planning que vous exportez par un flux RSS ou ICalendar (générer une URL) depuis l’ADE. Regardez l’URL de votre navigateur et relevez un paramètre idProject=X ou projectId=X
+
+Exemple : `8`
+
+`FIRST_WEEK` : première semaine de l’emploi du temps au format timestamp.
+
+Regardez dans la barre des semaines sur l’ADE quelle est la première semaine puis convertissez cette date au format timestamp avec un site comme http://www.timestamp.fr/. Il est important que l’heure soit positionnée à 2 heures du matin.
+
+Exemple : `1440374400` (le 24/8/2015 à 2:00:00)
+
+`NB_WEEKS` : nombre de semaines dans l’emploi du temps.
+
+Vous pouvez soit choisir de compter toutes les semaines qui s’affichent sur le barre des semaines sur l’ADE, ou y aller à tâtons. Commencez avec 52 semaines puis regardez si la dernière semaine de la liste déroulante sur l’application correspond à la dernière semaine de la barre des semaines sur l’ADE.
+
+Exemple : `52`
+
+`ID_TREE` : ressource(s) sélectionnée(s) par défaut.
+
+Si vous souhaitez qu’une ressource soit affichée par défaut lorsqu’on se rend sur l’application, entrez leurs identifiants séparées par des virgules. Référez-vous à la partie de configuration sur les ressources pour récupérer les identifiants des ressources. Laissez 0 si vous ne souhaitez pas que des ressources soient sélectionnées.
+
+Exemple : `8385,8386`
+
+`SATURDAY` : affiche ou non le samedi par défaut. `yes` pour l’afficher, `no` pour ne pas l’afficher.
+
+Concrètement, si aucune de vos ressources ne travaille le samedi, vous mettrez cette valeur à `no`. Sinon, il est préférable de mettre `yes` pour éviter de manquer une activité.
+
+Exemple : `yes`
+
+`SUNDAY` : affiche ou non le dimanche par défaut. `yes` pour l’afficher, `no` pour ne pas l’afficher.
+
+Normalement, aucune ressource ne devrait travailler le dimanche, donc la valeur sera `no`. Si vous avez des événements spéciaux, tels que des formations qui se déroulent le dimanche, vous voudrez peut-être mettre cette valeur à `yes`.
+
+Exemple : `no`
+
+`DISPLAY_CONF_ID` : disposition par défaut.
+
+Disposition que vous souhaitez par défaut. Référez-vous à la partie de configuration sur les dispositions pour récupérer les identifiants des dispositions.
+
+Exemple : `53`
+
+`WIDTH` : largeur par défaut de l‘image en pixels.
+
+Une largeur plus grande peut permettre l’affichage de plus d’éléments sur les événements. Cette valeur doit exister dans le fichier de configuration des dimensions.
+
+Exemple : `1000`
+
+`HEIGHT` : hauteur par défaut de l‘image en pixels.
+
+Une hauteur plus grande peut permettre l’affichage de plus d’éléments sur les événements. Cette valeur doit exister dans le fichier de configuration des dimensions.
+
+Exemple : `500`
+
+`NB_DAYS_RSS` : nombre de jours à prendre en compte dans les flux RSS.
+
+Indique le nombre de jours que le flux RSS propose. Si vous ne savez pas ce que c’est, 15 jours conviendront à vos utilisateurs s’ils comptent s’en servir.
+
+Exemple : `15`
+
+`COOKIE_NAME` : nom du cookie.
+
+Vous pouvez personnaliser le nom du cookie si vous utilisez plusieurs instances du planning pour éviter les conflits.
+
+`USE_BOOTSTRAP` : `true` pour utiliser le thème Bootstrap, `false` sinon.
+
+Se référer à la section Thème.
+
+Exemple : `true`
+
+`USE_BOOTSTRAP_CDN` : `true` pour utiliser un CDN pour afficher le thème Bootstrap, `false` sinon.
+
+Se référer à la section Thème. `USE_BOOTSTRAP` doit valoir `true` pour fonctionner.
+
+Exemple : `false`
+
 ### Ressources (resources.yaml)
 ### Identifiant (reset.yaml et identifier)
-### Affichages (displays.yaml)
+### Dispositions (displays.yaml)
 ### Dimensions (dimensions.yaml)
 
 ## Thème Bootstrap
