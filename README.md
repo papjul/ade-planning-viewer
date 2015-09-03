@@ -24,6 +24,21 @@ Téléchargez et dézippez https://github.com/papjul/ADEPlanningViewer/archive/m
 Si vous souhaitez pouvoir réinitialiser l’identifiant à l’aide du script reset.php, accordez les droits en écriture sur le fichier data/identifier.
 
 
+## Mise à jour
+
+Les mises à jour de ADE Planning Viewer ne sont pas fondamentales. Cependant, si vous le souhaitez, quelques étapes suffisent généralement :
+
+* Récupérez la dernière version ici : https://github.com/papjul/ADEPlanningViewer/archive/master.zip
+* Dézippez le contenu dans un dossier temporaire
+* Supprimez le dossier data/ du dossier temporaire
+* Récupérez le dossier data/ de votre serveur et placez-le dans le dossier temporaire
+* Faites une sauvegarde du dossier de votre serveur dans un dossier de sauvegarde
+* Supprimez le dossier de votre serveur
+* Envoyez le dossier temporaire sur le serveur
+
+Il se peut que des variables de configuration aient été ajoutés, ou plus rare, que des fichiers aient changé de nom. Pour vérifier cela, consultez l’historique des mises à jour depuis votre version actuelle ici : https://github.com/papjul/ADEPlanningViewer/commits/master/data/ et appliquez les changements nécessaires en lisant la documentation.
+
+
 ## Configuration
 
 La configuration est stockée au format YAML dans le dossier data/. Ce format de données lisible par n’importe quel éditeur de texte devrait vous être intuitif.
