@@ -1,58 +1,58 @@
 1re année:
-    Groupe 1A: 8385
-    Groupe 1B: 8386
-    Groupe 2A: 8387
-    Groupe 2B: 8388
-    Groupe 3A: 8389
-    Groupe 3B: 8390
-    Groupe 4A: 8391
-    Groupe 4B: 8392
-    Groupe 5A: 8393
-    Groupe 5B: 8394
+    8385: Groupe 1A
+    8386: Groupe 1B
+    8387: Groupe 2A
+    8388: Groupe 2B
+    8389: Groupe 3A
+    8390: Groupe 3B
+    8391: Groupe 4A
+    8392: Groupe 4B
+    8393: Groupe 5A
+    8394: Groupe 5B
 2e année:
-    Groupe 1A: 8400
-    Groupe 1B: 8401
-    Groupe 2A: 8402
-    Groupe 2B: 8403
-    Groupe 3A: 8404
-    Groupe 3B: 8405
-    Groupe 4A: 358
-    Groupe 4B: 359
+    8400: Groupe 1A
+    8401: Groupe 1B
+    8402: Groupe 2A
+    8403: Groupe 2B
+    8404: Groupe 3A
+    8405: Groupe 3B
+    358 : Groupe 4A
+    359 : Groupe 4B
 Licence Pro:
-    LP: 6445
+    6445: LP
 Enseignants:
-    BERNE Michel: 24672
-    BERTHET Anne-Charlotte: 28103
-    BERTRAND Luc: 28301
-    BOITARD Didier: 25285
-    BONHOMME Christian: 24585
-    BROCHE Martine: 25284
-    CACCHIA Marie claude: 25114
-    CASALI Alain: 25217
-    CICCHETTI Rosine: 24991
-    CREUX Philippe: 28548
-    DUBROMELLE Yves: 28749
-    FERRY Jonas: 28549
-    GAITAN Patricia: 24794
-    HURST Kristen: 28331
-    KIAN Yavar: 25887
-    LAKHAL Lotfi: 24522
-    LAPORTE Marc: 25277
-    MAKSSOUD Christine: 25949
-    MARTIN-NEVOT Mickael: 25625
-    MONNET Marlène: 25268
-    NEDJAR Sebastien: 5495
-    PAIN BARRE Cyril: 24738
-    PONS Olivier: 28100
-    RISCH Vincent: 24715
-    ROGUET Emmanuel: 28544
-    SLEZAK Eileen: 25392
-    VAQUIERI Josee: 24949
-    YAHI Safa: 25743
-    WOOD David: 28551
+    24672: BERNE Michel
+    28103: BERTHET Anne-Charlotte
+    28301: BERTRAND Luc
+    25285: BOITARD Didier
+    24585: BONHOMME Christian
+    25284: BROCHE Martine
+    25114: CACCHIA Marie claude
+    25217: CASALI Alain
+    24991: CICCHETTI Rosine
+    28548: CREUX Philippe
+    28749: DUBROMELLE Yves
+    28549: FERRY Jonas
+    24794: GAITAN Patricia
+    28331: HURST Kristen
+    25887: KIAN Yavar
+    24522: LAKHAL Lotfi
+    25277: LAPORTE Marc
+    25949: MAKSSOUD Christine
+    25625: MARTIN-NEVOT Mickael
+    25268: MONNET Marlène
+    5495 : NEDJAR Sebastien
+    24738: PAIN BARRE Cyril
+    28100: PONS Olivier
+    24715: RISCH Vincent
+    28544: ROGUET Emmanuel
+    25392: SLEZAK Eileen
+    24949: VAQUIERI Josee
+    25743: YAHI Safa
+    28551: WOOD David
 Salles de TP:
-    Salle A: 8414
-    Salle B: 8415
-    Salle C: 8416
-    Salle D: 8417
-    Salle E: 8418
+    8414: Salle A
+    8415: Salle B
+    8416: Salle C
+    8417: Salle D
+    8418: Salle E

@@ -120,9 +120,48 @@ Se référer à la section Thème. `USE_BOOTSTRAP` doit valoir `true` pour fonct
 Exemple : `false`
 
 ### Ressources (resources.yaml)
+Les ressources sont les entités pouvant avoir un emploi du temps. Cela peut être un étudiant, une formation, une classe, un groupe, une option, un enseignant, une salle (pour connaître sa disponibilité), etc.
+
+Les ressources doivent être regroupées par catégorie, sans sous-catégorie. Chaque ressource faisant partie d’une catégorie doit être indentée par une tabulation en début de ligne. Le format d’une ligne de ressource est <identifiant>: <nom>. Le nom n’a aucune influence sur le fonctionnement de l’application.
+
+Pour récupérer l’identifiant d’une ressource, vous devez vous rendre dans l’ADE et dérouler l’arbre des ressources jusqu’à votre ressource.
+
+Si vous utilisez ADE Direct (URL contenant direct/), vous devrez utiliser un inspecteur d’élément (tel que Firebug) sur la ressource pour trouver son identifiant (par exemple `<div id="Direct Planning Tree_<id>">`).
+
+Si vous utilisez ADE JSP (URL_ADE du fichier de configuration), passez la souris sur la ressource et vous allez voir un lien de la forme `javascript:check(<id>, true|false)`.
+
+Il est préférable de ne pas récupérer les identifiants des parents. Si vous prenez l’identifiant d’une formation IUT Info, par exemple, cela prendra tous les emplois du temps qui en découlent (1re année, 2e année, ainsi que les groupes de chaque année), sans distinction. Il sera ainsi impossible de distinguer l’emploi du temps du Groupe 2 en 1re année de celui du Groupe 1 en 2e année. Il vaut donc mieux créer autant de lignes que de ressources. Vous aurez ensuite la possibilité d’afficher toutes les 1re année et 2e année d’un coup dans la liste des ressources sur l’application en maintenant Ctrl et en cliquant sur chaque ressource.
+
+Exemple :
+```
+1re année:
+    8385: Groupe 1A
+    8386: Groupe 1B
+    8387: Groupe 2A
+    8388: Groupe 2B
+2e année:
+    8400: Groupe 1A
+    8401: Groupe 1B
+```
+
 ### Identifiant (reset.yaml et identifier)
+
 ### Dispositions (displays.yaml)
+
 ### Dimensions (dimensions.yaml)
+
+Les dimensions sont les tailles proposées à l’utilisateur. Généralement, les tailles fournies dans le fichier par défaut vous suffiront mais vous pouvez aussi les personnaliser selon le format <largeur>: <hauteur>. Attention, petite contrainte cependant, vous ne pouvez pas avoir deux largeurs identiques pour plusieurs hauteurs (unicité de la clé).
+
+Il ne semble pas y avoir de limites de dimensions pour la taille d’une image mais évitez d’utiliser plusieurs dizaines de milliers de pixels, ça n’a aucun intérêt et la génération d’une telle image consommera beaucoup de ressources serveur.
+
+Exemple :
+```
+1024: 768
+1280: 720
+1366: 768
+1600: 1024
+1920: 1080
+```
 
 ## Thème Bootstrap
 
