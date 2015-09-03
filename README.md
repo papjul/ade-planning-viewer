@@ -19,7 +19,7 @@ PHP 5.3 ou supérieur, avec l’extension PECL Yaml.
 
 ## Installation
 
-Téléchargez et dézippez https://github.com/papjul/ADEPlanningViewer/archive/master.zip
+Téléchargez et dézippez https://github.com/papjul/ade-planning-viewer/archive/master.zip
 
 Si vous souhaitez pouvoir réinitialiser l’identifiant à l’aide du script reset.php, accordez les droits en écriture sur le fichier data/identifier.
 
@@ -28,7 +28,7 @@ Si vous souhaitez pouvoir réinitialiser l’identifiant à l’aide du script r
 
 Les mises à jour de ADE Planning Viewer ne sont pas fondamentales. Cependant, si vous le souhaitez, quelques étapes suffisent généralement :
 
-* Récupérez la dernière version ici : https://github.com/papjul/ADEPlanningViewer/archive/master.zip
+* Récupérez la dernière version ici : https://github.com/papjul/ade-planning-viewer/archive/master.zip
 * Dézippez le contenu dans un dossier temporaire
 * Supprimez le dossier data/ du dossier temporaire
 * Récupérez le dossier data/ de votre serveur et placez-le dans le dossier temporaire
@@ -36,7 +36,7 @@ Les mises à jour de ADE Planning Viewer ne sont pas fondamentales. Cependant, s
 * Supprimez le dossier de votre serveur
 * Envoyez le dossier temporaire sur le serveur
 
-Il se peut que des variables de configuration aient été ajoutés, ou plus rare, que des fichiers aient changé de nom. Pour vérifier cela, consultez l’historique des mises à jour depuis votre version actuelle ici : https://github.com/papjul/ADEPlanningViewer/commits/master/data/ et appliquez les changements nécessaires en lisant la documentation.
+Il se peut que des variables de configuration aient été ajoutés, ou plus rare, que des fichiers aient changé de nom. Pour vérifier cela, consultez l’historique des mises à jour depuis votre version actuelle ici : https://github.com/papjul/ade-planning-viewer/commits/master/data/ et appliquez les changements nécessaires en lisant la documentation.
 
 
 ## Configuration

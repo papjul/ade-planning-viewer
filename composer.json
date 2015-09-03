@@ -1,5 +1,8 @@
 {
+    "name": "papjul/ade-planning-viewer",
+    "description": "Application en Javascript et PHP pour afficher le planning d’ADE Campus utilisé par de nombreuses universités en France via une interface suivant le principe KISS",
+    "license": "AGPL-3.0",
     "require": {
-        "twitter/bootstrap": "*@stable"
+        "twitter/bootstrap": "~3"
     }
 }
