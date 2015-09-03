@@ -9,7 +9,7 @@ Planning IUT Info est mis à votre disposition dans l’espoir qu’il vous sera
 
 ## Prérequis
 
-PHP 5.3 ou supérieur.
+PHP 5.3 ou supérieur, avec l’extension PECL Yaml.
 
 
 ## Installation
@@ -21,20 +21,25 @@ Si vous souhaitez pouvoir réinitialiser l’identifiant à l’aide du script r
 
 ## Configuration
 
-La configuration est stockée au format Json dans le dossier data/.
+La configuration est stockée au format YAML dans le dossier data/. Ce format de données lisible par n’importe quel éditeur de texte devrait vous être intuitif.
 
-### Constantes (constants.json)
-### Ressources (resources.json)
-### Affichages (displays.json)
-### Identifiant (identifier)
-### Dimensions (dimensions.json)
+### Constantes (constants.yaml)
+### Ressources (resources.yaml)
+### Identifiant (reset.yaml et identifier)
+### Affichages (displays.yaml)
+### Dimensions (dimensions.yaml)
 
 ## Thème Bootstrap
 
 Bien que l’application soit conçue pour fonctionner sans dépendances externes, vous pouvez utiliser Bootstrap pour rendre l‘application plus esthétique.
 
 ### Avec Composer (recommandé)
-Vous devez récupérer la dépendance à Bootstrap avec Composer (le fichier composer.json est fourni). Toutes les instructions d’installation et d’utilisation sont ici selon votre système : http://getcomposer.org/doc/00-intro.md
+Suivez les instructions d’installation fournies ici : http://getcomposer.org/doc/00-intro.md
+
+Puis initialisez le project avec la commande :
+```
+composer install
+```
 
 Pour mettre à jour Boostrap, vous n’aurez qu’à lancer la commande :
 ```

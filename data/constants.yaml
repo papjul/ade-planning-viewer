@@ -1,0 +1,15 @@
+URL_ADE          : http://ade-consult.pp.univ-amu.fr/jsp
+PROJECT_NAME     : Planning IUT Info
+PROJECT_ID       : 8
+FIRST_WEEK       : 1440374400
+NB_WEEKS         : 52
+ID_TREE          : 0
+SATURDAY         : yes
+SUNDAY           : no
+DISPLAY_CONF_ID  : 53
+WIDTH            : 1000
+HEIGHT           : 500
+NB_DAYS_RSS      : 15
+COOKIE_NAME      : planning
+USE_BOOTSTRAP    : true
+USE_BOOTSTRAP_CDN: false

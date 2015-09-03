@@ -22,19 +22,30 @@
 header('Content-Type: text/html; charset=utf-8');
 
 # Ce script ne peut être appelé que toutes les heures maximum pour des raisons de sécurité
-if (filemtime('data/identifier') > time() - 3600)
+if (filemtime('data/identifier') > time() - 3600) {
     exit('L’identifiant de connexion a déjà été réinitialisé il y a peu de temps.');
+}
 
 # Initialisation de la session cURL
 $ch = curl_init();
 
-$baseURL = 'http://ade-consult.pp.univ-amu.fr/jsp';
+### Initialisation
+define('ROOT', dirname(__FILE__));
 
-# Se connecte au portail Univ-AMU
-curl_setopt($ch, CURLOPT_URL, $baseURL . '/custom/modules/plannings/anonymous_cal.jsp?resources=25421&projectId=8&startDay=24&startMonth=08&startYear=2015&endDay=15&endMonth=08&endYear=2016&calType=ical');
+require_once(ROOT . '/app/app.php');
+
+$planning = new Planning();
+
+## Récupération de la configuration
+$conf = $planning->getConf();
+$reset = $planning->getReset();
+
+# Ouvre une connexion anonyme
+curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/custom/modules/plannings/anonymous_cal.jsp');
 curl_setopt($ch, CURLOPT_HEADER, true);         # Affiche les headers (pour récupérer le cookie)
 curl_setopt($ch, CURLOPT_NOBODY, true);         # Affiche UNIQUEMENT les headers (pas le contenu)
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); # Affiche le contenu sous forme de string
+#
 # Récupère le cookie
 $content = curl_exec($ch);
 preg_match_all('|Set-Cookie: (.*);|U', $content, $results);
@@ -43,32 +54,47 @@ $cookies = implode(';', $results[1]);
 # Envoie le cookie
 curl_setopt($ch, CURLOPT_COOKIE, $cookies);
 curl_setopt($ch, CURLOPT_HEADER, false); # Désactive l’affichage des headers
-## Sélectionne une ressource
-# Déroule le menu des enseignants
-curl_setopt($ch, CURLOPT_URL, $baseURL . '/standard/gui/tree.jsp?category=instructor&expand=false&forceLoad=false&reload=false&scroll=0');
+#
+# Sélectionne le projet
+curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/standard/gui/interface.jsp?projectId=' . $conf['PROJECT_ID']);
 curl_exec($ch);
 
-# Déroule la lettre N
-curl_setopt($ch, CURLOPT_URL, $baseURL . '/standard/gui/tree.jsp?branchId=6270&expand=false&forceLoad=false&reload=false&scroll=0');
+# Ouvre la catégorie
+curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/standard/gui/tree.jsp?category=' . $reset['category']);
 curl_exec($ch);
 
-# Sélectionne Nedjar
-curl_setopt($ch, CURLOPT_URL, $baseURL . '/standard/gui/tree.jsp?selectId=5495&reset=false&forceLoad=true&scroll=0');
+# Déroule les différentes branches
+foreach ($reset['branches'] as $branch) {
+    curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/standard/gui/tree.jsp?branchId=' . $branch);
+    curl_exec($ch);
+}
+
+# Sélectionne la ressource finale
+curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/standard/gui/tree.jsp?selectId=' . $reset['resource']);
 curl_exec($ch);
 
-# Sélectionne les jours
-curl_setopt($ch, CURLOPT_URL, $baseURL . '/custom/modules/plannings/pianoDays.jsp');
+# Charge les jours
+curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/custom/modules/plannings/pianoDays.jsp');
 curl_exec($ch);
 
-# Sélectionne les semaines et récupère l’image
+# Charge les semaines
+curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/custom/modules/plannings/pianoWeeks.jsp');
+curl_exec($ch);
+
+# Récupère l’image
 curl_setopt($ch, CURLOPT_NOBODY, false); # Réactive la récupération du contenu de la page
-curl_setopt($ch, CURLOPT_URL, $baseURL . '/custom/modules/plannings/imagemap.jsp?week=6&reset=false&width=1360&height=591');
+curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/custom/modules/plannings/imagemap.jsp');
 $image = curl_exec($ch);
 
-# Récupération de l’identifiant
-preg_match('|identifier=(.*)&|U', $image, $identifier);
-file_put_contents('data/identifier', $identifier[1]);
-echo 'Nouvel identifiant réinitialisé&nbsp;: ' . $identifier[1];
-
 curl_close($ch);
+
+# Récupération de l’identifiant
+preg_match('|identifier=(.+)&|U', $image, $identifier);
+if (isset($identifier[1])) {
+    file_put_contents('data/identifier', $identifier[1]);
+    echo $identifier[1];
+} else {
+    throw new Exception('Impossible de récupérer un identifiant.');
+}
+
 /** EOF /**/

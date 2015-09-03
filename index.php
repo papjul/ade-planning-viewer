@@ -21,37 +21,18 @@
 ### Initialisation
 define('ROOT', dirname(__FILE__));
 
-# En-tête
-header('Content-Type: text/html; charset=utf-8');
+require_once(ROOT . '/app/app.php');
+
+$planning = new Planning();
 
 ## Récupération de la configuration
-$file = array('conf' => file_get_contents(ROOT . '/data/constants.json'),
-    'resources' => file_get_contents(ROOT . '/data/resources.json'),
-    'displays' => file_get_contents(ROOT . '/data/displays.json'),
-    'dimensions' => file_get_contents(ROOT . '/data/dimensions.json'));
+$conf = $planning->getConf();
+$resources = $planning->getResources();
+$displays = $planning->getDisplays();
+$dimensions = $planning->getDimensions();
 
-$conf = json_decode($file['conf'], true);
-$resources = json_decode($file['resources'], true);
-$displays = json_decode($file['displays'], true);
-$dimensions = json_decode($file['dimensions'], true);
-$file['identifier'] = file(ROOT . '/data/identifier', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-
-# Récupération du cookie
-if (isset($_COOKIE[$conf['COOKIE_NAME']])) {
-    $perconf = json_decode($_COOKIE[$conf['COOKIE_NAME']], true);
-}
-
-# Enregistrement des données POST en cookie
-if (isset($_POST['idPianoWeek'])) {
-    $perconf = array('idTree' => isset($_POST['idTree']) ? $_POST['idTree'] : 0,
-        'idPianoWeek' => $_POST['idPianoWeek'],
-        'saturday' => isset($_POST['saturday']) ? 'yes' : 'no',
-        'sunday' => isset($_POST['sunday']) ? 'yes' : 'no',
-        'displayConfId' => $_POST['displayConfId'],
-        'width' => $_POST['width']);
-
-    setcookie($conf['COOKIE_NAME'], json_encode($perconf), time() + 365 * 24 * 3600, '/', null, false, true);
-}
+# Récupération de la configuration personnalisée
+$custom_conf = $planning->getCustomConf();
 
 ## Création des associations numéro de semaine → timestamp dans un tableau
 $weeks = array();
@@ -76,22 +57,21 @@ for ($i = 0; $i < $conf['NB_WEEKS']; ++$i) {
 }
 
 ### On commence à noter les paramètres qui seront nécessaires pour la génération de l’image
-# On utilise aléatoirement un des identifier à notre disponibilité
-$identifier = $file['identifier'][rand(0, count($file['identifier']) - 1)];
+$identifier = $planning->getIdentifier();
 
 # La semaine à afficher
-$idPianoWeek = isset($perconf) ? intval($perconf['idPianoWeek']) : $current_week;
+$idPianoWeek = !is_null($custom_conf) ? intval($custom_conf['idPianoWeek']) : $current_week;
 
 # Les jours de la semaine
-$saturday = isset($perconf) ? $perconf['saturday'] : $conf['SATURDAY'];
-$sunday = isset($perconf) ? $perconf['sunday'] : $conf['SUNDAY'];
+$saturday = !is_null($custom_conf) ? $custom_conf['saturday'] : $conf['SATURDAY'];
+$sunday = !is_null($custom_conf) ? $custom_conf['sunday'] : $conf['SUNDAY'];
 $idPianoDay = '0,1,2,3,4' . ($saturday == 'yes' ? ',5' : '') . '' . ($sunday == 'yes' ? ',6' : '');
 
 # Le(s) groupe(s) concernés
-$idTree = (isset($perconf)) ? $perconf['idTree'] : explode(',', $conf['ID_TREE']);
+$idTree = (!is_null($custom_conf)) ? $custom_conf['idTree'] : explode(',', $conf['ID_TREE']);
 
 # Les dimensions
-$width = isset($perconf) ? intval($perconf['width']) : $conf['WIDTH'];
+$width = !is_null($custom_conf) ? intval($custom_conf['width']) : $conf['WIDTH'];
 
 if (isset($dimensions[$width])) {
     $height = $dimensions[$width];
@@ -101,7 +81,7 @@ if (isset($dimensions[$width])) {
 }
 
 # Le format (horizontal/vertical)
-$displayConfId = isset($perconf) ? intval($perconf['displayConfId']) : $conf['DISPLAY_CONF_ID'];
+$displayConfId = !is_null($custom_conf) ? intval($custom_conf['displayConfId']) : $conf['DISPLAY_CONF_ID'];
 
 # On prépare l’export en iCal
 list($startDay, $startMonth, $startYear) = explode('/', gmdate('d\/m\/Y', $conf['FIRST_WEEK']));
