@@ -208,6 +208,17 @@ Vous devriez maintenant pouvoir charger un planning sur la page d’accueil du s
 
 ### Dispositions (displays.yaml)
 
+Les dispositions permettent d’avoir un affichage différent de l’emploi du temps. Cela permet généralement d’avoir une disposition horizontale ou verticale.
+
+Il faut au moins une disposition dans ce fichier, une par ligne au format `<identifiant>: <nom>`. Le nom n’a pas d’influence sur le fonctionnement de l‘application. Si vous ne savez pas quoi mettre, utilisez la disposition d’identifiant 0.
+
+Première méthode : dans ADE JSP, allez dans Options, et choisissez un autre Affichage graphique. Une fois que vous en avez trouvé un qui vous convient, utilisez un inspecteur d’élément pour trouver l’identifiant `<input type="radio" checked="" value="<identifiant>" name="displayConfId">`.
+
+Autre méthode : à tâtons. Affichez une image depuis l’application ou l’ADE JSP, affichez-la dans un nouvel onglet et remplacez dans son URL successivement la valeur de displayConfId jusqu’à en trouver une qui vous convienne.
+
+Exemple :
+`0: Par défaut`
+
 ### Dimensions (dimensions.yaml)
 
 Les dimensions sont les tailles proposées à l’utilisateur. Généralement, les tailles fournies dans le fichier par défaut vous suffiront mais vous pouvez aussi les personnaliser selon le format `<largeur>: <hauteur>`. Attention, petite contrainte cependant, vous ne pouvez pas avoir deux largeurs identiques pour plusieurs hauteurs (unicité de la clé).
