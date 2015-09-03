@@ -7,6 +7,11 @@ ADE Planning Viewer est une application en Javascript et PHP pour afficher le pl
 ADE Planning Viewer est mis à votre disposition dans l’espoir qu’il vous sera utile sans aucune garantie.
 
 
+## Démonstration
+
+L’association Inform’Aix utilise un exemple de cette application en fonctionnement à cette adresse : http://informaix.com/planning/ (lien mort ?)
+
+
 ## Prérequis
 
 PHP 5.3 ou supérieur, avec l’extension PECL Yaml.
@@ -58,11 +63,6 @@ Dans le fichier constants.json, veuillez mettre la variable `USE_BOOTSTRAP` à `
 ### Avec un CDN (déconseillé)
 
 Dans le fichier constants.json, veuillez mettre la variable `USE_BOOTSTRAP` à `true` et la variable `USE_BOOTSTRAP_CDN` à `true`.
-
-
-## Démonstration
-
-L’association Inform’Aix utilise un exemple de cette application en fonctionnement à cette adresse : http://informaix.com/planning/ (lien mort ?)
 
 
 ## Licence
