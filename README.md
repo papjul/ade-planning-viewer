@@ -7,9 +7,10 @@ ADE Planning Viewer est une application en Javascript et PHP pour afficher le pl
 ADE Planning Viewer est mis à votre disposition dans l’espoir qu’il vous sera utile sans aucune garantie.
 
 
-## Démonstration
+## Exemples d’utilisation
 
-L’association Inform’Aix utilise un exemple de cette application en fonctionnement à cette adresse : http://informaix.com/planning/ (lien mort ?)
+* [Master 1 Informatique Luminy (Université Aix-Marseille)](http://tuxayo.net/m1/planning/)
+* [IUT Informatique Aix-en-Provence (Université Aix-Marseille)](http://informaix.com/planning/)
 
 
 ## Prérequis
@@ -20,6 +21,11 @@ PHP 5.3 ou supérieur, avec l’extension PECL Yaml.
 ## Installation
 
 Téléchargez et dézippez https://github.com/papjul/ade-planning-viewer/archive/master.zip
+
+Si vous avez un accès à une console avec git installé, vous pouvez directement vous placer dans le dossier et taper :
+```
+git clone https://github.com/papjul/ade-planning-viewer.git .
+```
 
 Si vous souhaitez pouvoir réinitialiser l’identifiant à l’aide du script reset.php, accordez les droits en écriture sur le fichier data/identifier.
 
@@ -36,7 +42,14 @@ Les mises à jour de ADE Planning Viewer ne sont pas fondamentales. Cependant, s
 * Supprimez le dossier de votre serveur
 * Envoyez le dossier temporaire sur le serveur
 
-Il se peut que des variables de configuration aient été ajoutés, ou plus rare, que des fichiers aient changé de nom. Pour vérifier cela, consultez l’historique des mises à jour depuis votre version actuelle ici : https://github.com/papjul/ade-planning-viewer/commits/master/data/ et appliquez les changements nécessaires en lisant la documentation.
+Si vous avez installé via Git, vous pouvez taper :
+```
+git stash
+git pull
+git stash pop
+```
+
+Il se peut que des variables de configuration aient été ajoutés, ou plus rare, que des fichiers aient changé de nom. Pour vérifier cela, consultez l’historique des mises à jour depuis votre version actuelle ici : https://github.com/papjul/ade-planning-viewer/commits/master/data/ et appliquez les changements nécessaires en lisant la documentation. Si vous avez récupéré par Git, les conflits devraient être gérés automatiquement ou manuellement.
 
 
 ## Configuration
