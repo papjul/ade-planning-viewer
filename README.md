@@ -10,7 +10,7 @@ ADE Planning Viewer est mis à votre disposition dans l’espoir qu’il vous se
 ## Exemples d’utilisation
 
 * [Master 1 Informatique Luminy (Université Aix-Marseille)](http://tuxayo.net/m1/planning/)
-* [IUT Informatique Aix-en-Provence (Université Aix-Marseille)](http://informaix.com/planning/)
+* [IUT Informatique Aix-en-Provence (Université Aix-Marseille)](http://planning.informaix.com/)
 
 
 ## Prérequis
