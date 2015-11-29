@@ -69,7 +69,7 @@ class Planning {
 
         try {
             return $this->yaml->parse(file_get_contents(ROOT . '/data/' . $file . '.yaml'));
-        } catch (ParseException $e) {
+        } catch (\Symfony\Component\Yaml\Exception\ParseException $e) {
             printf("Impossible de parser le fichier YAML. Détails de l’erreur : %s", $e->getMessage());
         }
     }
