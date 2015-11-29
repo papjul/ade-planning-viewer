@@ -15,7 +15,7 @@ ADE Planning Viewer est mis à votre disposition dans l’espoir qu’il vous se
 
 ## Prérequis
 
-PHP 5.3 ou supérieur, avec l’extension PECL Yaml.
+PHP 5.3 ou supérieur, avec au choix l’extension PECL Yaml installée ou l’extension Symfony YAML installée depuis Composer (composer.json fourni).
 
 
 ## Installation

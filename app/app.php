@@ -25,14 +25,11 @@ if (!defined('ROOT')) {
 # En-tête
 header('Content-Type: text/html; charset=utf-8');
 
-# Prérequis
-if (!function_exists('yaml_parse_file')) {
-    throw new Exception('Cette application nécessite l’installation de l’extension PECL Yaml pour PHP.');
-}
-
 # Protège contre les injections PHP des fichiers YAML
-if (ini_get('yaml.decode_php')) {
-    ini_set('yaml.decode_php', false);
+if (function_exists('yaml_parse_file')) {
+    if (ini_get('yaml.decode_php')) {
+        ini_set('yaml.decode_php', false);
+    }
 }
 
 require_once(ROOT . '/src/Planning.class.php');

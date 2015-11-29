@@ -33,6 +33,7 @@ class Planning {
     protected $dimensions;
     protected $custom_conf;
     protected $reset;
+    protected $yaml;
 
     /**
      * Initialise les variables requises
@@ -52,7 +53,25 @@ class Planning {
         if (!file_exists(ROOT . '/data/' . $file . '.yaml')) {
             throw new Exception('Le fichier ' . $file . '.yaml n’a pas pu être trouvé dans le dossier de configuration. Vérifiez son existence et les droits de lecture.');
         }
-        return yaml_parse_file(ROOT . '/data/' . $file . '.yaml');
+
+        // PECL Yaml
+        if (function_exists('yaml_parse_file')) {
+            return yaml_parse_file(ROOT . '/data/' . $file . '.yaml');
+        }
+
+        // Symfony YAML
+        if (!class_exists('Symfony\Component\Yaml\Parser')) {
+            require_once ROOT . '/vendor/autoload.php';
+        }
+        if (!($this->yaml instanceof \Symfony\Component\Yaml\Parser)) {
+            $this->yaml = new \Symfony\Component\Yaml\Parser();
+        }
+
+        try {
+            return $this->yaml->parse(file_get_contents(ROOT . '/data/' . $file . '.yaml'));
+        } catch (ParseException $e) {
+            printf("Impossible de parser le fichier YAML. Détails de l’erreur : %s", $e->getMessage());
+        }
     }
 
     /**
