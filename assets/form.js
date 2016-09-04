@@ -63,10 +63,8 @@ function submitForm() {
     var button = document.getElementById('genbutton');
 
     // Traitement de l’image
-    img_planning = new Image();
-
     if (perconf.idTree != '') {
-        var url = conf.URL_ADE + "/imageEt?identifier=" + identifier + "\&projectId=" + conf.PROJECT_ID + "\&idPianoWeek=" + perconf.idPianoWeek + "\&idPianoDay=" + idPianoDay + "\&idTree=" + perconf.idTree + "\&width=" + perconf.width + "\&height=" + height + "\&lunchName=REPAS\&displayMode=1057855\&showLoad=false\&ttl=" + today.getTime() + "000\&displayConfId=" + perconf.displayConfId;
+        var url = conf.URL_ADE + "/imageEt?identifier=" + identifier + "\&projectId=" + conf.PROJECT_ID + "\&idPianoWeek=" + perconf.idPianoWeek + "\&idPianoDay=" + idPianoDay + "\&idTree=" + perconf.idTree + "\&width=" + perconf.width + "\&height=" + height + "\&lunchName=REPAS\&displayMode=1057855\&showLoad=false\&ttl=" + today.getTime() + today.getMilliseconds() + "\&displayConfId=" + perconf.displayConfId;
         button.style.display = 'inline';
         document.getElementById('resources').innerHTML = perconf.idTree;
     } else {
@@ -74,12 +72,32 @@ function submitForm() {
         button.style.display = 'none';
     }
 
-    img_planning.onload = function () {
-        document.getElementById('img_planning').src = url;
+    loadImage(url);
+    //loadIframe(url, perconf.width, height);
+}
+
+function loadImage(url) {
+    var img_planning = new Image();
+    img_planning.addEventListener('load', function () {
         document.getElementById('href_planning').href = url;
-    };
+        document.getElementById('img_planning').src = url;
+    });
+    img_planning.addEventListener('error', function () {
+        document.getElementById('href_planning').href = url;
+        document.getElementById('img_planning').src = 'img/error.png';
+        //document.getElementById('img_planning').src = url;
+        document.getElementById('href_planning').click();
+        //var win = window.open(url, '_blank');
+        //win.focus();
+    });
     img_planning.src = url;
 }
+
+/*function loadIframe(url, width, height) {
+    document.getElementById('iframe_planning').width = width;
+    document.getElementById('iframe_planning').height = height;
+    document.getElementById('iframe_planning').src = url;
+}*/
 
 // Bouton Semaine précédente
 function go_previous_week(event) {

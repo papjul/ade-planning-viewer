@@ -4,6 +4,6 @@
     "license": "AGPL-3.0",
     "require": {
         "twitter/bootstrap": "~3",
-        "symfony/yaml": "~2.7"
+        "symfony/yaml": "~3.1"
     }
 }
