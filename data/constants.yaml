@@ -14,4 +14,4 @@ COOKIE_NAME      : planning
 USE_BOOTSTRAP    : true
 USE_BOOTSTRAP_CDN: false
 DEBUG            : false
-RESET_LIMIT      : 3600
+RESET_LIMIT      : 30
