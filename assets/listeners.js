@@ -20,9 +20,8 @@
 /**
  * Gestion des écouteurs
  */
-
 // Sélecteur de groupe
-var select_idTree = document.getElementById('idTree');
+let select_idTree = document.getElementById("idTree");
 if (select_idTree) {
     if (select_idTree.addEventListener) {
         select_idTree.addEventListener('change', submitForm, false);
@@ -32,7 +31,7 @@ if (select_idTree) {
 }
 
 // Sélecteur de semaine
-var select_idPianoWeek = document.getElementById('idPianoWeek');
+let select_idPianoWeek = document.getElementById("idPianoWeek");
 if (select_idPianoWeek) {
     if (select_idPianoWeek.addEventListener) {
         select_idPianoWeek.addEventListener('change', submitForm, false);
@@ -42,7 +41,7 @@ if (select_idPianoWeek) {
 }
 
 // Bouton de semaine précédente
-var button_previous_week = document.getElementById('previous_week');
+let button_previous_week = document.getElementById("previous_week");
 if (button_previous_week) {
     if (button_previous_week.addEventListener) {
         button_previous_week.addEventListener('click', go_previous_week, false);
@@ -52,7 +51,7 @@ if (button_previous_week) {
 }
 
 // Bouton de semaine suivante
-var button_next_week = document.getElementById('next_week');
+let button_next_week = document.getElementById("next_week");
 if (button_next_week) {
     if (button_next_week.addEventListener) {
         button_next_week.addEventListener('click', go_next_week, false);
@@ -62,7 +61,7 @@ if (button_next_week) {
 }
 
 // Checkbox de samedi
-var input_saturday = document.getElementById('saturday');
+let input_saturday = document.getElementById("saturday");
 if (input_saturday) {
     if (input_saturday.addEventListener) {
         input_saturday.addEventListener('change', submitForm, false);
@@ -72,7 +71,7 @@ if (input_saturday) {
 }
 
 // Checkbox de dimanche
-var input_sunday = document.getElementById('sunday');
+let input_sunday = document.getElementById("sunday");
 if (input_sunday) {
     if (input_sunday.addEventListener) {
         input_sunday.addEventListener('change', submitForm, false);
@@ -82,7 +81,7 @@ if (input_sunday) {
 }
 
 // Sélecteur d’affichage
-var select_displayConfId = document.getElementById('displayConfId');
+let select_displayConfId = document.getElementById("displayConfId");
 if (select_displayConfId) {
     if (select_displayConfId.addEventListener) {
         select_displayConfId.addEventListener('change', submitForm, false);
@@ -92,7 +91,7 @@ if (select_displayConfId) {
 }
 
 // Sélecteur de dimensions
-var select_width = document.getElementById('width');
+let select_width = document.getElementById("width");
 if (select_width) {
     if (select_width.addEventListener) {
         select_width.addEventListener('change', submitForm, false);
@@ -102,7 +101,7 @@ if (select_width) {
 }
 
 // Image
-var img_planning = document.getElementById('img_planning');
+let img_planning = document.getElementById("img_planning");
 if (img_planning) {
     img_planning.onerror = function () {
         img_planning.onerror = null;
@@ -113,8 +112,14 @@ if (img_planning) {
     };
 }
 
+// Lien sur l'image pour recharger si besoin
+let href_planning = document.getElementById("href_planning");
+if (href_planning) {
+    href_planning.addEventListener('click', reloadImage);
+}
+
 // Bouton iCal
-var ical_button = document.getElementById('genbutton');
+let ical_button = document.getElementById("genbutton");
 if (ical_button) {
     if (ical_button.addEventListener) {
         ical_button.addEventListener('click', showiCal, false);

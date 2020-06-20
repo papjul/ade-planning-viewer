@@ -2,7 +2,7 @@
 
 /**
  * This file is part of ADE Planning Viewer.
- * Copyright © 2012-2016 Julien Papasian
+ * Copyright © 2012-2020 Julien Papasian
  *
  * ADE Planning Viewer is free software; you can redistribute it and/or
  * modify it under the terms of the Affero General Public License

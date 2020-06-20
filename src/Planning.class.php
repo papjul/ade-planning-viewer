@@ -2,7 +2,7 @@
 
 /**
  * This file is part of ADE Planning Viewer.
- * Copyright © 2012-2016 Julien Papasian
+ * Copyright © 2012-2020 Julien Papasian
  *
  * ADE Planning Viewer is free software; you can redistribute it and/or
  * modify it under the terms of the Affero General Public License
@@ -92,7 +92,7 @@ class Planning {
                 'displayConfId' => $_POST['displayConfId'],
                 'width' => $_POST['width']);
 
-            setcookie($this->conf['COOKIE_NAME'], json_encode($perconf), time() + 365 * 24 * 3600, '/', null, false, true);
+            setcookie($this->conf['COOKIE_NAME'], json_encode($this->custom_conf), time() + 365 * 24 * 3600, '/', null, false, true);
         }
     }
 

@@ -9,14 +9,18 @@ ADE Planning Viewer est mis à votre disposition dans l’espoir qu’il vous se
 
 ## Exemples d’utilisation
 
-* [Master 1 Informatique Luminy (Université Aix-Marseille)](http://tuxayo.net/m1/planning/)
-* [IUT Informatique Aix-en-Provence (Université Aix-Marseille)](http://planning.informaix.com/)
+* ~~[Master 1 Informatique Luminy (Université Aix-Marseille)](http://tuxayo.net/m1/planning/)~~
+* ~~[IUT Informatique Aix-en-Provence (Université Aix-Marseille)](http://planning.informaix.com/)~~
 
 
 ## Prérequis
 
-PHP 5.3 ou supérieur, avec au choix l’extension PECL Yaml installée ou l’extension Symfony YAML installée depuis Composer (composer.json fourni).
+PHP 5.5.9 ou supérieur, avec les extensions cURL et JSON.
 
+L’extension PECL Yaml est facultative si l’extension Symfony YAML est installée depuis Composer avec la commande :
+```
+composer install
+```
 
 ## Installation
 

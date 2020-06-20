@@ -1,7 +1,3 @@
+/.idea/
 /vendor
 /tmp/*
-composer.phar
-composer.lock
-README.md
-LICENSE
-/nbproject/
