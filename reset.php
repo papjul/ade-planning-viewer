@@ -45,38 +45,61 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); # Affiche le contenu sous forme 
 #
 # Récupère le cookie
 $content = curl_exec($ch);
-preg_match_all('|Set-Cookie: (.*);|U', $content, $results);
+
+if (!$content) {
+    throw new Exception('Impossible de charger la page de calendrier anonyme.');
+}
+
+preg_match_all("/set-cookie: (.*)\\r/U", $content, $results);
 $cookies = implode(';', $results[1]);
 
 # Envoie le cookie
 curl_setopt($ch, CURLOPT_COOKIE, $cookies);
-curl_setopt($ch, CURLOPT_HEADER, false); # Désactive l’affichage des headers
-#
+//curl_setopt($ch, CURLOPT_HEADER, false); # Désactive l’affichage des headers
+
 # Sélectionne le projet
 curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/standard/gui/interface.jsp?projectId=' . $conf['PROJECT_ID']);
-curl_exec($ch);
+$page_projet = curl_exec($ch);
+if (!$page_projet) {
+    throw new Exception('Impossible de charger la page du projet '.$conf['PROJECT_ID'].'.');
+}
 
 # Ouvre la catégorie
 curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/standard/gui/tree.jsp?category=' . $reset['category']);
-curl_exec($ch);
+$page_category = curl_exec($ch);
+if (!$page_category) {
+    throw new Exception('Impossible de charger la page de la catégorie dans l’arborescence.');
+}
 
 # Déroule les différentes branches
 foreach ($reset['branches'] as $branch) {
     curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/standard/gui/tree.jsp?branchId=' . $branch);
-    curl_exec($ch);
+    $page_branch = curl_exec($ch);
+    if (!$page_branch) {
+        throw new Exception('Impossible de charger la page de la branche '.$branch.' dans l’arborescence.');
+    }
 }
 
 # Sélectionne la ressource finale
 curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/standard/gui/tree.jsp?selectId=' . $reset['resource']);
-curl_exec($ch);
+$page_resource = curl_exec($ch);
+if (!$page_resource) {
+    throw new Exception('Impossible de charger la page de la ressource '.$reset['resource'].' dans l’arborescence.');
+}
 
 # Charge les jours
 curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/custom/modules/plannings/pianoDays.jsp');
-curl_exec($ch);
+$page_days = curl_exec($ch);
+if (!$page_days) {
+    throw new Exception('Impossible de charger la page des jours.');
+}
 
 # Charge les semaines
 curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/custom/modules/plannings/pianoWeeks.jsp');
-curl_exec($ch);
+$page_weeks = curl_exec($ch);
+if (!$page_weeks) {
+    throw new Exception('Impossible de charger la page des semaines.');
+}
 
 # Récupère l’image
 curl_setopt($ch, CURLOPT_NOBODY, false); # Réactive la récupération du contenu de la page
@@ -84,6 +107,10 @@ curl_setopt($ch, CURLOPT_URL, $conf['URL_ADE'] . '/custom/modules/plannings/imag
 $image = curl_exec($ch);
 
 curl_close($ch);
+
+if (!$image) {
+    throw new Exception('Impossible de charger la page de l’image.');
+}
 
 # Récupération de l’identifiant
 preg_match('|identifier=(.+)&|U', $image, $identifier);

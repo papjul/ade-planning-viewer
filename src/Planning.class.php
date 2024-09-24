@@ -84,7 +84,7 @@ class Planning {
         }
 
         # Enregistrement des données POST en cookie
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (in_array('REQUEST_METHOD', $_SERVER) && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->custom_conf = array('idTree' => isset($_POST['idTree']) ? $_POST['idTree'] : 0,
                 'idPianoWeek' => isset($_POST['idPianoWeek']) ? $_POST['idPianoWeek'] : 0,
                 'saturday' => isset($_POST['saturday']) ? 'yes' : 'no',
